@@ -1,34 +1,78 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# liquidity-finance-frontend
 
-## Getting Started
+Version 1.0 web application for Liquidity Finance
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Liquidity Finance.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+A guide on how to use the repo!
+you can contact @Abdulkbk or @Umarmuhd for help
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Please before you push your codes to the repository make sure you pull from the main repository (), so the changes that have been made can be reflected on your local machine, for us to avoid merge conflicts use the git command line
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    git pull upstream main
 
-## Learn More
+## Developers guide
 
-To learn more about Next.js, take a look at the following resources:
+This process here should be able to guide you on how to contribute effectively to this project, follow the steps below. You should not be new to the git workflow process however if you still are, the guide should still be able to help you through the process.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Main is the default branch
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    * Fork the repository to generate a copy of your own.
 
-## Deploy on Vercel
+    * Clone the repository.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+        ```
+            git clone (the repository link)
+        ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    * Make your the main repo the remote upstream
+        ```
+            git remote add upstream https://github.com/financeliqidity/liquidity-finance-frontend.git
+        ```
+    * swich to your branch
+
+        ```
+        git checkout -b (name-of-branch)
+        ```
+    * run npm install tp install all dependencies, libraries and tools the project needs installed, from the package.json file.
+
+        ```
+        npm install
+        ```
+
+    After changes have been made do:
+        ```
+        git pull upstream main
+        ```
+    Consistently pull from the upstream to avoid not getting your pull request merged and to avoid conflicts.
+    This way you can resolve conflicts from your local computer even before pushing always check what branch you are on when making changes
+
+    * Make your changes, add them and make your commits
+
+        ```
+        git add .
+        git commit -m "your message"
+        ```
+    Write good commit messages, this is very important, so that other team mates reviewing would know what your code is doing.
+
+    * Push your codes to your forked repository, make sure you are pushing to your branch please
+
+        ```
+            git push origin (name-of-branch)
+        ```
+    Make your Pull request from that branch of your repo to the branch of this repo and wait for it to be merged.
+
+Write good commit messages, this is very important, so people reviewing can know what your fix, feature e.t.c. is doing
+Your PR should carry good story.
+if you are going to make changes to an existing code, state why you are doing so in the commit messages
+
+Please use link the issue solved to the PR you made
+
+Your branch name should be the number of issue you are solving. For example, you were assigned issue 16 on github, your branch should be issue-16. So you checkout by typing: git checkout -b issue-(the number)
+it is not just about the code, user workflow matters too!!
+
+### Code with Love
