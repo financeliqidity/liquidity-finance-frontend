@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = () => {
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
-            <button className="btn-primary p-3 rounded-lg h-full">
+            <button className="btn-primary p-3 rounded-lg h-full font-bold">
               Connect Wallet
             </button>
             <span className="p-3 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
