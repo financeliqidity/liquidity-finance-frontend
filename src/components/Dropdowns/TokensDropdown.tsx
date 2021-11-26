@@ -7,6 +7,7 @@ const TokensDropdown = () => {
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
   const openDropdownPopover = () => {
+    //@ts-ignore
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
     });
@@ -20,6 +21,7 @@ const TokensDropdown = () => {
       <a
         className=""
         href="#pablo"
+        //@ts-ignore
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
@@ -46,6 +48,7 @@ const TokensDropdown = () => {
         </div>
       </a>
       <div
+        //@ts-ignore
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
