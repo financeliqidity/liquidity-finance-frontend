@@ -1,15 +1,38 @@
 .bg-primary {
-	background: #09162e;
-}
-
-.bg-secondary {
-	background: #0e1c37;
+  background: #09162e;
 }
 
 .bg-tertiary {
-	background: #3a4861;
+  background: #3a4861;
 }
 
 .btn-primary {
-	background: #2669f5;
+  background: #2669f5;
+}
+
+/* Disable showing increament and decreament on number input */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Switch toggle */
+/* CHECKBOX TOGGLE SWITCH */
+/* @apply rules for documentation, these do not work as inline style */
+.toggle-checkbox:checked {
+  @apply: right-0 border-green-400;
+  right: 0;
+  border-color: #68d391;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply: bg-green-400;
+  background-color: #68d391;
+}
+
+.token-drop {
+  background: #354259;
+  border: 1px solid #5a6172;
+  box-sizing: border-box;
+  border-radius: 6px;
 }
