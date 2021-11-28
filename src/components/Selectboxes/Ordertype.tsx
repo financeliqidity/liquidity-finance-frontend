@@ -45,13 +45,18 @@ const Select = ({ options, selectedOption, handelChange }) => {
         <>
           <div className="relative w-full">
             <span className="inline-block w-full rounded-md">
-              <Listbox.Button className="cursor-default relative pl-3 pr-10 py-1  transition ease-in-out duration-150 px-3 text-gray-700 rounded text-sm focus:outline-none w-full text-center">
-                <span className="block truncate text-sm text-white">
-                  {selectedOption.name}
-                </span>
-                <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
-                  <Selector />
-                </span>
+              <Listbox.Button className="cursor-default relative pr-10 py-1  transition ease-in-out duration-150 px-3 text-gray-700 rounded text-sm focus:outline-none w-full text-center">
+                <div className="flex justify-between">
+                  <span>
+                    <img src="assets/icons/warning.svg" alt="..." />
+                  </span>
+                  <span className="block truncate text-sm text-white text-center w-full">
+                    {selectedOption.name}
+                  </span>
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
+                    <Selector />
+                  </span>
+                </div>
               </Listbox.Button>
             </span>
             <div className="absolute z-10 w-full mt-1 bg-grey_50 rounded-md shadow-lg mb-11">
@@ -77,13 +82,13 @@ const Select = ({ options, selectedOption, handelChange }) => {
                             <li
                               className={`${
                                 active ? "text-white bg-primary" : "text-white"
-                              }  cursor-default select-none relative py-2 pl-3 pr-9`}
+                              }  cursor-default select-none relative py-2 pl-3 pr-9 text-center`}
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center justify-center text-sm">
                                 <span
                                   className={`${
                                     selected ? "font-semibold" : "font-normal"
-                                  } flex items-center truncate must-black`}
+                                  } flex items-center truncate must-black text-center`}
                                 >
                                   {option.name}
                                 </span>

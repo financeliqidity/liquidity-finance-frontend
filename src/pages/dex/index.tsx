@@ -4,6 +4,8 @@ import TokensDropdown from "../../components/Dropdowns/TokensDropdown";
 import OrderType from "../../components/Selectboxes/Ordertype";
 
 export default function Dex() {
+  const [trade, setTrade] = useState("buy");
+
   const orderTypes = [
     {
       name: "Market",
@@ -29,19 +31,19 @@ export default function Dex() {
         <div className="flex flex-col justify-between md:flex-row">
           <div className="left w-full md:w-12/25 bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
             <div className="w-full flex justify-between bg-grey_50 rounded-r-lg">
-              <button className="py-5 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold text-xl">
+              <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
                 Swap
               </button>
-              <button className="py-5 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold text-xl">
+              <button className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
                 Liquidity
               </button>
-              <button className="py-5 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold text-xl">
+              <button className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
                 Loan
               </button>
             </div>
             <div className="mt-9 flex justify-between items-center">
-              <span className="text-xl">Swap Token</span>
-              <button className="p-2.5 bg-grey_50 rounded-full">
+              <span className="md:text-xl text-base">Swap Token</span>
+              <button className="p-2.5 bg-grey_50 rounded-lg">
                 <svg
                   width="20"
                   height="20"
@@ -221,18 +223,40 @@ export default function Dex() {
           </div>
           <div className="right w-full md:mt-0 mt-10 md:w-12/25">
             <div className="bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
-              <div className="buy-sell flex bg-grey_50 rounded-lg mb-5">
-                <button className="bg-secondary rounded-l-lg rounded-r-full font-bold text-xl w-1/2 py-2.5">
+              <div
+                className="text-sm text-left text-white bg-transparent border-grey_50 border-solid border flex items-center rounded-md  relative "
+                role="alert"
+              >
+                <div className="bg-grey_50 h-full flex items-center justify-center p-3">
+                  <img src="/assets/icons/alarm.svg" alt="..." />
+                </div>
+                <div className="text-amber text-sm font-semibold w-full text-center">
+                  Total Liquidity locked for this token is 234,567,892
+                </div>
+                <button className="h-full flex items-center justify-center p-3">
+                  <img src="/assets/icons/close-square.svg" alt="..." />
+                </button>
+              </div>
+
+              <div className="buy-sell flex bg-grey_50 rounded-lg mb-5 mt-6">
+                <button
+                  className={`${
+                    trade === "buy" ? "bg-secondary" : "bg-grey_50"
+                  } rounded-l-lg rounded-r-full font-bold text-xl w-1/2 md:py-2.5 py-2`}
+                  onClick={() => setTrade("buy")}
+                >
                   Buy
                 </button>
-                <button className="bg-grey_50 rounded-lg font-bold text-xl w-1/2 py-2.5">
+                <button
+                  className={`${
+                    trade === "sell" ? "bg-sell" : "bg-grey_50"
+                  } rounded-r-lg rounded-l-full font-bold text-xl w-1/2 md:py-2.5 py-2`}
+                  onClick={() => setTrade("sell")}
+                >
                   Sell
                 </button>
               </div>
-              <div className="order-type flex items-center bg-grey_50 rounded-lg pl-4 py-1">
-                <span>
-                  <img src="assets/icons/warning.svg" alt="..." />
-                </span>
+              <div className="order-type flex items-center bg-grey_50 rounded-lg py-1">
                 <OrderType
                   options={orderTypes}
                   selectedOption={currentOrder}
@@ -353,7 +377,9 @@ export default function Dex() {
                 </p>
                 <button
                   type="submit"
-                  className="w-full py-4 bg-secondary text-xl font-bold rounded-lg"
+                  className={`w-full py-4 ${
+                    trade === "buy" ? "bg-secondary" : "bg-sell"
+                  } text-xl font-bold rounded-lg`}
                 >
                   Buy LFI
                 </button>
@@ -387,6 +413,8 @@ export default function Dex() {
                 </div>
               </div>
             </div>
+
+            {/* Order-Funds Card */}
             <div className="mt-9 bg-dark_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
               <div className="flex justify-between">
                 <div className="flex relative z-10">
