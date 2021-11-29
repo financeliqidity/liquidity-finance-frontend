@@ -1,19 +1,19 @@
-// External Dependencies
 import React from "react";
 import { Listbox, Transition } from "@headlessui/react";
 
 const Selector = () => (
   <svg
-    className="h-5 w-5 text-gray-400"
+    width="8"
+    height="6"
+    viewBox="0 0 8 6"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    aria-hidden="true"
   >
     <path
       fillRule="evenodd"
-      d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
       clipRule="evenodd"
+      d="M1 0.5L4 3.5L7 0.5L8 1.5L4 5.5L0 1.5L1 0.5Z"
+      fill="#B7BECB"
     />
   </svg>
 );
@@ -33,27 +33,30 @@ const Selected = () => (
   </svg>
 );
 
-const Select = ({ options, selectedOption, handelChange }) => {
+const index = ({ options, selectedOption, handleChange }) => {
   return (
     <Listbox
       as="div"
       value={selectedOption}
-      onChange={(event) => handelChange(event)}
+      onChange={(event) => handleChange(event)}
       className={`w-full`}
     >
       {({ open }) => (
         <>
           <div className="relative w-full">
             <span className="inline-block w-full rounded-md">
-              <Listbox.Button className="cursor-default relative pr-10 py-1  transition ease-in-out duration-150 px-3 text-gray-700 rounded text-sm focus:outline-none w-full text-center">
-                <div className="flex justify-between">
-                  <span>
-                    <img src="assets/icons/warning.svg" alt="..." />
+              <Listbox.Button className="cursor-default relative pr-10 py-1  transition ease-in-out duration-150 px-2 text-gray-700 token-drop rounded text-sm focus:outline-none w-full text-center">
+                <div className="flex justify-between items-center">
+                  <img
+                    src="assets/icons/eth.png"
+                    alt="..."
+                    className="w-5 h-5 mr-2"
+                  />
+
+                  <span className="block truncate text-base text-white text-center w-full">
+                    {selectedOption.symbol}
                   </span>
-                  <span className="block truncate text-sm text-white text-center w-full">
-                    {selectedOption.name}
-                  </span>
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-2 pointer-events-none">
                     <Selector />
                   </span>
                 </div>
@@ -82,15 +85,20 @@ const Select = ({ options, selectedOption, handelChange }) => {
                             <li
                               className={`${
                                 active ? "text-white bg-primary" : "text-white"
-                              }  cursor-default select-none relative py-2 pl-7 pr-9 text-center`}
+                              }  cursor-default select-none relative py-2 pl-2 pr-9 text-center`}
                             >
-                              <div className="flex items-center justify-center text-sm">
+                              <div className="flex items-center text-sm">
+                                <img
+                                  src="assets/icons/eth.png"
+                                  alt="..."
+                                  className="w-5 h-5 mr-2"
+                                />
                                 <span
                                   className={`${
                                     selected ? "font-semibold" : "font-normal"
                                   } flex items-center truncate must-black text-center`}
                                 >
-                                  {option.name}
+                                  {option.symbol}
                                 </span>
                                 {selected && (
                                   <span
@@ -118,4 +126,4 @@ const Select = ({ options, selectedOption, handelChange }) => {
   );
 };
 
-export default Select;
+export default index;

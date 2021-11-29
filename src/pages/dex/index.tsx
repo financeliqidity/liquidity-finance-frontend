@@ -2,15 +2,18 @@ import { useState } from "react";
 import Layout from "../../components/Layout";
 import TokensDropdown from "../../components/Dropdowns/TokensDropdown";
 import OrderType from "../../components/Selectboxes/Ordertype";
+import LiquidityAlert from "../../components/dex/Cards/LiquidityAlert";
+import TokenSelectbox from "../../components/shared/Selectboxes/TokenSelectbox";
+
+import TradingHistory from "../../components/dex/Tables/TradingHistory";
+
+import eth from "../../../public/assets/icons/eth.png";
+import usdt from "../../../public/assets/icons/usdt.png";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
 
   const orderTypes = [
-    {
-      name: "Market",
-      type: "market",
-    },
     {
       name: "Stop order",
       type: "stop-order",
@@ -20,15 +23,20 @@ export default function Dex() {
       type: "limit-order",
     },
   ];
+  const [currentOrder, setCurrentOrder] = useState(orderTypes[0]);
 
-  const temp = orderTypes.find((type) => type.type);
-
-  const [currentOrder, setCurrentOrder] = useState(temp);
+  const pay = [
+    { name: "Ethereum", symbol: "ETH", logo: eth },
+    { name: "Tether", symbol: "USDT", logo: usdt },
+    { name: "Ethereum", symbol: "ETH", logo: eth },
+    { name: "Tether", symbol: "USDT", logo: usdt },
+  ];
+  const [currentPay, setCurrentPay] = useState(pay[0]);
 
   return (
     <div className="bg-grey_70">
       <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
-        <div className="flex flex-col justify-between md:flex-row">
+        <div className="flex flex-col justify-between md:flex-row mb-10">
           <div className="left w-full md:w-12/25 bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
             <div className="w-full flex justify-between bg-grey_50 rounded-r-lg">
               <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
@@ -89,7 +97,11 @@ export default function Dex() {
                     </span>
                   </div>
                   <div className="right">
-                    <TokensDropdown />
+                    <TokenSelectbox
+                      options={pay}
+                      selectedOption={currentPay}
+                      handleChange={(event) => setCurrentPay(event)}
+                    />
                     <span className="mt-1 text-gray-100 text-xs">
                       Balance: 0 ETH
                     </span>
@@ -133,7 +145,11 @@ export default function Dex() {
                     <span className="text-sm font-semibold text-gray-100 mr-3">
                       $2.9K
                     </span>
-                    <TokensDropdown />
+                    <TokenSelectbox
+                      options={pay}
+                      selectedOption={currentPay}
+                      handleChange={(event) => setCurrentPay(event)}
+                    />
                   </div>
                 </div>
               </div>
@@ -223,21 +239,43 @@ export default function Dex() {
           </div>
           <div className="right w-full md:mt-0 mt-10 md:w-12/25">
             <div className="bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
-              <div
-                className="text-sm text-left text-white bg-transparent border-grey_50 border-solid border flex items-center rounded-md  relative "
-                role="alert"
-              >
-                <div className="bg-grey_50 h-full flex items-center justify-center p-3">
-                  <img src="/assets/icons/alarm.svg" alt="..." />
+              <div className="flex justify-between items-center mb-5">
+                <div className="pair-rate flex items-center">
+                  <div className="pair flex items-center">
+                    <img src="/assets/icons/arrow-swap.svg" alt="..." />
+                    <span className="text-lg font-semibold ml-2">BNB/LFI</span>
+                  </div>
+                  <div className="ml-3 md:ml-4 flex items-center">
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.50929 4.74561H15.4907C16.3888 4.74561 16.8378 5.83033 16.2021 6.46603L9.7139 12.9593C9.32037 13.3528 8.67963 13.3528 8.2861 12.9593L1.79791 6.46603C1.16221 5.83033 1.61124 4.74561 2.50929 4.74561Z"
+                        fill="#F84239"
+                      />
+                    </svg>
+                    <span className="ml-1 text-xs text-sell font-semibold">
+                      2.08
+                    </span>
+                  </div>
                 </div>
-                <div className="text-amber text-sm font-semibold w-full text-center">
-                  Total Liquidity locked for this token is 234,567,892
+                <div className="controls flex items-center">
+                  <button className="mr-4">
+                    <img src="assets/icons/candle.svg" alt="..." />
+                  </button>
+                  <button className="mr-4">
+                    <img src="assets/icons/dollar-circle.svg" alt="..." />
+                  </button>
+                  <button className="">
+                    <img src="assets/icons/more-grey.svg" alt="..." />
+                  </button>
                 </div>
-                <button className="h-full flex items-center justify-center p-3">
-                  <img src="/assets/icons/close-square.svg" alt="..." />
-                </button>
               </div>
-
+              <LiquidityAlert />
               <div className="buy-sell flex bg-grey_50 rounded-lg mb-5 mt-6">
                 <button
                   className={`${
@@ -381,7 +419,7 @@ export default function Dex() {
                     trade === "buy" ? "bg-secondary" : "bg-sell"
                   } text-xl font-bold rounded-lg`}
                 >
-                  Buy LFI
+                  {trade === "buy" ? "Buy" : "Sell"} LFI
                 </button>
 
                 <div className="pt-8 flex justify-between items-center">
@@ -491,6 +529,7 @@ export default function Dex() {
             </div>
           </div>
         </div>
+        <TradingHistory />
       </div>
     </div>
   );

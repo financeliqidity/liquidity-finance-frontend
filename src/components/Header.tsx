@@ -4,6 +4,8 @@ import Card from "../customs/Card";
 import lfiLogo from "../../public/assets/images/LFILogo1.png";
 import ethlogo from "../../public/assets/images/eth.png";
 import menu from "../../public/assets/icons/menu.svg";
+import global from "../../public/assets/icons/global.svg";
+import ConnectWallet from "./shared/Modals/ConnectWallet";
 
 interface HeaderProps {
   checkWallet?: () => boolean;
@@ -26,14 +28,13 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
         <div className="flex">
           <div className="flex items-center">
-            <span className="p-3 flex items-center bg-grey_50 rounded-lg mr-4">
+            <Image src={global} alt="..." width={32} height={32} />
+            <span className="p-3 flex items-center bg-grey_50 rounded-lg mx-4">
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
-            <button className="btn-primary p-3 rounded-lg h-full font-bold">
-              Connect Wallet
-            </button>
-            <span className="p-3 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
+            <ConnectWallet />
+            <span className="md:p-4 p-2.5 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
               <Image src={menu} alt="..." width={24} height={24} />
             </span>
           </div>
