@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import OrderType from "../../../Selectboxes/Ordertype";
 import StopLimit from "../StopLimit";
 import LimitOrder from "../LimitOrder";
@@ -42,7 +42,7 @@ export default function index() {
     { name: "Stop limit", component: <StopLimit /> },
     { name: "Limit order", component: <LimitOrder /> },
   ];
-  const [currentOrder, setCurrentOrder] = useState(orderTypes[0]);
+  const [currentOrder, setCurrentOrder] = React.useState(orderTypes[0]);
 
   return (
     <>

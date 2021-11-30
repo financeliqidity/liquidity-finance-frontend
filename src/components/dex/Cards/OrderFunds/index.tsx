@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const OpenOrders = () => (
   <>
@@ -97,7 +97,7 @@ export default function index() {
     { name: "Open Order", component: <OpenOrders /> },
     { name: "Funds", component: <Funds /> },
   ];
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = React.useState(tabs[0]);
 
   return (
     <div className="mt-9 bg-dark_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
