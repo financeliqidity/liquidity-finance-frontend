@@ -93,7 +93,10 @@ const Funds = () => (
 );
 
 export default function index() {
-  const tabs = [OpenOrders, Funds];
+  const tabs = [
+    { name: "Open Order", component: <OpenOrders /> },
+    { name: "Funds", component: <Funds /> },
+  ];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   return (
@@ -102,7 +105,7 @@ export default function index() {
         <div className="flex relative z-10">
           <span
             className={`orders text-lg font-semibold mr-8 cursor-pointer ${
-              activeTab.props === 0
+              activeTab.name === "Open Order"
                 ? "border-primary border-b-2 text-primary border-solid"
                 : null
             }`}
@@ -112,7 +115,7 @@ export default function index() {
           </span>
           <span
             className={`funds text-lg font-semibold cursor-pointer ${
-              activeTab.props === 1
+              activeTab.name === "Funds"
                 ? "border-primary border-b-2 text-primary border-solid"
                 : null
             }`}
@@ -147,7 +150,7 @@ export default function index() {
           height: "1.5px",
         }}
       />
-      <div className="container">{activeTab}</div>
+      <div className="container">{activeTab.component}</div>
     </div>
   );
 }

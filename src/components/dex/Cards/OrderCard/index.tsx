@@ -57,22 +57,22 @@ export default function index() {
       <>{currentOrder.component}</>
 
       <div className="flex justify-between">
-        <div className="w-23/100 text-center">
+        <button className="w-23/100 text-center">
           <div className="w-full h-5 btn-primary mb-2"></div>
           <p className="text-lg text-primary">25%</p>
-        </div>
-        <div className="w-23/100 text-center">
+        </button>
+        <button className="w-23/100 text-center">
           <div className="w-full h-5 btn-primary mb-2"></div>
           <p className="text-lg text-primary">50%</p>
-        </div>
-        <div className="w-23/100 text-center">
+        </button>
+        <button className="w-23/100 text-center">
           <div className="w-full h-5 bg-grey_70 mb-2"></div>
           <p className="text-lg text-grey_20">75%</p>
-        </div>
-        <div className="w-23/100 text-center">
+        </button>
+        <button className="w-23/100 text-center">
           <div className="w-full h-5 bg-grey_70 mb-2"></div>
           <p className="text-lg text-grey_20">100%</p>
-        </div>
+        </button>
       </div>
 
       <div className="flex justify-between items-center bg-grey_50 rounded-lg px-4 mt-3">
