@@ -1,9 +1,11 @@
 import { useState } from "react";
 import Layout from "../../components/Layout";
 import TokensDropdown from "../../components/Dropdowns/TokensDropdown";
-import OrderType from "../../components/Selectboxes/Ordertype";
 import LiquidityAlert from "../../components/dex/Cards/LiquidityAlert";
 import TokenSelectbox from "../../components/shared/Selectboxes/TokenSelectbox";
+import OrderCard from "../../components/dex/Cards/OrderCard";
+
+import OrderFunds from "../../components/dex/Cards/OrderFunds";
 
 import TradingHistory from "../../components/dex/Tables/TradingHistory";
 
@@ -12,18 +14,6 @@ import usdt from "../../../public/assets/icons/usdt.png";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
-
-  const orderTypes = [
-    {
-      name: "Stop order",
-      type: "stop-order",
-    },
-    {
-      name: "Limit order",
-      type: "limit-order",
-    },
-  ];
-  const [currentOrder, setCurrentOrder] = useState(orderTypes[0]);
 
   const pay = [
     { name: "Ethereum", symbol: "ETH", logo: eth },
@@ -90,7 +80,7 @@ export default function Dex() {
                     <input
                       type="number"
                       name="pay"
-                      className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-4/6"
+                      className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-40"
                     />
                     <span className="text-gray-100 text-xs mt-1 block">
                       ~$ 2900.00
@@ -158,47 +148,16 @@ export default function Dex() {
               <span className="text-sm mr-1 text-gray-100">
                 Swap & Transfer
               </span>
-              <div
-                className="
-    relative
-    inline-block
-    w-10
-    mr-2
-    align-middle
-    select-none
-    transition
-    duration-200
-    ease-in
-  "
-              >
+              <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
                 <input
                   type="checkbox"
                   name="toggle"
                   id="toggle"
-                  className="
-      toggle-checkbox
-      absolute
-      block
-      w-6
-      h-6
-      rounded-full
-      bg-white
-      border-4
-      appearance-none
-      cursor-pointer
-    "
+                  className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
                 />
                 <label
                   htmlFor="toggle"
-                  className="
-      toggle-label
-      block
-      overflow-hidden
-      h-6
-      rounded-full
-      bg-gray-300
-      cursor-pointer
-    "
+                  className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                 ></label>
               </div>
             </div>
@@ -294,110 +253,14 @@ export default function Dex() {
                   Sell
                 </button>
               </div>
-              <div className="order-type flex items-center bg-grey_50 rounded-lg py-1">
-                <OrderType
-                  options={orderTypes}
-                  selectedOption={currentOrder}
-                  handelChange={(event) => setCurrentOrder(event)}
-                />
-              </div>
-              <div className="price relative my-3">
-                <input
-                  type="number"
-                  className="px-3 py-2 placeholder-gray-100 text-gray-100 bg-grey_40 rounded-lg text-base focus:outline-none w-full text-center"
-                  style={{ transition: "all 0.15s ease 0s" }}
-                  placeholder="Market Price"
-                  autoComplete="off"
-                  required
-                />
-              </div>
-              <div className="flex flex-col md:flex-row justify-between mb-3">
-                <div className="relative w-full md:w-12/25">
-                  <input
-                    type="number"
-                    className="px-3 py-2 placeholder-gray-200 text-gray-100 bg-grey_50 rounded-lg text-sm focus:outline-none w-full text-center"
-                    placeholder="Amount"
-                    style={{ transition: "all .15s ease" }}
-                    name="amount"
-                    required
-                  />
-                </div>
-                <div className="relative w-full md:w-12/25 mt-3 md:mt-0">
-                  <input
-                    type="number"
-                    className="px-3 py-2 placeholder-gray-200 text-white bg-grey_50 rounded-lg text-sm focus:outline-none w-full text-center"
-                    placeholder="Total"
-                    style={{ transition: "all .15s ease" }}
-                    name="total"
-                    readOnly
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between items-center bg-grey_50 rounded-lg px-4 mb-3">
-                <button>
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M4.5 11H20.5C21.0523 11 21.5 11.4477 21.5 12C21.5 12.5523 21.0523 13 20.5 13H4.5C3.94772 13 3.5 12.5523 3.5 12C3.5 11.4477 3.94772 11 4.5 11H4.5Z"
-                      fill="#7C8497"
-                    />
-                  </svg>
-                </button>
-                <input
-                  type="number"
-                  className="px-3 py-2 placeholder-gray-100 text-gray-100 text-base focus:outline-none w-full text-center bg-grey_50"
-                  style={{ transition: "all 0.15s ease 0s" }}
-                  placeholder="Price (BUSD)"
-                  autoComplete="off"
-                  required
-                />
-                <button>
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M13.5 13V20C13.5 20.5523 13.0523 21 12.5 21C11.9477 21 11.5 20.5523 11.5 20V13H4.5C3.94772 13 3.5 12.5523 3.5 12C3.5 11.4477 3.94772 11 4.5 11H11.5V4C11.5 3.44772 11.9477 3 12.5 3C13.0523 3 13.5 3.44772 13.5 4V11H20.5C21.0523 11 21.5 11.4477 21.5 12C21.5 12.5523 21.0523 13 20.5 13H13.5Z"
-                      fill="#B7BECB"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="flex justify-between">
-                <div className="w-23/100 text-center">
-                  <div className="w-full h-5 btn-primary mb-2"></div>
-                  <p className="text-lg text-primary">25%</p>
-                </div>
-                <div className="w-23/100 text-center">
-                  <div className="w-full h-5 btn-primary mb-2"></div>
-                  <p className="text-lg text-primary">50%</p>
-                </div>
-                <div className="w-23/100 text-center">
-                  <div className="w-full h-5 bg-grey_70 mb-2"></div>
-                  <p className="text-lg text-grey_20">75%</p>
-                </div>
-                <div className="w-23/100 text-center">
-                  <div className="w-full h-5 bg-grey_70 mb-2"></div>
-                  <p className="text-lg text-grey_20">100%</p>
-                </div>
-              </div>
+
+              <OrderCard />
+
               <div className="mt-16">
                 <p className="flex mb-3 justify-between">
                   <span className="text-lg text-grey_20">Avbl</span>
                   <span className="text-lg flex">
-                    0 BUSD{" "}
+                    0 BUSD
                     <svg
                       width="25"
                       height="24"
@@ -453,80 +316,7 @@ export default function Dex() {
             </div>
 
             {/* Order-Funds Card */}
-            <div className="mt-9 bg-dark_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg">
-              <div className="flex justify-between">
-                <div className="flex relative z-10">
-                  <span className="orders text-lg font-semibold mr-8">
-                    Open Orders (1)
-                  </span>
-                  <span className="funds text-lg font-semibold border-solid border-primary border-b-2 text-primary">
-                    Funds
-                  </span>
-                </div>
-
-                <button>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      opacity="0.97"
-                      d="M21.49 7.80863V7.81V16.19C21.49 17.9106 20.9791 19.2238 20.0964 20.1064C19.2138 20.9891 17.9006 21.5 16.18 21.5H7.81C6.08945 21.5 4.77634 20.9891 3.89377 20.1054C3.01114 19.2217 2.5 17.9059 2.5 16.18V7.81C2.5 6.08944 3.01093 4.77618 3.89355 3.89355C4.77618 3.01093 6.08944 2.5 7.81 2.5H16.19C17.9107 2.5 19.2237 3.01097 20.105 3.89333C20.9861 4.77559 21.4947 6.08838 21.49 7.80863ZM6.5 15C6.5 15.9961 7.31386 16.81 8.31 16.81C9.30614 16.81 10.12 15.9961 10.12 15C10.12 14.0039 9.30614 13.19 8.31 13.19C7.31386 13.19 6.5 14.0039 6.5 15ZM10.19 9C10.19 9.99614 11.0039 10.81 12 10.81C12.9961 10.81 13.81 9.99614 13.81 9C13.81 8.00386 12.9961 7.19 12 7.19C11.0039 7.19 10.19 8.00386 10.19 9ZM13.88 15C13.88 15.9961 14.6939 16.81 15.69 16.81C16.6861 16.81 17.5 15.9961 17.5 15C17.5 14.0039 16.6861 13.19 15.69 13.19C14.6939 13.19 13.88 14.0039 13.88 15Z"
-                      fill="#B7BECB"
-                      stroke="#B7BECB"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <hr
-                className="relative z-0 mb-3"
-                style={{
-                  backgroundColor: "#B7BECB",
-                  marginTop: "-1px",
-                  height: "1.5px",
-                }}
-              />
-              <p className="text-grey_20">Current pair assets</p>
-              <ul className="mt-5">
-                <li className="border-b border-solid border-grey_40 flex justify-between pb-5">
-                  <div className="flex items-center">
-                    <img
-                      src="/assets/icons/eth-32.png"
-                      alt="..."
-                      className="mr-2 w-8 h-8"
-                    />
-                    <div>
-                      <span>USDT</span>
-                      <p className="text-sm text-grey_20">TetherUS</p>
-                    </div>
-                  </div>
-                  <div>
-                    <span>100.4576</span>
-                    <p className="text-sm text-grey_20 text-right">$5779.76</p>
-                  </div>
-                </li>
-                <li className="border-b border-solid border-grey_40 flex justify-between pb-5 mt-5">
-                  <div className="flex items-center">
-                    <img
-                      src="/assets/icons/lfi-32.png"
-                      alt="..."
-                      className="mr-2 w-8 h-8"
-                    />
-                    <div>
-                      <span>LFI</span>
-                      <p className="text-sm text-grey_20">LiquidityFinance</p>
-                    </div>
-                  </div>
-                  <div>
-                    <span>100,000,000</span>
-                    <p className="text-sm text-grey_20 text-right">$5659.76</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <OrderFunds />
           </div>
         </div>
         <TradingHistory />

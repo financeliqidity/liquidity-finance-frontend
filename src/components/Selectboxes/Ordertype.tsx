@@ -33,12 +33,12 @@ const Selected = () => (
   </svg>
 );
 
-const Select = ({ options, selectedOption, handelChange }) => {
+const Select = ({ options, selectedOption, handleChange }) => {
   return (
     <Listbox
       as="div"
       value={selectedOption}
-      onChange={(event) => handelChange(event)}
+      onChange={(event) => handleChange(event)}
       className={`w-full`}
     >
       {({ open }) => (
@@ -70,11 +70,11 @@ const Select = ({ options, selectedOption, handelChange }) => {
                   static
                   className="py-1 overflow-auto text-base rounded-md max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
-                  {options.map((option) => {
+                  {options.map((option, index) => {
                     return (
                       <Listbox.Option
                         as={React.Fragment}
-                        key={option.id}
+                        key={index}
                         value={option}
                       >
                         {({ active, selected }) => {
