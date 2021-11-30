@@ -73,11 +73,11 @@ const index = ({ options, selectedOption, handleChange }) => {
                   static
                   className="py-1 overflow-auto text-base rounded-md max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
-                  {options.map((option) => {
+                  {options.map((option, index) => {
                     return (
                       <Listbox.Option
                         as={React.Fragment}
-                        key={option.id}
+                        key={index}
                         value={option}
                       >
                         {({ active, selected }) => {

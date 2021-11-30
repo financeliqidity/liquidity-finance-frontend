@@ -24,10 +24,10 @@ const OpenOrders = () => (
             <p className="text-sm font-semibold mb-1">BNB/LFI</p>
             <p className="flex items-center mb-1">
               <span className="text-sm grey-10 mr-6">Amount</span>
-              <p className="text-sm">
+              <div className="text-sm">
                 <span>0</span>
                 <span className="grey-10">/0.2</span>
-              </p>
+              </div>
             </p>
             <p className="flex items-center">
               <span className="text-sm grey-10">Price</span>

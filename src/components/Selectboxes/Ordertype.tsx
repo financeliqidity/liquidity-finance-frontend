@@ -70,11 +70,11 @@ const Select = ({ options, selectedOption, handleChange }) => {
                   static
                   className="py-1 overflow-auto text-base rounded-md max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
-                  {options.map((option, index) => {
+                  {options.map((option) => {
                     return (
                       <Listbox.Option
                         as={React.Fragment}
-                        key={index}
+                        key={option.name}
                         value={option}
                       >
                         {({ active, selected }) => {
