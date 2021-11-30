@@ -37,7 +37,7 @@ const Plus = () => (
   </svg>
 );
 
-export default function index() {
+export default function OrderCard() {
   const orderTypes = [
     { name: "Stop limit", component: <StopLimit /> },
     { name: "Limit order", component: <LimitOrder /> },

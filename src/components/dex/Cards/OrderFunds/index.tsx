@@ -92,7 +92,7 @@ const Funds = () => (
   </>
 );
 
-export default function index() {
+export default function OrderFunds() {
   const tabs = [
     { name: "Open Order", component: <OpenOrders /> },
     { name: "Funds", component: <Funds /> },
