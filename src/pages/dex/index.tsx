@@ -11,9 +11,13 @@ import TradingHistory from "../../components/dex/Tables/TradingHistory";
 
 import eth from "../../../public/assets/icons/eth.png";
 import usdt from "../../../public/assets/icons/usdt.png";
+import PoolDisclaimer from "../../components/dex/Modals/PoolDisclaimer";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
+
+  const [showModal, setShowModal] = useState(false);
+  const [liquidityTerms, setLiquidityTerms] = useState(false);
 
   const pay = [
     { name: "Ethereum", symbol: "ETH", logo: eth },
@@ -32,9 +36,21 @@ export default function Dex() {
               <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
                 Swap
               </button>
-              <button className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
-                Liquidity
-              </button>
+              <PoolDisclaimer
+                content={
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base"
+                  >
+                    Liquidity
+                  </button>
+                }
+                showModal={showModal}
+                setShowModal={setShowModal}
+                liquidityTerms={liquidityTerms}
+                setLiquidityTerms={setLiquidityTerms}
+              />
+
               <button className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
                 Loan
               </button>

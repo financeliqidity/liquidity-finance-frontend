@@ -76,48 +76,49 @@ export default function ConnectWallet() {
                       </span>
                     </label>
                   </div>
-                  <ul className="mt-6"></ul>
-                  <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                    <Image
-                      src={meta_mask}
-                      alt="meta mask"
-                      width={32}
-                      height={32}
-                    />
-                    <span className="text-sm font-semibold ml-4">
-                      Meta Mask
-                    </span>
-                  </li>
-                  <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                    <Image
-                      src={bsc_wallet}
-                      alt="bsc_wallet"
-                      width={32}
-                      height={32}
-                    />
-                    <span className="text-sm font-semibold ml-4">
-                      Binance Chain Wallet
-                    </span>
-                  </li>
-                  <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                    <Image
-                      src={walletconect}
-                      alt="wallet connect"
-                      width={32}
-                      height={32}
-                    />
-                    <span className="text-sm font-semibold ml-4">
-                      WalletConnect
-                    </span>
-                  </li>
-                  <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                    <Image src={portis} alt="portis" width={32} height={32} />
-                    <span className="text-sm font-semibold ml-4">Portis</span>
-                  </li>
-                  <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                    <Image src={more} alt="more" width={32} height={32} />
-                    <span className="text-sm font-semibold ml-4">More</span>
-                  </li>
+                  <ul className="mt-6">
+                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                      <Image
+                        src={meta_mask}
+                        alt="meta mask"
+                        width={32}
+                        height={32}
+                      />
+                      <span className="text-sm font-semibold ml-4">
+                        Meta Mask
+                      </span>
+                    </li>
+                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                      <Image
+                        src={bsc_wallet}
+                        alt="bsc_wallet"
+                        width={32}
+                        height={32}
+                      />
+                      <span className="text-sm font-semibold ml-4">
+                        Binance Chain Wallet
+                      </span>
+                    </li>
+                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                      <Image
+                        src={walletconect}
+                        alt="wallet connect"
+                        width={32}
+                        height={32}
+                      />
+                      <span className="text-sm font-semibold ml-4">
+                        WalletConnect
+                      </span>
+                    </li>
+                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                      <Image src={portis} alt="portis" width={32} height={32} />
+                      <span className="text-sm font-semibold ml-4">Portis</span>
+                    </li>
+                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                      <Image src={more} alt="more" width={32} height={32} />
+                      <span className="text-sm font-semibold ml-4">More</span>
+                    </li>
+                  </ul>
                 </div>
                 {/*footer*/}
                 <div className="px-6">
