@@ -1,13 +1,19 @@
-import React from 'react'
-import Header from './Header'
+import React from "react";
+import Header from "./Header";
+import Navbar from "./Navbar";
 
 const Layout: React.FC<any> = ({ children }) => {
-    return (
-        <>
-           <Header />
-           { children }
-        </>
-    )
-}
+  return (
+    <>
+      <div className="bg-dark_grey min-h-screen">
+        <div className="py-8">
+          <Header />
+          <Navbar />
+        </div>
+        {children}
+      </div>
+    </>
+  );
+};
 
-export default Layout
+export default Layout;
