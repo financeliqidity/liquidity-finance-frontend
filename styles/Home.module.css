@@ -1,4 +1,101 @@
-.container {
+.hero {
+  background: url(../public/assets/vectors/hero-bg.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: auto 100%;
+}
+
+.features {
+  background-image: url(../public/assets/vectors/features-bg.svg);
+  background-repeat: no-repeat;
+  background-position-y: 30%;
+}
+
+.feature_item {
+  width: 31.7%;
+}
+
+.token_item {
+  width: 18.5%;
+  background: linear-gradient(
+    102.08deg,
+    rgba(58, 72, 97, 0) 0%,
+    rgba(58, 72, 98, 0) 0.01%,
+    rgba(38, 105, 245, 0.5) 100%
+  );
+  backdrop-filter: blur(40px);
+}
+
+.governance {
+  background: url(../public/assets/vectors/Sphere_gold.png);
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: 50%;
+}
+.governance_left {
+  width: 49%;
+  border: 1px solid rgba(38, 105, 245, 0.25);
+}
+.governance_right {
+  width: 48.45%;
+}
+.governance_right_item {
+  background: linear-gradient(
+    102.08deg,
+    rgba(58, 72, 97, 0) 0%,
+    rgba(58, 72, 98, 0) 0.01%,
+    rgba(38, 105, 245, 0.5) 100%
+  );
+
+  border: 1px solid #3a4861;
+  box-sizing: border-box;
+  backdrop-filter: blur(40px);
+}
+
+.lending_borrowing {
+  background: url(../public/assets/vectors/circle.svg);
+  background-repeat: no-repeat;
+  background-position-x: 45%;
+  background-position-y: 50%;
+}
+.lb_left {
+  width: 49%;
+}
+.lb_right {
+  width: 48.45%;
+}
+.lb_right_item_1 {
+  border-radius: 16px;
+
+  border-image-source: linear-gradient(
+    90deg,
+    rgba(58, 72, 97, 0) 0%,
+    #2669f5 100%
+  );
+  border: 1px solid rgba(38, 105, 245, 0.25);
+  background: linear-gradient(279.77deg, #09162e 0%, rgba(9, 22, 46, 0) 100%);
+  backdrop-filter: blur(40px);
+}
+.lb_right_item_2 {
+  background: linear-gradient(
+    102.08deg,
+    rgba(58, 72, 97, 0) 0%,
+    rgba(58, 72, 98, 0) 0.01%,
+    rgba(38, 105, 245, 0.5) 100%
+  );
+  backdrop-filter: blur(40px);
+
+  border-radius: 16px;
+
+  border-image-source: linear-gradient(
+    90deg,
+    #2669f5 0%,
+    rgba(58, 72, 97, 0) 100%
+  );
+  border: 1px solid rgba(38, 105, 245, 0.25);
+}
+
+/* .container {
   padding: 0 2rem;
 }
 
@@ -113,4 +210,4 @@
     width: 100%;
     flex-direction: column;
   }
-}
+} */
