@@ -13,26 +13,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = () => {
-<<<<<<< HEAD
-    return (
-        <>
-        <Card height={5}  width="5/6" rounded="no" stack="row" j="evenly" className="absolute bg-transparent">
-                <div className="justify-self-start self-start">
-                    <Image src={lfiLogo} alt="some text" width={20} height={20}/>
-                </div>
-                <div>
-                    <span>
-                        <Image src={ethlogo} alt="Ethereum Logo" width={20} height={20} />
-                        <span>Some texts </span>
-                    </span>
-                    <button>Connect Wallet</button>
-                </div>
-                <div>|||</div>
-        </Card>
-        </>
-    )
-}
-=======
   return (
     <>
       <Card
@@ -64,6 +44,5 @@ const Header: React.FC<HeaderProps> = () => {
     </>
   );
 };
->>>>>>> 112b5524b2d0acee824b38e61cb0e6f91e8ab049
 
 export default Header;
