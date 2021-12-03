@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import MainNavigation from "../components/shared/Navbar/MainNavigation";
 
@@ -41,7 +40,7 @@ export default function Home() {
         <main>
           <section
             id="hero"
-            className={`relative flex content-center justify-center ${styles.hero}`}
+            className={`relative flex content-center ${styles.hero} justify-center`}
           >
             <div className="container md:w-10/12 mx-auto px-4 md:px-4">
               <div className="flex flex-col md:flex-row pt-40 pb-14 justify-between items-center">
@@ -62,7 +61,7 @@ export default function Home() {
                     Billion and once that is attained, we shift the 4% burning
                     into rewarding our stakers.
                   </p>
-                  <div className="">
+                  <div>
                     <button className="px-5 md:px-9 btn-primary  text-white font-bold p-4 capitalize border-primary border-t border-b border-r text-base rounded-lg">
                       Launch App
                     </button>
