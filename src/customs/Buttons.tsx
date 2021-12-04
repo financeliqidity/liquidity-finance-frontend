@@ -1,6 +1,8 @@
-import React from 'react'
+import {FC} from 'react'
+import {useRouter} from 'next/router'
 
 interface Props {
+    className?: string;
     color?: string
     text?: string;
     width?: number;
@@ -9,14 +11,16 @@ interface Props {
     trigger?: () => any
 }
 
-export const Link: React.FC<Props> = ({ text }) => {
+export const Link: FC<Props> = ({ text, className }) => {
+
+    const router = useRouter()
     return (
-        <button className={``}>{text ? text : "Nothing.."}</button>
+        <button onClick={() => router.push('/')} className={`${className}`}>{text ? text : "Nothing.."}</button>
     )
 }
 
-export const Button: React.FC<Props> = ({text}) => {
+export const Button: FC<Props> = ({text, className}) => {
     return (
-        <button className={`wow`}>{text ? text : "Nothing.."}</button>)
+        <button className={`${className} wow`}>{text ? text : "Nothing.."}</button>)
 }
 
