@@ -14,6 +14,7 @@ import PoolDisclaimer from "../../components/dex/Modals/PoolDisclaimer";
 import Swap from "../../components/dex/Cards/Swap";
 import Liquidity from "../../components/dex/Cards/Liquidity";
 import LiquidityLeft from "../../components/dex/Cards/LiquidityLeft";
+import SelectPair from "../../components/dex/Modals/SelectPair";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
@@ -62,6 +63,7 @@ export default function Dex() {
                 currentPay={currentPay}
                 setCurrentPay={setCurrentPay}
               /> */}
+              <SelectPair />
               <LiquidityLeft />
             </div>
           </div>
