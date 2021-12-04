@@ -101,7 +101,7 @@ export default function SelectPair() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Connect Wallet
+        Open select pair modal
       </button>
 
       {showModal ? (

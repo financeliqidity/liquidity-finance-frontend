@@ -33,16 +33,16 @@ export default function Dex() {
   return (
     <>
       {/* <Swap
-    setShowModal={setShowModal}
-    showModal={showModal}
-    liquidityTerms={liquidityTerms}
-    setLiquidityTerms={setLiquidityTerms}
-    pay={pay}
-    currentPay={currentPay}
-    setCurrentPay={setCurrentPay}
-    trade={trade}
-    setTrade={setTrade}
-    /> */}
+        setShowModal={setShowModal}
+        showModal={showModal}
+        liquidityTerms={liquidityTerms}
+        setLiquidityTerms={setLiquidityTerms}
+        pay={pay}
+        currentPay={currentPay}
+        setCurrentPay={setCurrentPay}
+        trade={trade}
+        setTrade={setTrade}
+      /> */}
       <Liquidity pay={pay} currentPay={currentPay} />
     </>
   );
