@@ -1,14 +1,27 @@
+import { useState } from "react";
 import ManageLiquidity from "./ManageLiquidity";
-import Left from "./LiquidityLeft";
+import LiquidityLeftTab from "./LiquidityLeftTab";
+import AddMedia from "./AddMediaLinks";
 
 function Liquidity({ pay, currentPay }) {
+	const [asDeveloper, setAsDeveloper] = useState(false);
+
+	const asDevSetter = () => {
+		setAsDeveloper(!asDeveloper);
+	};
 	return (
 		<div>
 			<div className='bg-grey_70'>
 				<div className='md:py-12 md:w-11/12 md:mx-auto text-white'>
 					<div className='flex flex-col justify-between md:flex-row mb-10'>
+						<LiquidityLeftTab
+							pay={pay}
+							currentPay={currentPay}
+							asDevSetter={asDevSetter}
+							asDevloper={asDeveloper}
+						/>
 						{/* <ManageLiquidity /> */}
-						<Left pay={pay} currentPay={currentPay} />
+						{/* <AddMedia /> */}
 
 						<div className='right w-full md:mt-0 mt-10 md:w-12/25'>
 							<div className='bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg h-full'>
