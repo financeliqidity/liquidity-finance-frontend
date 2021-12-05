@@ -1,7 +1,7 @@
 import React from "react";
 import TokenSelectbox from "../../shared/Selectboxes/TokenSelectbox";
 
-function Left({ currentPay, pay }) {
+function Left({ currentPay, pay, asDevSetter, asDevloper }) {
 	return (
 		<>
 			<div className='left w-full md:w-12/25 bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg'>
@@ -107,6 +107,7 @@ function Left({ currentPay, pay }) {
 									name='toggle'
 									id='toggle'
 									className='toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer'
+									onClick={() => asDevSetter()}
 								/>
 								<label
 									htmlFor='toggle'
@@ -117,6 +118,21 @@ function Left({ currentPay, pay }) {
 					</div>
 				</div>
 				<>
+					{asDevloper ? (
+						<button
+							type='submit'
+							className='mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg'
+						>
+							Add liquidity as developer
+						</button>
+					) : (
+						<button
+							type='submit'
+							className='mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg'
+						>
+							Add liquidity as user
+						</button>
+					)}
 					{/* <button
 						type='submit'
 						disabled={true}
@@ -124,13 +140,6 @@ function Left({ currentPay, pay }) {
 					>
 						Connect Wallet to continue
 					</button> */}
-					<button
-						type='submit'
-						disabled={true}
-						className='mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg'
-					>
-						Add liquidity as user
-					</button>
 				</>
 				<div className='mt-8 p-3 w-full bg-tertiary rounded-md'>
 					<p className='w-4/5 pl-2 py-2 text-sm font-light text-gray-50 '>
