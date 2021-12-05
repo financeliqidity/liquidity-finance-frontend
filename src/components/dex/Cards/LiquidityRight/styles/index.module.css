@@ -1,0 +1,16 @@
+.right_ {
+  width: 56.87%;
+}
+
+.tbody:before {
+  content: "@";
+  display: block;
+  line-height: 10px;
+  text-indent: -99999px;
+}
+
+@media screen and (max-width: 768px) {
+  .right_ {
+    width: 100%;
+  }
+}

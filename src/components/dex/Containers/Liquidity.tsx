@@ -2,8 +2,10 @@ import { useState } from "react";
 import ManageLiquidity from "./ManageLiquidity";
 import LiquidityLeftTab from "./LiquidityLeftTab";
 import AddMedia from "./AddMediaLinks";
+import LiquidityRight from "../Cards/LiquidityRight";
+import LiquidityLeft from "../Cards/LiquidityLeft";
 
-function Liquidity({ pay, currentPay }) {
+function Liquidity({ pay, currentPay, setPage }) {
   const [asDeveloper, setAsDeveloper] = useState(false);
 
   const asDevSetter = () => {
@@ -14,16 +16,19 @@ function Liquidity({ pay, currentPay }) {
       <div className="bg-grey_70">
         <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
           <div className="flex flex-col justify-between md:flex-row mb-10">
-            <LiquidityLeftTab
+            <LiquidityLeft
               pay={pay}
               currentPay={currentPay}
               asDevSetter={asDevSetter}
-              asDevloper={asDeveloper}
+              asDeveloper={asDeveloper}
+              setPage={setPage}
             />
             {/* <ManageLiquidity /> */}
             {/* <AddMedia /> */}
 
-            <div className="right w-full md:mt-0 mt-10 md:w-12/25">
+            <LiquidityRight />
+
+            {/* <div className="right w-full md:mt-0 mt-10 md:w-12/25">
               <div className="bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg h-full">
                 <span className="text-base font-semibold">My Liquidity</span>
                 <div className="w-full mt-5 flex justify-between px-4 py-2 border-1 border-solid border-grey_50 bg-primary rounded-md">
@@ -38,7 +43,7 @@ function Liquidity({ pay, currentPay }) {
                   </a>
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

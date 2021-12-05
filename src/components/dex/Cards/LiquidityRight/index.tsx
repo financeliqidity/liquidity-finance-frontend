@@ -16,9 +16,9 @@ const More = () => (
   </svg>
 );
 
-export default function Liquidity() {
+export default function LiquidityRight() {
   return (
-    <div className="right w-full md:mt-0 mt-10 md:w-12/25">
+    <div className={"right w-full md:mt-0 mt-10 md:w-12/25 " + styles.right_}>
       <div className="bg-blue_grey p-6 rounded-2xl border border-solid border-grey_20">
         <h3 className="font-semibold text-lg mb-6">My Liquidity</h3>
         <div className="flex flex-col">

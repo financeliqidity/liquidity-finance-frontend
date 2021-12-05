@@ -27,12 +27,13 @@ export default function Dex() {
   const pay = [
     { name: "Ethereum", symbol: "ETH", logo: eth },
     { name: "Tether", symbol: "USDT", logo: usdt },
-    { name: "Ethereum", symbol: "ETH", logo: eth },
-    { name: "Tether", symbol: "USDT", logo: usdt },
   ];
   const [currentPay, setCurrentPay] = useState(pay[0]);
 
-  const tabChanger = () => setPage("liquidity");
+  const tabChanger = () => {
+    setPage("liquidity");
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -48,9 +49,11 @@ export default function Dex() {
           trade={trade}
           setTrade={setTrade}
           tabChanger={tabChanger}
+          setPage={setPage}
+          page={page}
         />
       ) : (
-        <Liquidity pay={pay} currentPay={currentPay} />
+        <Liquidity pay={pay} currentPay={currentPay} setPage={setPage} />
       )}
     </>
   );
