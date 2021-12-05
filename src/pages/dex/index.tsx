@@ -19,6 +19,8 @@ import Liquidity from "../../components/dex/Containers/Liquidity";
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
 
+  const [page, setPage] = useState("swap");
+
   const [showModal, setShowModal] = useState(false);
   const [liquidityTerms, setLiquidityTerms] = useState(false);
 
@@ -30,20 +32,26 @@ export default function Dex() {
   ];
   const [currentPay, setCurrentPay] = useState(pay[0]);
 
+  const tabChanger = () => setPage("liquidity");
+
   return (
     <>
-      {/* <Swap
-        setShowModal={setShowModal}
-        showModal={showModal}
-        liquidityTerms={liquidityTerms}
-        setLiquidityTerms={setLiquidityTerms}
-        pay={pay}
-        currentPay={currentPay}
-        setCurrentPay={setCurrentPay}
-        trade={trade}
-        setTrade={setTrade}
-      /> */}
-      <Liquidity pay={pay} currentPay={currentPay} />
+      {page === "swap" ? (
+        <Swap
+          setShowModal={setShowModal}
+          showModal={showModal}
+          liquidityTerms={liquidityTerms}
+          setLiquidityTerms={setLiquidityTerms}
+          pay={pay}
+          currentPay={currentPay}
+          setCurrentPay={setCurrentPay}
+          trade={trade}
+          setTrade={setTrade}
+          tabChanger={tabChanger}
+        />
+      ) : (
+        <Liquidity pay={pay} currentPay={currentPay} />
+      )}
     </>
   );
 }
