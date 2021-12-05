@@ -17,43 +17,43 @@ import Swap from "../../components/dex/Containers/Swap";
 import Liquidity from "../../components/dex/Containers/Liquidity";
 
 export default function Dex() {
-	const [trade, setTrade] = useState("buy");
+  const [trade, setTrade] = useState("buy");
 
-	const [page, setPage] = useState("swap");
+  const [page, setPage] = useState("swap");
 
-	const [showModal, setShowModal] = useState(false);
-	const [liquidityTerms, setLiquidityTerms] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [liquidityTerms, setLiquidityTerms] = useState(false);
 
-	const pay = [
-		{ name: "Ethereum", symbol: "ETH", logo: eth },
-		{ name: "Tether", symbol: "USDT", logo: usdt },
-		{ name: "Ethereum", symbol: "ETH", logo: eth },
-		{ name: "Tether", symbol: "USDT", logo: usdt },
-	];
-	const [currentPay, setCurrentPay] = useState(pay[0]);
+  const pay = [
+    { name: "Ethereum", symbol: "ETH", logo: eth },
+    { name: "Tether", symbol: "USDT", logo: usdt },
+    { name: "Ethereum", symbol: "ETH", logo: eth },
+    { name: "Tether", symbol: "USDT", logo: usdt },
+  ];
+  const [currentPay, setCurrentPay] = useState(pay[0]);
 
-	const tabChanger = () => setPage("liquidity");
+  const tabChanger = () => setPage("liquidity");
 
-	return (
-		<>
-			{page === "swap" ? (
-				<Swap
-					setShowModal={setShowModal}
-					showModal={showModal}
-					liquidityTerms={liquidityTerms}
-					setLiquidityTerms={setLiquidityTerms}
-					pay={pay}
-					currentPay={currentPay}
-					setCurrentPay={setCurrentPay}
-					trade={trade}
-					setTrade={setTrade}
-					tabChanger={tabChanger}
-				/>
-			) : (
-				<Liquidity pay={pay} currentPay={currentPay} />
-			)}
-		</>
-	);
+  return (
+    <>
+      {page === "swap" ? (
+        <Swap
+          setShowModal={setShowModal}
+          showModal={showModal}
+          liquidityTerms={liquidityTerms}
+          setLiquidityTerms={setLiquidityTerms}
+          pay={pay}
+          currentPay={currentPay}
+          setCurrentPay={setCurrentPay}
+          trade={trade}
+          setTrade={setTrade}
+          tabChanger={tabChanger}
+        />
+      ) : (
+        <Liquidity pay={pay} currentPay={currentPay} />
+      )}
+    </>
+  );
 }
 
 Dex.layout = Layout;

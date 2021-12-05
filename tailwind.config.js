@@ -18,6 +18,7 @@ module.exports = {
         grey_30: "#5A6172",
         blue_grey: "#0E1C37",
         amber: "#F3A508",
+        golden: "#C18306",
       },
       width: {
         "12/25": "48%",
