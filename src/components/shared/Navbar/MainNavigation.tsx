@@ -1,14 +1,44 @@
 import React from "react";
 import Link from "next/link";
 
+const MenuMobile = () => (
+  <svg
+    width="50"
+    height="50"
+    viewBox="0 0 50 50"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="25" cy="25" r="25" fill="#FAFCFF" />
+    <path
+      d="M16 20H34"
+      stroke="#2669F5"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M16 25H34"
+      stroke="#2669F5"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+    <path
+      d="M16 30H34"
+      stroke="#2669F5"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export default function MainNavigation() {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
       <nav
-        className={`md:w-10/12 fixed flex flex-wrap items-center justify-between px-0 md:px-4 ${
-          navbarOpen ? "md:py-3" : "py-3"
-        } w-screen z-40 bg-light top-6 mx-auto bg-grey_70 rounded-xl left-0 right-0`}
+        className={`md:w-11/12 fixed flex flex-wrap items-center justify-between px-0 md:px-4 ${
+          navbarOpen ? "md:py-3 py-3" : "py-3"
+        } z-40 bg-light top-6 mx-auto bg-grey_70 rounded-xl left-0 right-0`}
         style={{
           transition: "background-color .4s ease-out",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
@@ -30,35 +60,7 @@ export default function MainNavigation() {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              <svg
-                width="24"
-                height="20"
-                viewBox="0 0 24 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="1.5"
-                  y1="1.5"
-                  x2="22.5"
-                  y2="1.5"
-                  stroke="#014A34"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M10 10L22 10"
-                  stroke="#014A34"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M2 18L22 18"
-                  stroke="#014A34"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <MenuMobile />
             </button>
           </div>
           <div
