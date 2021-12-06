@@ -19,6 +19,10 @@
 	background: #2669f5;
 }
 
+.pool-item {
+	background: #0e1c37;
+}
+
 /* Disable showing increament and decreament on number input */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
