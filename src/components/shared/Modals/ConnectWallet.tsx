@@ -77,7 +77,7 @@ export default function ConnectWallet() {
                     </label>
                   </div>
                   <ul className="mt-6">
-                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
                       <Image
                         src={meta_mask}
                         alt="meta mask"
@@ -88,7 +88,7 @@ export default function ConnectWallet() {
                         Meta Mask
                       </span>
                     </li>
-                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
                       <Image
                         src={bsc_wallet}
                         alt="bsc_wallet"
@@ -99,7 +99,7 @@ export default function ConnectWallet() {
                         Binance Chain Wallet
                       </span>
                     </li>
-                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
                       <Image
                         src={walletconect}
                         alt="wallet connect"
@@ -110,11 +110,11 @@ export default function ConnectWallet() {
                         WalletConnect
                       </span>
                     </li>
-                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
                       <Image src={portis} alt="portis" width={32} height={32} />
                       <span className="text-sm font-semibold ml-4">Portis</span>
                     </li>
-                    <li className="p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
                       <Image src={more} alt="more" width={32} height={32} />
                       <span className="text-sm font-semibold ml-4">More</span>
                     </li>

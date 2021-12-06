@@ -18,6 +18,7 @@ import Liquidity from "../../components/dex/Containers/Liquidity";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
+  const [buyMode, setBuyMode] = useState(true);
 
   const [page, setPage] = useState("swap");
 
@@ -48,9 +49,9 @@ export default function Dex() {
           setCurrentPay={setCurrentPay}
           trade={trade}
           setTrade={setTrade}
+          buyMode={buyMode}
+          setBuyMode={setBuyMode}
           tabChanger={tabChanger}
-          setPage={setPage}
-          page={page}
         />
       ) : (
         <Liquidity pay={pay} currentPay={currentPay} setPage={setPage} />
