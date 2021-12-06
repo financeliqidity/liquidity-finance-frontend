@@ -38,7 +38,7 @@ export default function MainNavigation() {
       <nav
         className={`md:w-11/12 fixed flex flex-wrap items-center justify-between px-0 md:px-4 ${
           navbarOpen ? "md:py-3 py-3" : "py-3"
-        } z-40 bg-light top-6 mx-auto bg-grey_70 rounded-xl left-0 right-0`}
+        } z-40 bg-light md:top-6 mx-auto bg-grey_70 md:rounded-xl left-0 right-0`}
         style={{
           transition: "background-color .4s ease-out",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.08)",
@@ -117,7 +117,7 @@ export default function MainNavigation() {
               <li className="flex items-center">
                 <Link href="/#hero">
                   <a
-                    className="border border-solid border-primary text-white font-semibold px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 btn-primary"
+                    className="border border-solid border-primary text-white font-semibold px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 md:ml-3 md:mb-3 btn-primary"
                     style={{ transition: "all .15s ease" }}
                   >
                     White Paper
