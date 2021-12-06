@@ -196,10 +196,3 @@
     width: 100%;
   }
 }
-
-/* Timeline */
-.timeline_content {
-  min-height: 210px;
-  border-top-right-radius: 100px;
-  height: 240px;
-}
