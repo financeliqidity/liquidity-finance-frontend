@@ -87,7 +87,6 @@ export default function MainNavigation() {
               </li>
               <li className="flex items-center">
                 <Link href="/#tokenomics">
-                  {" "}
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
                     Tokenomics
                   </a>
