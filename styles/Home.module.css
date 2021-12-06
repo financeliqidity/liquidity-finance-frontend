@@ -28,7 +28,60 @@
 
 /* Tokenomics */
 .token_item {
-  width: 18.5%;
+  min-width: 196px;
+  margin-right: 1.5rem;
+}
+@-webkit-keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(-250px * 7));
+    transform: translateX(calc(-250px * 7));
+  }
+}
+@keyframes scroll {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(calc(-200px * 6.8));
+    transform: translateX(calc(-200px * 6.8));
+  }
+}
+.slider_tokenomics::before,
+.slider_tokenomics::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+}
+.slider_tokenomics::after {
+  right: 0;
+  top: 0;
+  -webkit-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+.slider_tokenomics::before {
+  left: 0;
+  top: 0;
+}
+.slider_tokenomics .slide_track {
+  -webkit-animation: scroll 20s linear infinite;
+  animation: scroll 20s linear infinite;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: calc(200px * 7);
+
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 
 /* Governance */

@@ -72,14 +72,14 @@ export default function MainNavigation() {
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
-                <Link href="/">
+                <Link href="/#hero">
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-white">
                     Home
                   </a>
                 </Link>
               </li>
               <li className="flex items-center">
-                <Link href="/#menu">
+                <Link href="/#features">
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
                     Features
                   </a>
@@ -88,27 +88,27 @@ export default function MainNavigation() {
               <li className="flex items-center">
                 <a
                   className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20"
-                  href="#/contact-us"
+                  href="/#tokenomics"
                 >
                   Tokenomics
                 </a>
               </li>
               <li className="flex items-center">
-                <Link href="/#restaurants">
+                <Link href="/#roadmap">
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
                     Roadmap
                   </a>
                 </Link>
               </li>
               <li className="flex items-center">
-                <Link href="/#restaurants">
+                <Link href="/#lending">
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
                     Loan
                   </a>
                 </Link>
               </li>
               <li className="flex items-center">
-                <Link href="/#restaurants">
+                <Link href="/#about">
                   <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
                     About
                   </a>
