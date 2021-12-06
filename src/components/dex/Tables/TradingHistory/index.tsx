@@ -67,7 +67,7 @@ const HashOut = () => (
 export default function index() {
   return (
     <div
-      className={`trading-history py-12 px-8 bg-grey_70 ${styles.trading_history}`}
+      className={`trading-history py-6 md:py-12 px-6 md:px-8 bg-grey_70 ${styles.trading_history}`}
     >
       <div className="table-head bg-dark_grey text-center rounded-lg mb-6">
         <h2 className="text-xl text-white py-8 font-bold">Trading History</h2>
