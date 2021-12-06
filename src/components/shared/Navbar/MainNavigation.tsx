@@ -86,12 +86,12 @@ export default function MainNavigation() {
                 </Link>
               </li>
               <li className="flex items-center">
-                <a
-                  className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20"
-                  href="/#tokenomics"
-                >
-                  Tokenomics
-                </a>
+                <Link href="/#tokenomics">
+                  {" "}
+                  <a className="px-3 py-4 lg:py-2 flex items-center text-base hover:font-semibold text-grey_20">
+                    Tokenomics
+                  </a>
+                </Link>
               </li>
               <li className="flex items-center">
                 <Link href="/#roadmap">
@@ -116,7 +116,7 @@ export default function MainNavigation() {
               </li>
 
               <li className="flex items-center">
-                <Link href="/#">
+                <Link href="/#hero">
                   <a
                     className="border border-solid border-primary text-white font-semibold px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 btn-primary"
                     style={{ transition: "all .15s ease" }}
