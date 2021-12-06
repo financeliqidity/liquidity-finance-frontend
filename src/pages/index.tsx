@@ -439,6 +439,7 @@ export default function Home() {
 
           <section
             className={`${styles.features} pt-16 pb-10 md:pt-20 md:pb-16 font-head text-white`}
+            id="features"
           >
             <div className="container md:w-11/12 mx-auto px-4">
               <h2 className="md:text-4xl text-3xl font-bold mb-6 text-center">
@@ -540,6 +541,7 @@ export default function Home() {
 
           <section
             className={`pt-16 pb-10 md:pt-20 md:pb-16 font-head text-white bg-grey_50`}
+            id="tokenomics"
           >
             <div className="container md:w-11/12 mx-auto px-4 overflow-x-hidden">
               <div className="mb-6 text-center">
@@ -634,6 +636,7 @@ export default function Home() {
 
           <section
             className={`${styles.governance} pt-16 pb-10 md:pt-20 md:pb-16 font-head text-white`}
+            id="governance"
           >
             <div className="container md:w-11/12 mx-auto px-4">
               <h2 className="md:text-4xl text-3xl font-bold mb-6 text-left">
@@ -686,6 +689,7 @@ export default function Home() {
 
           <section
             className={`${styles.lending_borrowing} pt-16 pb-10 md:pt-20 md:pb-16`}
+            id="lending"
           >
             <div className="container md:w-11/12 mx-auto px-4 text-white">
               <div className="flex flex-col justify-between md:flex-row">
