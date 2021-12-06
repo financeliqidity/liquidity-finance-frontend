@@ -1,3 +1,4 @@
+import Countdown from "react-countdown";
 import Head from "next/head";
 import Link from "next/link";
 import MainNavigation from "../components/shared/Navbar/MainNavigation";
@@ -293,6 +294,96 @@ const Linkedin = () => (
   </svg>
 );
 
+// Renderer callback with condition
+const renderer = ({ days, hours, minutes, seconds, completed }) => {
+  const str = "hello";
+  console.log(str.charAt(0));
+
+  if (completed) {
+    return <></>;
+  } else {
+    // Render a countdown
+    return (
+      <div className="mx-auto w-11/12 flex flex-col md:flex-row items-center justify-between text-white">
+        <div className="item">
+          <p className="hours text-center">DAYS</p>
+          <div className="flex items-center">
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg fl items-center justify-center text-center mr-2">
+              <span className="text-white font-bold text-6xl">
+                {days.toString().length === 2 ? days.toString().charAt(0) : "0"}
+              </span>
+            </div>
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg items-center justify-center text-center">
+              <span className="text-white font-bold text-6xl">
+                {days.toString().length === 1
+                  ? days.toString().charAt(0)
+                  : days.toString().charAt(1)}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <p className="hours text-center">HOURS</p>
+          <div className="flex items-center">
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg fl items-center justify-center text-center mr-2">
+              <span className="text-white font-bold text-6xl">
+                {hours.toString().length === 2
+                  ? hours.toString().charAt(0)
+                  : "0"}
+              </span>
+            </div>
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg items-center justify-center text-center">
+              <span className="text-white font-bold text-6xl">
+                {hours.toString().length === 1
+                  ? hours.toString().charAt(0)
+                  : hours.toString().charAt(1)}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <p className="hours text-center">MINUTES</p>
+          <div className="flex items-center">
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg fl items-center justify-center text-center mr-2">
+              <span className="text-white font-bold text-6xl">
+                {minutes.toString().length === 2
+                  ? minutes.toString().charAt(0)
+                  : "0"}
+              </span>
+            </div>
+            <div className="flex p-4 md:w-32 md:h-28 shadow bg-grey_20 rounded-lg items-center justify-center text-center">
+              <span className="text-white font-bold text-6xl">
+                {minutes.toString().length === 1
+                  ? minutes.toString().charAt(0)
+                  : minutes.toString().charAt(1)}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <p className="hours text-center">SECONDS</p>
+          <div className="flex items-center">
+            <div className="flex p-4 w-32 h-28 shadow bg-grey_20 rounded-lg fl items-center justify-center text-center mr-2">
+              <span className="text-white font-bold text-6xl">
+                {seconds.toString().length === 2
+                  ? seconds.toString().charAt(0)
+                  : "0"}
+              </span>
+            </div>
+            <div className="flex p-4 w-32 h-28 shadow bg-grey_20 rounded-lg items-center justify-center text-center">
+              <span className="text-white font-bold text-6xl">
+                {seconds.toString().length === 1
+                  ? seconds.toString().charAt(0)
+                  : seconds.toString().charAt(1)}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
 export default function Home() {
   return (
     <>
@@ -337,6 +428,12 @@ export default function Home() {
                   />
                 </div>
               </div>
+            </div>
+          </section>
+
+          <section id="countdown" className="py-14 bg-grey_50">
+            <div className="container mx-auto px-4 md:w-11/12">
+              <Countdown date={Date.now() + 80000000} renderer={renderer} />
             </div>
           </section>
 
@@ -441,10 +538,10 @@ export default function Home() {
             </div>
           </section>
 
-          {/* <section
+          <section
             className={`pt-16 pb-10 md:pt-20 md:pb-16 font-head text-white bg-grey_50`}
           >
-            <div className="container md:w-11/12 mx-auto px-4">
+            <div className="container md:w-11/12 mx-auto px-4 overflow-x-hidden">
               <div className="mb-6 text-center">
                 <h2 className="md:text-4xl text-3xl font-bold mb-1">
                   Tokenomics
@@ -452,82 +549,88 @@ export default function Home() {
                 <p className="text-lg">Total supply: 20B LFI</p>
               </div>
 
-              <div className="py-12 flex justify-between items-center">
-                <div
-                  className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Private sale</h4>
-                  <p className="text-lg mb-6">7% = 1.4B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "45%" }}
-                    ></div>
+              <div
+                className={`${styles.slider_tokenomics} desktop-slider py-12 overflow-hidden relative`}
+              >
+                <div className={`flex items-center ${styles.slide_track}`}>
+                  <div
+                    className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">Private sale</h4>
+                    <p className="text-lg mb-6">7% = 1.4B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "45%" }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">Public sale</h4>
+                    <p className="text-lg mb-6">50% = 10B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "50%" }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">Public sale</h4>
+                    <p className="text-lg mb-6">50% = 10B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "50%" }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">
+                      Listing liquidity
+                    </h4>
+                    <p className="text-lg mb-6">7% = 1.4B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "45%" }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">Marketing</h4>
+                    <p className="text-lg mb-6">7% = 1.4B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "45%" }}
+                      ></div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.token_item} py-8 px-10 rounded-2xl shadow-sm bg-grey_20`}
+                  >
+                    <h4 className="text-xl mb-1 font-bold">Development</h4>
+                    <p className="text-lg mb-6">7% = 1.4B</p>
+                    <div className="shadow w-full bg-dark_grey rounded-full">
+                      <div
+                        className="bg-secondary py-1 text-center text-white rounded-full"
+                        style={{ width: "45%" }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Public sale</h4>
-                  <p className="text-lg mb-6">50% = 10B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "50%" }}
-                    ></div>
-                  </div>
-                </div>
-                <div
-                  className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Public sale</h4>
-                  <p className="text-lg mb-6">50% = 10B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "50%" }}
-                    ></div>
-                  </div>
-                </div>
-                <div
-                  className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Listing liquidity</h4>
-                  <p className="text-lg mb-6">7% = 1.4B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "45%" }}
-                    ></div>
-                  </div>
-                </div>
-                <div
-                  className={`${styles.token_item} py-8 px-8 rounded-2xl shadow-sm bg-grey_20`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Marketing</h4>
-                  <p className="text-lg mb-6">7% = 1.4B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "45%" }}
-                    ></div>
-                  </div>
-                </div>
-                {/* <div
-                  className={`${styles.token_item} py-8 px-10 rounded-2xl shadow-sm border border-primary border-solid`}
-                >
-                  <h4 className="text-xl mb-1 font-bold">Development</h4>
-                  <p className="text-lg mb-6">7% = 1.4B</p>
-                  <div className="shadow w-full bg-dark_grey rounded-full">
-                    <div
-                      className="bg-secondary py-1 text-center text-white rounded-full"
-                      style={{ width: "45%" }}
-                    ></div>
-                  </div>
-                </div> */}
-          {/* </div>
+              </div>
             </div>
-          </section> */}
+          </section>
 
           <section
             className={`${styles.governance} pt-16 pb-10 md:pt-20 md:pb-16 font-head text-white`}
