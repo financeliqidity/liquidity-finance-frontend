@@ -67,10 +67,12 @@ const HashOut = () => (
 export default function index() {
   return (
     <div
-      className={`trading-history py-12 px-8 bg-grey_70 ${styles.trading_history}`}
+      className={`trading-history py-6 md:py-12 px-6 md:px-8 bg-grey_70 ${styles.trading_history}`}
     >
       <div className="table-head bg-dark_grey text-center rounded-lg mb-6">
-        <h2 className="text-xl text-white py-8 font-bold">Trading History</h2>
+        <h2 className="text-xl text-white md:py-8 py-4 font-bold">
+          Trading History
+        </h2>
       </div>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -112,7 +114,7 @@ export default function index() {
                   </tr>
                 </thead>
                 <tbody className="bg-transparent">
-                  <tr className="py-2 px-3 bg-grey_70 rounded-lg">
+                  <tr className="py-2 md:px-3 px-1 bg-grey_70 rounded-lg">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-sm font-semibold mr-0.5">
@@ -137,7 +139,7 @@ export default function index() {
                       <HashIn />
                     </td>
                   </tr>
-                  <tr className="py-2 px-3 rounded-lg">
+                  <tr className="py-2 md:px-3 px-1 rounded-lg">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-sm font-semibold mr-0.5">
@@ -162,7 +164,7 @@ export default function index() {
                       <HashOut />
                     </td>
                   </tr>
-                  <tr className="py-2 px-3 bg-grey_70 rounded-lg">
+                  <tr className="py-2 md:px-3 px-1 bg-grey_70 rounded-lg">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <span className="text-sm font-semibold mr-0.5">
