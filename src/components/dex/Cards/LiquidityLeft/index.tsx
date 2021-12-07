@@ -157,9 +157,9 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
           </div>
         </div>
         <div className="flex flex-col mt-8">
-          <div className="select-a-pool text-tertiary text-xs flex w-full justify-between align-center">
+          <div className="select-a-pool text-tertiary text-sm flex w-full justify-between align-center">
             <span>Select a pool</span>
-            <a href="#createpool" className="isLink">
+            <a href="#/create_pool" className="isLink font-bold">
               Create a pool
             </a>
           </div>
@@ -183,35 +183,45 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
         </div>
         <div className="flex flex-col mt-8">
           <div className="flex justify-between">
-            <span className="text-xs font-semibold text-tertiary">
-              Total Liquidity
-            </span>
+            <span className="text-sm text-tertiary">Total Liquidity</span>
             <div className="flex flex-col">
-              <div className="flex">
-                <span className="">10,674.1234</span>
-                {/* <img src="" alt="" /> */}
+              <div className="flex items-center justify-end mb-2">
+                <span className="text-sm text-white font-bold mr-1">
+                  10,674.1234
+                </span>
+                <img
+                  src="/assets/icons/eth.png"
+                  alt="..."
+                  className="w-6 h-6"
+                />
               </div>
-              <div className="flex">
-                <span className="">12,234,123.672</span>
-                {/* <img src="" alt="" className="" /> */}
+              <div className="flex items-center justify-end">
+                <span className="text-sm text-white font-bold mr-1">
+                  12,234,123.672
+                </span>
+                <img
+                  src="/assets/icons/usdc.png"
+                  alt="..."
+                  className="w-6 h-6"
+                />
               </div>
             </div>
           </div>
           <div className="flex justify-between mt-8">
-            <div className="flex text-tertiary">
+            <div className="flex text-tertiary items-center">
               <input
                 type="checkbox"
                 className="form-checkbox h-4 w-4 self-center rounded-md bg-transparent mr-1 "
               />
-              <span className="text-xs">
-                Lock Liquidity,{" "}
-                <a href="#e" className="isLink">
+              <span className="text-sm text-white">
+                Lock Liquidity,
+                <a href="/#learn_more" className="isLink ml-1">
                   Learn more
                 </a>
               </span>
             </div>
-            <div className="flex justify-center align-center h-5">
-              <span className="text-tertiary text-xs">Add as a developer</span>
+            <div className="flex justify-center items-center h-5">
+              <span className="text-tertiary text-sm">Add as a developer</span>
               <div className="relative inline-block w-10 ml-2 align-middle select-none transition duration-200 ease-in">
                 <input
                   type="checkbox"
@@ -229,21 +239,15 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
           </div>
         </div>
         <>
-          {asDeveloper ? (
-            <button
-              type="submit"
-              className="mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg"
-            >
-              Add liquidity as developer
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg"
-            >
-              Add liquidity as user
-            </button>
-          )}
+          <button
+            type="submit"
+            className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+          >
+            {asDeveloper
+              ? "Add liquidity as developer"
+              : "Add liquidity as user"}
+          </button>
+
           {/* <button
 						type='submit'
 						disabled={true}
@@ -252,8 +256,8 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
 						Connect Wallet to continue
 					</button> */}
         </>
-        <div className="mt-8 p-3 w-full bg-tertiary rounded-md">
-          <p className="w-4/5 pl-2 py-2 text-sm font-light text-gray-50 ">
+        <div className="mt-8 p-6 w-full bg-tertiary rounded-md">
+          <p className="text-sm font-light text-gray-50 ">
             By adding liquidity, you will earn fees proportional to your share
             of the pool on all trades for this pair. Fees are added to the pool,
             accrue in real time, and can be claimed when you withdraw your
