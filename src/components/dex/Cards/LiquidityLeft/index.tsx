@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./styles/index.module.css";
 
 const Warning = () => (
@@ -214,9 +215,9 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
               />
               <span className="text-sm text-white">
                 Lock Liquidity,
-                <a href="/#learn_more" className="isLink ml-1">
-                  Learn more
-                </a>
+                <Link href="/#learn_more">
+                  <a className="isLink ml-1">Learn more</a>
+                </Link>
               </span>
             </div>
             <div className="flex justify-center items-center h-5">
@@ -271,24 +272,22 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
           </div>
           <div className="flex flex-col justify-center items-center w-5/6 p-3 rounded-lg mt-2 bg-tertiary border-gray">
             <p className="text-tertiary">
-              Website{" "}
-              <a href="#website" className="isLink">
-                www.clever.i0
-              </a>
+              Website
+              <Link href="#website">
+                <a className="isLink">www.clever.io</a>
+              </Link>
             </p>
             <p className="text-tertiary">
-              Social Link 1{" "}
-              <a href="#social1" className="isLink">
-                {" "}
-                https://t.me/c/1234456780528/411
-              </a>
+              Social Link 1
+              <Link href="#social1">
+                <a className="isLink">https://t.me/c/1234456780528/411</a>
+              </Link>
             </p>
             <p className="text-tertiary">
-              Social Link 2{" "}
-              <a href="#social2" className="isLink">
-                {" "}
-                https://twitter/c/1234456780528/411
-              </a>
+              Social Link 2
+              <Link href="#social2">
+                <a className="isLink">https://twitter/c/1234456780528/411</a>
+              </Link>
             </p>
           </div>
         </div>
