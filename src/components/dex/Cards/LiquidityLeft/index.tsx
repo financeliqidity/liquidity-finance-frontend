@@ -159,9 +159,8 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
         <div className="flex flex-col mt-8">
           <div className="select-a-pool text-tertiary text-sm flex w-full justify-between align-center">
             <span>Select a pool</span>
-            <a href="#/create_pool" className="isLink font-bold">
-              Create a pool
-            </a>
+
+            <button className="isLink font-bold">Create a pool</button>
           </div>
           <div className="mt-2">
             <select
