@@ -91,18 +91,11 @@ const Edit = ({ className }) => (
   </svg>
 );
 
-export default function SelectPair() {
-  const [showModal, setShowModal] = useState(false);
+export default function SelectPair({ showModal, setShowModal, content }) {
   const [loading, setLoading] = useState(true);
   return (
     <>
-      <button
-        className="btn-primary p-4 rounded-lg font-bold"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Open select pair modal
-      </button>
+      {content}
 
       {showModal ? (
         <>

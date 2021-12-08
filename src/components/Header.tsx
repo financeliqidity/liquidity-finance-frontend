@@ -6,6 +6,7 @@ import ethlogo from "../../public/assets/images/eth.png";
 import menu from "../../public/assets/icons/menu.svg";
 import global from "../../public/assets/icons/global.svg";
 import ConnectWallet from "./shared/Modals/ConnectWallet";
+import WalletDropdown from "./shared/Dropdowns/WalletDropdown";
 
 interface HeaderProps {
   checkWallet?: () => boolean;
@@ -33,6 +34,7 @@ const Header: React.FC<HeaderProps> = () => {
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
+            {/* <WalletDropdown /> */}
             <ConnectWallet />
             <span className="md:p-4 p-2.5 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
               <Image src={menu} alt="..." width={24} height={24} />
