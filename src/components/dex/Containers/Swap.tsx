@@ -10,6 +10,7 @@ import eth from "../../../../public/assets/icons/eth.png";
 import usdt from "../../../../public/assets/icons/usdt.png";
 import PoolDisclaimer from "../../dex/Modals/PoolDisclaimer";
 import PairChart from "../Arcodions/PairChart";
+import SelectPair from "../Modals/SelectPair";
 
 const SettingsIcon = () => (
   <svg
@@ -49,13 +50,14 @@ const RefreshIcon = () => (
     />
   </svg>
 );
-const HeartIcon = () => (
+const HeartIcon = ({ className }) => (
   <svg
     width="25"
     height="24"
     viewBox="0 0 25 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={`${className}`}
   >
     <path
       d="M12.5 21.65C12.19 21.65 11.89 21.61 11.64 21.52C7.82 20.21 1.75 15.56 1.75 8.68998C1.75 5.18998 4.58 2.34998 8.06 2.34998C9.75 2.34998 11.33 3.00998 12.5 4.18998C13.67 3.00998 15.25 2.34998 16.94 2.34998C20.42 2.34998 23.25 5.19998 23.25 8.68998C23.25 15.57 17.18 20.21 13.36 21.52C13.11 21.61 12.81 21.65 12.5 21.65ZM8.06 3.84998C5.41 3.84998 3.25 6.01998 3.25 8.68998C3.25 15.52 9.82 19.32 12.13 20.11C12.31 20.17 12.7 20.17 12.88 20.11C15.18 19.32 21.76 15.53 21.76 8.68998C21.76 6.01998 19.6 3.84998 16.95 3.84998C15.43 3.84998 14.02 4.55998 13.11 5.78998C12.83 6.16998 12.19 6.16998 11.91 5.78998C10.98 4.54998 9.58 3.84998 8.06 3.84998Z"
@@ -79,22 +81,35 @@ const AddCircle = () => (
     />
   </svg>
 );
+const Selector = () => (
+  <svg
+    width="8"
+    height="6"
+    viewBox="0 0 8 6"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1 0.5L4 3.5L7 0.5L8 1.5L4 5.5L0 1.5L1 0.5Z"
+      fill="#B7BECB"
+    />
+  </svg>
+);
 
 function Swap({
   setShowModal,
   showModal,
   liquidityTerms,
   setLiquidityTerms,
-  pay,
-  currentPay,
-  setCurrentPay,
-  trade,
-  setTrade,
   tabChanger,
   buyMode,
   setBuyMode,
 }) {
   const [swapNTransfer, setSwapNTransfer] = useState(false);
+  const [showPairModal, setShowPairModal] = useState(false);
+  const [showPairModalReceive, setShowPairModalReceive] = useState(false);
 
   return (
     <div className="bg-grey_70">
@@ -138,7 +153,7 @@ function Swap({
                   </button>
                 </div>
                 <button className="p-2.5">
-                  <HeartIcon />
+                  <HeartIcon className="hover-primary" />
                 </button>
               </div>
             </div>
@@ -164,10 +179,28 @@ function Swap({
                     </span>
                   </div>
                   <div className="right">
-                    <TokenSelectbox
-                      options={pay}
-                      selectedOption={currentPay}
-                      handleChange={(event) => setCurrentPay(event)}
+                    <SelectPair
+                      showModal={showPairModal}
+                      setShowModal={setShowPairModal}
+                      content={
+                        <div
+                          className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
+                          onClick={() => setShowPairModal(true)}
+                        >
+                          <img
+                            src="assets/icons/eth.png"
+                            alt="..."
+                            className="w-5 h-5 mr-2"
+                          />
+
+                          <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                            ETH
+                          </span>
+                          <span className="flex items-center justify-center">
+                            <Selector />
+                          </span>
+                        </div>
+                      }
                     />
                     <span className="mt-1 text-gray-100 text-xs">
                       Balance: 0 ETH
@@ -232,10 +265,28 @@ function Swap({
                     <span className="text-sm font-semibold text-gray-100 mr-3">
                       $2.9K
                     </span>
-                    <TokenSelectbox
-                      options={pay}
-                      selectedOption={currentPay}
-                      handleChange={(event) => setCurrentPay(event)}
+                    <SelectPair
+                      showModal={showPairModalReceive}
+                      setShowModal={setShowPairModalReceive}
+                      content={
+                        <div
+                          className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
+                          onClick={() => setShowPairModal(true)}
+                        >
+                          <img
+                            src="assets/icons/eth.png"
+                            alt="..."
+                            className="w-5 h-5 mr-2"
+                          />
+
+                          <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                            ETH
+                          </span>
+                          <span className="flex items-center justify-center">
+                            <Selector />
+                          </span>
+                        </div>
+                      }
                     />
                   </div>
                 </div>

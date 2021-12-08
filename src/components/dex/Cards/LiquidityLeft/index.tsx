@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./styles/index.module.css";
+import SelectPair from "../../Modals/SelectPair";
+import SocialLinks from "../../Arcodions/SocialLinks";
 
 const Warning = () => (
   <svg
@@ -93,7 +95,9 @@ const CaretDown = () => (
   </svg>
 );
 
-function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
+function LiquidityLeft({ asDevSetter, asDeveloper, setPage }) {
+  const [showFirstModal, setShowFirstModal] = useState(false);
+  const [showLastModal, setShowLastModal] = useState(false);
   return (
     <>
       <div
@@ -132,29 +136,48 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
         <div className="relative">
           <span className="block text-sm text-grey_20 mb-4">Select a pair</span>
           <div className="flex justify-between items-center cursor-pointer">
-            <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4">
-              <div className="flex items-center">
-                <img
-                  src="/assets/icons/eth-32.png"
-                  alt="..."
-                  className="w-6 h-6 mr-2"
-                />
-                <span className="font-bold text-sm">ETH</span>
-              </div>
-              <CaretDown />
-            </div>
+            <SelectPair
+              content={
+                <div
+                  className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer"
+                  onClick={() => setShowFirstModal(true)}
+                >
+                  <div className="flex items-center">
+                    <img
+                      src="/assets/icons/eth-32.png"
+                      alt="..."
+                      className="w-6 h-6 mr-2"
+                    />
+                    <span className="font-bold text-sm">ETH</span>
+                  </div>
+                  <CaretDown />
+                </div>
+              }
+              showModal={showFirstModal}
+              setShowModal={setShowFirstModal}
+            />
             <Plus />
-            <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4">
-              <div className="flex items-center">
-                <img
-                  src="/assets/icons/eth-32.png"
-                  alt="..."
-                  className="w-6 h-6 mr-2"
-                />
-                <span className="font-bold text-sm">ETH</span>
-              </div>
-              <CaretDown />
-            </div>
+
+            <SelectPair
+              content={
+                <div
+                  className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer"
+                  onClick={() => setShowLastModal(true)}
+                >
+                  <div className="flex items-center">
+                    <img
+                      src="/assets/icons/eth-32.png"
+                      alt="..."
+                      className="w-6 h-6 mr-2"
+                    />
+                    <span className="font-bold text-sm">ETH</span>
+                  </div>
+                  <CaretDown />
+                </div>
+              }
+              showModal={showLastModal}
+              setShowModal={setShowLastModal}
+            />
           </div>
         </div>
         <div className="flex flex-col mt-8">
@@ -264,33 +287,7 @@ function LiquidityLeft({ currentPay, pay, asDevSetter, asDeveloper, setPage }) {
             liquidity
           </p>
         </div>
-        <div className="mt-8 bg-primary w-full rounded-md p-2 flex flex-col items-center justify-center">
-          <div className="bg-tertiary w-5/6 flex justify-between rounded-md p-2">
-            <p className="">Social Links</p>
-            {/* <img src="/assets/icons/arrow-down.svg" alt="arrow-down" /> */}
-            <img src="/assets/icons/arrow-up.svg" alt="arrow-up" />
-          </div>
-          <div className="flex flex-col justify-center items-center w-5/6 p-3 rounded-lg mt-2 bg-tertiary border-gray">
-            <p className="text-tertiary">
-              Website
-              <Link href="#website">
-                <a className="isLink">www.clever.io</a>
-              </Link>
-            </p>
-            <p className="text-tertiary">
-              Social Link 1
-              <Link href="#social1">
-                <a className="isLink">https://t.me/c/1234456780528/411</a>
-              </Link>
-            </p>
-            <p className="text-tertiary">
-              Social Link 2
-              <Link href="#social2">
-                <a className="isLink">https://twitter/c/1234456780528/411</a>
-              </Link>
-            </p>
-          </div>
-        </div>
+        <SocialLinks />
       </div>
     </>
   );

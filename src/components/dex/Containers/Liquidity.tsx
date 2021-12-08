@@ -5,7 +5,7 @@ import AddMedia from "./AddMediaLinks";
 import LiquidityRight from "../Cards/LiquidityRight";
 import LiquidityLeft from "../Cards/LiquidityLeft";
 
-function Liquidity({ pay, currentPay, setPage }) {
+function Liquidity({ setPage }) {
   const [asDeveloper, setAsDeveloper] = useState(false);
 
   const asDevSetter = () => {
@@ -17,8 +17,6 @@ function Liquidity({ pay, currentPay, setPage }) {
         <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
           <div className="flex flex-col justify-between md:flex-row mb-10">
             <LiquidityLeft
-              pay={pay}
-              currentPay={currentPay}
               asDevSetter={asDevSetter}
               asDeveloper={asDeveloper}
               setPage={setPage}

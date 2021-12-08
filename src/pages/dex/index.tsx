@@ -15,6 +15,8 @@ import usdt from "../../../public/assets/icons/usdt.png";
 
 import Swap from "../../components/dex/Containers/Swap";
 import Liquidity from "../../components/dex/Containers/Liquidity";
+import BottomNavigation from "../../components/dex/Navbar/BottomNavigation";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 export default function Dex() {
   const [trade, setTrade] = useState("buy");
@@ -31,6 +33,8 @@ export default function Dex() {
   ];
   const [currentPay, setCurrentPay] = useState(pay[0]);
 
+  const isMobile = useMediaQuery("(max-width: 568px)");
+
   const tabChanger = () => {
     setPage("liquidity");
     setShowModal(false);
@@ -44,18 +48,14 @@ export default function Dex() {
           showModal={showModal}
           liquidityTerms={liquidityTerms}
           setLiquidityTerms={setLiquidityTerms}
-          pay={pay}
-          currentPay={currentPay}
-          setCurrentPay={setCurrentPay}
-          trade={trade}
-          setTrade={setTrade}
           buyMode={buyMode}
           setBuyMode={setBuyMode}
           tabChanger={tabChanger}
         />
       ) : (
-        <Liquidity pay={pay} currentPay={currentPay} setPage={setPage} />
+        <Liquidity setPage={setPage} />
       )}
+      {page === "swap" && isMobile && <BottomNavigation />}
     </>
   );
 }
