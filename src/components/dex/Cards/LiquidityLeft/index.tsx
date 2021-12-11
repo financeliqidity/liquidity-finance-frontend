@@ -20,7 +20,6 @@ const Warning = () => (
     />
   </svg>
 );
-
 const Cog = () => (
   <svg
     width="24"
@@ -45,7 +44,6 @@ const Cog = () => (
     />
   </svg>
 );
-
 const Retry = () => (
   <svg
     width="24"
@@ -60,7 +58,6 @@ const Retry = () => (
     />
   </svg>
 );
-
 const Plus = () => (
   <svg
     width="25"
@@ -95,7 +92,7 @@ const CaretDown = () => (
   </svg>
 );
 
-function LiquidityLeft({ asDevSetter, asDeveloper, setPage }) {
+function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showLastModal, setShowLastModal] = useState(false);
   return (
@@ -265,6 +262,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage }) {
           <button
             type="submit"
             className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+            onClick={() => setTab("add")}
           >
             {asDeveloper
               ? "Add liquidity as developer"
@@ -287,7 +285,6 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage }) {
             liquidity
           </p>
         </div>
-        <SocialLinks />
       </div>
     </>
   );

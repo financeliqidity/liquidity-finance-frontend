@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { ethers } from "ethers";
 
 import meta_mask from "../../../../public/assets/icons/meta-mask.svg";
 import bsc_wallet from "../../../../public/assets/icons/bsc-wallet.svg";
@@ -35,6 +36,15 @@ const Close = () => (
 export default function ConnectWallet() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const connectWallet = () => {
+    //@ts-ignore
+    if (typeof window.ethereum !== "undefined") {
+      //@ts-ignore
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      console.log(provider);
+    }
+  };
   return (
     <>
       <button
@@ -77,7 +87,10 @@ export default function ConnectWallet() {
                     </label>
                   </div>
                   <ul className="mt-6">
-                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    <li
+                      className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4"
+                      onClick={connectWallet}
+                    >
                       <Image
                         src={meta_mask}
                         alt="meta mask"

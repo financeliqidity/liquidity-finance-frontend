@@ -146,19 +146,34 @@ const ArrowSwap = () => (
   </svg>
 );
 
-export default function BottomNavigation() {
+export default function BottomNavigation({ mobileTab, setMobileTab }) {
   return (
     <div className="px-6 py-2 bg-grey_50 fixed bottom-0 w-full">
       <div className="flex justify-between items-center">
-        <div className="nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4 btn-primary">
+        <div
+          className={`nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4 ${
+            mobileTab === 0 && "btn-primary"
+          }`}
+          onClick={() => setMobileTab(0)}
+        >
           <Home />
           <span className="text-xs grey-10 mt-1">Swap</span>
         </div>
-        <div className="nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4">
+        <div
+          className={`nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4 ${
+            mobileTab === 1 && "btn-primary"
+          }`}
+          onClick={() => setMobileTab(1)}
+        >
           <Order />
           <span className="text-xs grey-10 mt-1">Order</span>
         </div>
-        <div className="nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4">
+        <div
+          className={`nav-item flex items-center justify-center flex-col py-1 rounded-xl px-4 ${
+            mobileTab === 2 && "btn-primary"
+          }`}
+          onClick={() => setMobileTab(2)}
+        >
           <Chart />
           <span className="text-xs grey-10 mt-1">Chart</span>
         </div>

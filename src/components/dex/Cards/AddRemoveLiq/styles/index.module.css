@@ -1,0 +1,8 @@
+.add_remove {
+  width: 40.5%;
+}
+@media screen and (max-width: 768px) {
+  .add_remove {
+    width: 100%;
+  }
+}
