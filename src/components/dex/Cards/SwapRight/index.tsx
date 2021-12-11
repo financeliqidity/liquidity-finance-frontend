@@ -1,18 +1,7 @@
-import { useState } from "react";
-import TokensDropdown from "../../Dropdowns/TokensDropdown";
-import LiquidityAlert from "../../dex/Cards/LiquidityAlert";
-import TokenSelectbox from "../../shared/Selectboxes/TokenSelectbox";
-import OrderCard from "../../dex/Cards/OrderCard";
-import OrderFunds from "../../dex/Cards/OrderFunds";
-import TradingHistory from "../../dex/Tables/TradingHistory";
-
-import eth from "../../../../public/assets/icons/eth.png";
-import usdt from "../../../../public/assets/icons/usdt.png";
-import PoolDisclaimer from "../../dex/Modals/PoolDisclaimer";
-import PairChart from "../Arcodions/PairChart";
-import SelectPair from "../Modals/SelectPair";
-import SwapLeft from "../Cards/SwapLeft";
-import SwapRight from "../Cards/SwapRight";
+import React from "react";
+import LiquidityAlert from "../LiquidityAlert";
+import OrderCard from "../OrderCard";
+import OrderFunds from "../OrderFunds";
 
 const SettingsIcon = () => (
   <svg
@@ -38,7 +27,6 @@ const SettingsIcon = () => (
     />
   </svg>
 );
-
 const AddCircle = () => (
   <svg
     width="25"
@@ -54,107 +42,102 @@ const AddCircle = () => (
     />
   </svg>
 );
-const Selector = () => (
-  <svg
-    width="8"
-    height="6"
-    viewBox="0 0 8 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1 0.5L4 3.5L7 0.5L8 1.5L4 5.5L0 1.5L1 0.5Z"
-      fill="#B7BECB"
-    />
-  </svg>
-);
 
-function Swap({
-  setShowModal,
-  showModal,
-  liquidityTerms,
-  setLiquidityTerms,
-  tabChanger,
-  buyMode,
-  setBuyMode,
-  mobileTab,
-  setMobileTab,
-  isMobile,
-}) {
-  const [swapNTransfer, setSwapNTransfer] = useState(false);
-  const [showPairModal, setShowPairModal] = useState(false);
-  const [showPairModalReceive, setShowPairModalReceive] = useState(false);
-
+export default function SwapRight({ buyMode, setBuyMode }) {
   return (
-    <div className="bg-grey_70 mb-6 md:mb-0">
-      <div className="md:py-12 py-6 md:w-11/12 md:mx-auto text-white">
-        <div className="flex flex-col justify-between md:flex-row mb-10 md:px-0 px-4">
-          {/* Swap Left */}
-          {isMobile ? (
-            mobileTab === 0 && (
-              <SwapLeft
-                showModal={showModal}
-                setShowModal={setShowModal}
-                showPairModal={showPairModal}
-                setShowPairModal={setShowPairModal}
-                showPairModalReceive={showPairModalReceive}
-                setShowPairModalReceive={setShowPairModalReceive}
-                swapNTransfer={swapNTransfer}
-                setSwapNTransfer={setSwapNTransfer}
-                liquidityTerms={liquidityTerms}
-                setLiquidityTerms={setLiquidityTerms}
-                tabChanger={tabChanger}
-              />
-            )
-          ) : (
-            <SwapLeft
-              showModal={showModal}
-              setShowModal={setShowModal}
-              showPairModal={showPairModal}
-              setShowPairModal={setShowPairModal}
-              showPairModalReceive={showPairModalReceive}
-              setShowPairModalReceive={setShowPairModalReceive}
-              swapNTransfer={swapNTransfer}
-              setSwapNTransfer={setSwapNTransfer}
-              liquidityTerms={liquidityTerms}
-              setLiquidityTerms={setLiquidityTerms}
-              tabChanger={tabChanger}
-            />
-          )}
-
-          {/* Swap Right */}
-          {isMobile ? (
-            mobileTab === 1 && (
-              <SwapRight buyMode={buyMode} setBuyMode={setBuyMode} />
-            )
-          ) : (
-            <SwapRight buyMode={buyMode} setBuyMode={setBuyMode} />
-          )}
+    <div className="right w-full md:mt-0 mt-10 md:w-12/25">
+      <div className="bg-blue_grey px-4 md:px-8 py-12 rounded-xl">
+        {/* Controls */}
+        <div className="flex justify-between items-center mb-5">
+          <div className="pair-rate flex items-center">
+            <div className="pair flex items-center">
+              <img src="/assets/icons/arrow-swap.svg" alt="..." />
+              <span className="text-lg font-semibold ml-2">BNB/LFI</span>
+            </div>
+            <div className="ml-3 md:ml-4 flex items-center">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.50929 4.74561H15.4907C16.3888 4.74561 16.8378 5.83033 16.2021 6.46603L9.7139 12.9593C9.32037 13.3528 8.67963 13.3528 8.2861 12.9593L1.79791 6.46603C1.16221 5.83033 1.61124 4.74561 2.50929 4.74561Z"
+                  fill="#F84239"
+                />
+              </svg>
+              <span className="ml-1 text-xs text-sell font-semibold">2.08</span>
+            </div>
+          </div>
+          <div className="controls flex items-center">
+            <button className="mr-4">
+              <img src="assets/icons/candle.svg" alt="..." />
+            </button>
+            <button className="mr-4">
+              <img src="assets/icons/dollar-circle.svg" alt="..." />
+            </button>
+            <button className="">
+              <img src="assets/icons/more-grey.svg" alt="..." />
+            </button>
+          </div>
+        </div>
+        <LiquidityAlert />
+        {/* Buy & Sell Card */}
+        <div className="buy-sell flex bg-grey_50 rounded-lg mb-5 mt-6">
+          <button
+            className={`${
+              buyMode ? "bg-secondary" : "bg-grey_50"
+            } rounded-r-full rounded-l-lg font-bold text-xl w-1/2 md:py-2.5 py-2`}
+            onClick={() => setBuyMode(true)}
+          >
+            Buy
+          </button>
+          <button
+            className={`${
+              !buyMode ? "bg-sell" : "bg-grey_50"
+            } rounded-r-lg rounded-l-full font-bold text-xl w-1/2 md:py-2.5 py-2`}
+            onClick={() => setBuyMode(false)}
+          >
+            Sell
+          </button>
         </div>
 
-        {/* Trading History & Charts */}
-        {isMobile ? (
-          mobileTab === 2 && (
-            <>
-              <div className="mt-8 mb-10">
-                <PairChart />
-              </div>
-              <TradingHistory />
-            </>
-          )
-        ) : (
-          <>
-            <div className="mt-8 mb-10">
-              <PairChart />
-            </div>
-            <TradingHistory />
-          </>
-        )}
+        <OrderCard />
+
+        <div className="mt-16">
+          <p className="flex mb-3 justify-between">
+            <span className="text-lg text-grey_20">Avbl</span>
+            <span className="text-lg flex">
+              0 BUSD
+              <AddCircle />
+            </span>
+          </p>
+          <button
+            type="submit"
+            className={`w-full py-4 ${
+              buyMode ? "bg-secondary" : "bg-sell"
+            } text-xl font-bold rounded-lg`}
+          >
+            {buyMode ? "Buy" : "Sell"} LFI
+          </button>
+
+          <div className="pt-8 flex justify-between items-center">
+            <span className="text-sm text-gray-100">Slippage: 2%</span>
+            <button className="p-2.5 bg-grey_50 rounded-full">
+              <SettingsIcon />
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Order-Funds Card */}
+      <OrderFunds />
+
+      {/* Pair Chart Accordion */}
+      {/* <div className="mt-8">
+          <PairChart />
+        </div> */}
     </div>
   );
 }
-
-export default Swap;

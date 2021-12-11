@@ -5,8 +5,8 @@ const Navbar: React.FC<NavbarProps> = () => {
   const router = useRouter();
 
   return (
-    <nav className="py-8 md:px-9 px-4 flex justify-center text-white mt-12 bg-grey_70 md:w-11/12 md:mx-auto border border-solid border-grey_50 rounded-xl">
-      <div className="container flex items-center justify-between w-full overflow-x-scroll md:overflow-auto">
+    <nav className="md:mt-12 mt-16 py-8 md:px-9 px-4 flex text-white bg-grey_70 md:w-11/12 md:mx-auto border border-solid border-grey_50 rounded-xl">
+      <div className="flex items-center justify-between w-full overflow-x-scroll md:overflow-auto md:w-full">
         <Link href="/dex">
           <div
             className={

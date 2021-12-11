@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = () => {
         rounded="no"
         stack="row"
         j="between"
-        className="bg-transparent text-white md:w-11/12 mx-auto items-center"
+        className="bg-dark_grey text-white md:w-11/12 mx-auto items-center md:static py-6 md:py-0 fixed top-0 w-full px-4 z-50"
       >
         <div className="flex items-center">
           <Image src={lfiLogo} alt="some text" width={50} height={50} />

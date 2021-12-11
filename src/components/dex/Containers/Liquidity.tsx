@@ -1,26 +1,39 @@
-import { useState } from "react";
-import ManageLiquidity from "./ManageLiquidity";
-import LiquidityLeftTab from "./LiquidityLeftTab";
+import { useState, useEffect } from "react";
 import AddMedia from "./AddMediaLinks";
 import LiquidityRight from "../Cards/LiquidityRight";
 import LiquidityLeft from "../Cards/LiquidityLeft";
+import AddRemoveLiq from "../Cards/AddRemoveLiq";
 
 function Liquidity({ setPage }) {
   const [asDeveloper, setAsDeveloper] = useState(false);
-
   const asDevSetter = () => {
     setAsDeveloper(!asDeveloper);
   };
+
+  const [activeLeft, setActiveLeft] = useState("home");
+
+  const tabs = [
+    {
+      component: (
+        <LiquidityLeft
+          asDevSetter={asDevSetter}
+          asDeveloper={asDeveloper}
+          setPage={setPage}
+          setTab={setActiveLeft}
+        />
+      ),
+    },
+    {
+      component: <AddRemoveLiq setActiveLeft={setActiveLeft} />,
+    },
+  ];
+
   return (
     <div>
       <div className="bg-grey_70">
         <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
           <div className="flex flex-col justify-between md:flex-row mb-10">
-            <LiquidityLeft
-              asDevSetter={asDevSetter}
-              asDeveloper={asDeveloper}
-              setPage={setPage}
-            />
+            {activeLeft === "home" ? tabs[0].component : tabs[1].component}
             {/* <ManageLiquidity /> */}
             {/* <AddMedia /> */}
 
