@@ -39,9 +39,18 @@ const Navbar: React.FC<NavbarProps> = () => {
         <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
           VOTE
         </div>
-        <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
-          ISO
-        </div>
+        <Link href="/iso">
+          <div
+            className={
+              "rounded-lg mr-3 py-5 px-10 uppercase font-bold cursor-pointer " +
+              (router.pathname.indexOf("/iso") !== -1
+                ? "btn-primary"
+                : "bg-blue_grey")
+            }
+          >
+            ISO
+          </div>
+        </Link>
         <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
           NFT
         </div>
