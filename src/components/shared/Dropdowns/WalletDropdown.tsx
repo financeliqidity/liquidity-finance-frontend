@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
-import WalletDetails from "../Modals/WaletDetails";
+import WalletDetails from "../Modals/WalletDetails";
 
 const CaretDown = () => (
   <svg

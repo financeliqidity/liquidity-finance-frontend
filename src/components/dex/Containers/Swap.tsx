@@ -1,5 +1,4 @@
 import { useState } from "react";
-import TokensDropdown from "../../Dropdowns/TokensDropdown";
 import LiquidityAlert from "../../dex/Cards/LiquidityAlert";
 import TokenSelectbox from "../../shared/Selectboxes/TokenSelectbox";
 import OrderCard from "../../dex/Cards/OrderCard";

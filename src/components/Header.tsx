@@ -7,7 +7,7 @@ import menu from "../../public/assets/icons/menu.svg";
 import global from "../../public/assets/icons/global.svg";
 import ConnectWallet from "./shared/Modals/ConnectWallet";
 import WalletDropdown from "./shared/Dropdowns/WalletDropdown";
-import WalletDetails from "./shared/Modals/WaletDetails";
+import WalletDetails from "./shared/Modals/WalletDetails";
 
 interface HeaderProps {
   checkWallet?: () => boolean;
