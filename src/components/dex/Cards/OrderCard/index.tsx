@@ -1,5 +1,5 @@
 import React from "react";
-import OrderType from "../../../Selectboxes/Ordertype";
+import OrderType from "../../Selectboxes/Ordertype";
 import StopLimit from "../StopLimit";
 import LimitOrder from "../LimitOrder";
 

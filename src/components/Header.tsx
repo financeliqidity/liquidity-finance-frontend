@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Card from "../customs/Card";
 import lfiLogo from "../../public/assets/images/LFILogo1.png";
@@ -7,6 +7,7 @@ import menu from "../../public/assets/icons/menu.svg";
 import global from "../../public/assets/icons/global.svg";
 import ConnectWallet from "./shared/Modals/ConnectWallet";
 import WalletDropdown from "./shared/Dropdowns/WalletDropdown";
+import WalletDetails from "./shared/Modals/WaletDetails";
 
 interface HeaderProps {
   checkWallet?: () => boolean;

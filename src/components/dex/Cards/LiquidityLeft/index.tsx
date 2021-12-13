@@ -3,6 +3,8 @@ import Link from "next/link";
 import styles from "./styles/index.module.css";
 import SelectPair from "../../Modals/SelectPair";
 import SocialLinks from "../../Arcodions/SocialLinks";
+import SelectPool from "../../Modals/SelectPool";
+import Settings from "../../Modals/Settings";
 
 const Warning = () => (
   <svg
@@ -95,6 +97,7 @@ const CaretDown = () => (
 function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showLastModal, setShowLastModal] = useState(false);
+  const [showPoolModal, setShowPoolModal] = useState(false);
   return (
     <>
       <div
@@ -122,9 +125,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             </span>
           </div>
           <div className="flex items-center">
-            <button className="p-2 bg-grey_50 rounded-full mr-2">
-              <Cog />
-            </button>
+            <Settings />
             <button className="p-2 bg-grey_50 rounded-full">
               <Retry />
             </button>
@@ -154,7 +155,6 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
               setShowModal={setShowFirstModal}
             />
             <Plus />
-
             <SelectPair
               content={
                 <div
@@ -180,25 +180,22 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
         <div className="flex flex-col mt-8">
           <div className="select-a-pool text-tertiary text-sm flex w-full justify-between align-center">
             <span>Select a pool</span>
-
             <button className="isLink font-bold">Create a pool</button>
           </div>
           <div className="mt-2">
-            <select
-              name="pool"
-              id="pool"
-              className="cursor-default relative py-2  transition ease-in-out duration-150 px-2 bg-tertiary rounded-md text-sm focus:outline-none w-full  text-white"
-            >
-              <option value="a" className="p-3">
-                ox56e..ee21
-              </option>
-              <option value="b" className="p-3">
-                ox56e..ee22
-              </option>
-              <option value="c" className="p-3">
-                ox56e..ee23
-              </option>
-            </select>
+            <SelectPool
+              content={
+                <div
+                  className="flex w-full justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer"
+                  onClick={() => setShowPoolModal(true)}
+                >
+                  <span className="font-bold text-sm">0x56c1..ee21</span>
+                  <CaretDown />
+                </div>
+              }
+              showModal={showPoolModal}
+              setShowModal={setShowPoolModal}
+            />
           </div>
         </div>
         <div className="flex flex-col mt-8">

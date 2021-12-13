@@ -2,6 +2,7 @@ import React from "react";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
 import SelectPair from "../../Modals/SelectPair";
+import Settings from "../../Modals/Settings";
 
 const RefreshIcon = () => (
   <svg
@@ -116,9 +117,7 @@ export default function SwapLeft({
         <span className="md:text-xl text-base">Swap Token</span>
         <div className="flex items-center">
           <div className="flex items-center mr-6">
-            <button className="p-2.5 bg-grey_50 rounded-2xl mr-2">
-              <SettingsIcon />
-            </button>
+            <Settings />
             <button className="p-2.5 bg-grey_50 rounded-2xl">
               <RefreshIcon />
             </button>
