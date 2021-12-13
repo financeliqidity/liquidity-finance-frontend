@@ -25,7 +25,6 @@ const Close = () => (
     />
   </svg>
 );
-
 const Clip = () => (
   <svg
     width="18"
@@ -54,7 +53,6 @@ const Clip = () => (
 
 export default function Barcode({ showModal, setShowModal, content }) {
   const [loading, setLoading] = useState(true);
-  console.log(showModal);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
 import WalletDetails from "../Modals/WaletDetails";
@@ -21,20 +21,16 @@ const CaretDown = () => (
 );
 
 const WalletDropdown = () => {
-  // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-  const btnDropdownRef = React.createRef();
-  const popoverDropdownRef = React.createRef();
+  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
+  const btnDropdownRef = useRef();
+  const popoverDropdownRef = useRef();
   const openDropdownPopover = () => {
-    //@ts-ignore
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
     });
     setDropdownPopoverShow(true);
   };
-  const closeDropdownPopover = () => {
-    setDropdownPopoverShow(false);
-  };
+  const closeDropdownPopover = () => setDropdownPopoverShow(false);
   return (
     <>
       <button
