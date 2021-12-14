@@ -35,8 +35,8 @@ const Header: React.FC<HeaderProps> = () => {
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
-            {/* <WalletDropdown /> */}
-            <ConnectWallet />
+            <WalletDropdown />
+            {/* <ConnectWallet /> */}
             <span className="md:p-4 p-2.5 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
               <Image src={menu} alt="..." width={24} height={24} />
             </span>

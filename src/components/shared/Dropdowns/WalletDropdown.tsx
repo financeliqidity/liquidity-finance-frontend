@@ -56,16 +56,14 @@ const WalletDropdown = () => {
           "bg-grey_50 text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 text-white"
         }
       >
-        <Link href="/admin/dashboard">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-            }
-          >
-            Wallet
-          </a>
-        </Link>
+        <button
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
+          id="open-btn"
+          type="button"
+        >
+          Wallet
+        </button>
+
         <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
         {/* <WalletDetails /> */}
         <Link href="/admin/settings">
