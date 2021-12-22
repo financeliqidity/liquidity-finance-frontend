@@ -5,6 +5,7 @@ import Swap from "../../components/dex/Containers/Swap";
 import Liquidity from "../../components/dex/Containers/Liquidity";
 import BottomNavigation from "../../components/dex/Navbar/BottomNavigation";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import PoolDetails from "../../components/dex/Containers/PoolDetails";
 
 export default function Dex() {
   const [buyMode, setBuyMode] = useState(true);
@@ -24,7 +25,7 @@ export default function Dex() {
 
   return (
     <>
-      {page === "swap" ? (
+      {page === "swap" && (
         <Swap
           setShowModal={setShowModal}
           showModal={showModal}
@@ -37,12 +38,12 @@ export default function Dex() {
           setMobileTab={setMobileTab}
           isMobile={isMobile}
         />
-      ) : (
-        <Liquidity setPage={setPage} />
       )}
       {page === "swap" && isMobile && (
         <BottomNavigation mobileTab={mobileTab} setMobileTab={setMobileTab} />
       )}
+      {page === "liquidity" && <Liquidity setPage={setPage} />}
+      {page === "details" && <PoolDetails />}
     </>
   );
 }
