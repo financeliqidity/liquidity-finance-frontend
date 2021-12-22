@@ -35,7 +35,7 @@ const Copy = () => (
       height="12.7105"
       rx="1.25"
       stroke="#B7BECB"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
   </svg>
 );
