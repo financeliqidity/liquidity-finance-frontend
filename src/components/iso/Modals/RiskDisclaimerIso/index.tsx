@@ -51,7 +51,7 @@ const Clip = () => (
   </svg>
 );
 
-export default function ({ showModal, setShowModal }) {
+export default function RiskDisclaimerIso({ showModal, setShowModal }) {
   const [riskTerms, setRiskTerms] = useState(false);
 
   return (
