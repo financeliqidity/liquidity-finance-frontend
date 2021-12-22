@@ -119,7 +119,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                     <input
                       type="search"
                       placeholder="Enter the token symbol or address"
-                      className="w-full bg-transparent text-sm text-grey_20 transition border border-solid border-grey_20 focus:outline-none focus:border-gray-700 rounded-lg py-2 px-4 pl-10 appearance-none leading-normal"
+                      className="w-full bg-transparent text-sm text-grey_20 transition border border-solid border-grey_20 focus:outline-none rounded-lg py-2 px-4 pl-10 appearance-none leading-normal"
                     />
                     <div
                       className="absolute search-icon"

@@ -24,27 +24,24 @@ export default function LiquidityRight() {
         <div className="flex flex-col">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="shadow overflow-hidden sm:rounded-lg">
-                <table className="min-w-full">
-                  <thead className="bg-grey_70 border border-solid border-grey_50 mb-4 rounded-xl">
-                    <tr className="font-normal">
-                      <th
-                        scope="col"
-                        className="px-5 py-4 text-left text-lg text-white tracking-wider font-normal"
-                      >
-                        Pool
+              <div className="overflow-hidden rounded-xl">
+                <table className="min-w-full rounded-xl">
+                  <thead className="bg-grey_70 mb-4 rounded-xl">
+                    <tr className="font-normal rounded-xl">
+                      <th scope="col" className="">
+                        <div className="px-5 py-4 text-left text-lg text-white tracking-wider font-normal rounded-l-xl border border-solid border-grey_50 border-r-0">
+                          Pool
+                        </div>
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-4 text-left text-lg text-white tracking-wider font-normal"
-                      >
-                        My Liquidity
+                      <th scope="col" className="">
+                        <div className="px-6 py-4 text-left text-lg text-white tracking-wider font-normal border-l-0 border-r-0 border border-solid border-grey_50">
+                          My Liquidity
+                        </div>
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-4 text-right text-lg text-white tracking-wider font-normal"
-                      >
-                        Action
+                      <th scope="col" className="">
+                        <div className="px-6 py-4 text-right text-lg text-white tracking-wider font-normal rounded-r-xl border border-solid border-grey_50 border-l-0">
+                          Action
+                        </div>
                       </th>
                     </tr>
                   </thead>
@@ -61,10 +58,10 @@ export default function LiquidityRight() {
                             <img
                               src="/assets/images/USDT_logo.png"
                               alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
+                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
                             ></img>
                           </div>
-                          <span className="font-bold mr-2.5 ml-2">
+                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
                             0x6c1..ee21
                           </span>
                           <More />
@@ -82,6 +79,7 @@ export default function LiquidityRight() {
                         </button>
                       </td>
                     </tr>
+
                     <tr>
                       <td className="px-6 align-middle whitespace-nowrap py-4">
                         <div className="flex items-center w-full">
@@ -94,10 +92,10 @@ export default function LiquidityRight() {
                             <img
                               src="/assets/images/USDT_logo.png"
                               alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
+                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
                             ></img>
                           </div>
-                          <span className="font-bold mr-2.5 ml-2">
+                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
                             0x6c1..ee21
                           </span>
                           <More />
@@ -115,6 +113,7 @@ export default function LiquidityRight() {
                         </button>
                       </td>
                     </tr>
+
                     <tr>
                       <td className="px-6 align-middle whitespace-nowrap py-4">
                         <div className="flex items-center w-full">
@@ -127,10 +126,10 @@ export default function LiquidityRight() {
                             <img
                               src="/assets/images/USDT_logo.png"
                               alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
+                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
                             ></img>
                           </div>
-                          <span className="font-bold mr-2.5 ml-2">
+                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
                             0x6c1..ee21
                           </span>
                           <More />
@@ -148,6 +147,7 @@ export default function LiquidityRight() {
                         </button>
                       </td>
                     </tr>
+
                     <tr>
                       <td className="px-6 align-middle whitespace-nowrap py-4">
                         <div className="flex items-center w-full">
@@ -160,10 +160,10 @@ export default function LiquidityRight() {
                             <img
                               src="/assets/images/USDT_logo.png"
                               alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
+                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
                             ></img>
                           </div>
-                          <span className="font-bold mr-2.5 ml-2">
+                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
                             0x6c1..ee21
                           </span>
                           <More />
@@ -181,6 +181,7 @@ export default function LiquidityRight() {
                         </button>
                       </td>
                     </tr>
+
                     <tr>
                       <td className="px-6 align-middle whitespace-nowrap py-4">
                         <div className="flex items-center w-full">
@@ -193,76 +194,10 @@ export default function LiquidityRight() {
                             <img
                               src="/assets/images/USDT_logo.png"
                               alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
+                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
                             ></img>
                           </div>
-                          <span className="font-bold mr-2.5 ml-2">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2">
+                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
                             0x6c1..ee21
                           </span>
                           <More />

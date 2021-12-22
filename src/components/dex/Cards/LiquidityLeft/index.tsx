@@ -5,6 +5,8 @@ import SelectPair from "../../Modals/SelectPair";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import SelectPool from "../../Modals/SelectPool";
 import Settings from "../../Modals/Settings";
+import TrxnHistory from "../../Modals/TrxnHistory";
+import AddMedia from "../../Containers/AddMediaLinks";
 
 const Warning = () => (
   <svg
@@ -76,7 +78,6 @@ const Plus = () => (
     />
   </svg>
 );
-
 const CaretDown = () => (
   <svg
     width="17"
@@ -98,19 +99,29 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
   const [showFirstModal, setShowFirstModal] = useState(false);
   const [showLastModal, setShowLastModal] = useState(false);
   const [showPoolModal, setShowPoolModal] = useState(false);
+
+  const [addMediaModal, setAddMedialModal] = useState(false);
+
   return (
     <>
+      {addMediaModal && (
+        <AddMedia
+          showModal={addMediaModal}
+          setShowModal={setAddMedialModal}
+          setTab={setTab}
+        />
+      )}
       <div
-        className={`w-full md:w-12/25 bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg ${styles.left_}`}
+        className={`w-full md:w-12/25 bg-blue_grey px-4 py-8 md:px-8 md:py-12 rounded-lg ${styles.left_}`}
       >
-        <div className="w-full flex justify-between bg-grey_50 rounded-r-lg">
+        <div className="w-full flex justify-between bg-grey_50 rounded-r-lg rounded-l-lg">
           <button
-            className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base"
+            className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg rounded-l-lg font-bold md:text-xl text-base"
             onClick={() => setPage("swap")}
           >
             Swap
           </button>
-          <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
+          <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg rounded-l-lg font-bold md:text-xl text-base">
             Liquidity
           </button>
           <button className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
@@ -126,9 +137,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
           </div>
           <div className="flex items-center">
             <Settings />
-            <button className="p-2 bg-grey_50 rounded-full">
-              <Retry />
-            </button>
+            <TrxnHistory />
           </div>
         </div>
         <div className="relative">
@@ -256,15 +265,23 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
           </div>
         </div>
         <>
-          <button
-            type="submit"
-            className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
-            onClick={() => setTab("add")}
-          >
-            {asDeveloper
-              ? "Add liquidity as developer"
-              : "Add liquidity as user"}
-          </button>
+          {asDeveloper ? (
+            <button
+              type="submit"
+              className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+              onClick={() => setAddMedialModal(true)}
+            >
+              Add liquidity as developer
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+              onClick={() => setTab("add")}
+            >
+              Add liquidity as user
+            </button>
+          )}
 
           {/* <button
 						type='submit'

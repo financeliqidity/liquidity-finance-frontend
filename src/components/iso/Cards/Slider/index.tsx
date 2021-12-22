@@ -135,7 +135,7 @@ export default function Slider() {
         <button className="border-2 border-grey_50 py-3 px-4 rounded-lg">
           <CaretLeft />
         </button>
-        <button className="border-2 border-primary py-3 px-4 rounded-lg bg-primary">
+        <button className="border-2 border-primary py-3 px-4 rounded-lg btn-primary">
           <CaretRight />
         </button>
       </div>

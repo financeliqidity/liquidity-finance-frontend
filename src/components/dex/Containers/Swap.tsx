@@ -37,7 +37,6 @@ const SettingsIcon = () => (
     />
   </svg>
 );
-
 const AddCircle = () => (
   <svg
     width="25"

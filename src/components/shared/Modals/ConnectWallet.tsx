@@ -36,6 +36,9 @@ const Close = () => (
 export default function ConnectWallet() {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [walletTerms, setWalletTerms] = useState(false);
+
+  const handleCheck = () => setWalletTerms(!walletTerms);
 
   const connectWallet = () => {
     //@ts-ignore
@@ -77,61 +80,140 @@ export default function ConnectWallet() {
                 <div className="relative px-6 py-0.5 flex-auto">
                   <div className="flex mt-1 rounded-2xl p-4 bg-grey_30">
                     <label className="flex items-center">
-                      <input type="checkbox" className="form-checkbox" />
-                      <span className="ml-2 text-sm">
+                      <input
+                        type="checkbox"
+                        name="wallet_terms"
+                        className="form-checkbox"
+                        //@ts-ignore
+                        value={walletTerms}
+                        onChange={handleCheck}
+                      />
+                      <p className="ml-2 text-sm">
                         I have read, understand, and agree to the
                         <span className="underline text-primary font-bold ml-1">
                           Terms of Service.
                         </span>
-                      </span>
+                      </p>
                     </label>
                   </div>
-                  <ul className="mt-6">
-                    <li
-                      className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4"
+                  <div className="mt-6">
+                    <button
+                      disabled={!walletTerms}
+                      className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
+                        walletTerms ? "bg-grey_20" : "bg-grey_30"
+                      }`}
                       onClick={connectWallet}
                     >
                       <Image
                         src={meta_mask}
                         alt="meta mask"
+                        className={`${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
                         width={32}
                         height={32}
                       />
-                      <span className="text-sm font-semibold ml-4">
+                      <span
+                        className={`text-sm font-semibold ml-4 ${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                      >
                         Meta Mask
                       </span>
-                    </li>
-                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    </button>
+                    <button
+                      disabled={!walletTerms}
+                      className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
+                        walletTerms ? "bg-grey_20" : "bg-grey_30"
+                      }`}
+                    >
                       <Image
                         src={bsc_wallet}
                         alt="bsc_wallet"
+                        className={`${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
                         width={32}
                         height={32}
                       />
-                      <span className="text-sm font-semibold ml-4">
+                      <span
+                        className={`text-sm font-semibold ml-4 ${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                      >
                         Binance Chain Wallet
                       </span>
-                    </li>
-                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
+                    </button>
+                    <button
+                      disabled={!walletTerms}
+                      className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
+                        walletTerms ? "bg-grey_20" : "bg-grey_30"
+                      }`}
+                    >
                       <Image
                         src={walletconect}
                         alt="wallet connect"
+                        className={`${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
                         width={32}
                         height={32}
                       />
-                      <span className="text-sm font-semibold ml-4">
+                      <span
+                        className={`text-sm font-semibold ml-4 ${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                      >
                         WalletConnect
                       </span>
-                    </li>
-                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                      <Image src={portis} alt="portis" width={32} height={32} />
-                      <span className="text-sm font-semibold ml-4">Portis</span>
-                    </li>
-                    <li className="cursor-pointer p-4 flex items-center rounded-2xl bg-grey_30 mb-4">
-                      <Image src={more} alt="more" width={32} height={32} />
-                      <span className="text-sm font-semibold ml-4">More</span>
-                    </li>
-                  </ul>
+                    </button>
+                    <button
+                      disabled={!walletTerms}
+                      className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
+                        walletTerms ? "bg-grey_20" : "bg-grey_30"
+                      }`}
+                    >
+                      <Image
+                        src={portis}
+                        alt="portis"
+                        className={`${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                        width={32}
+                        height={32}
+                      />
+                      <span
+                        className={`text-sm font-semibold ml-4 ${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                      >
+                        Portis
+                      </span>
+                    </button>
+                    <button
+                      disabled={!walletTerms}
+                      className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
+                        walletTerms ? "bg-grey_20" : "bg-grey_30"
+                      }`}
+                    >
+                      <Image
+                        src={more}
+                        alt="more"
+                        className={`${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                        width={32}
+                        height={32}
+                      />
+                      <span
+                        className={`text-sm font-semibold ml-4 ${
+                          walletTerms ? "opacity-100" : "opacity-70"
+                        }`}
+                      >
+                        More
+                      </span>
+                    </button>
+                  </div>
                 </div>
                 {/*footer*/}
                 <div className="px-6">

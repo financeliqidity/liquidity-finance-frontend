@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
-import WalletDetails from "../Modals/WalletDetails";
 
 const CaretDown = () => (
   <svg
@@ -35,7 +34,6 @@ const WalletDropdown = () => {
     <>
       <button
         className="px-5 py-4 flex items-center justify-between bg-grey_50 rounded-lg"
-        //@ts-ignore
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
@@ -49,23 +47,20 @@ const WalletDropdown = () => {
         <CaretDown />
       </button>
       <div
-        //@ts-ignore
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +
           "bg-grey_50 text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 text-white"
         }
       >
-        <Link href="/admin/dashboard">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent"
-            }
-          >
-            Wallet
-          </a>
-        </Link>
+        <button
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
+          id="open-btn"
+          type="button"
+        >
+          Wallet
+        </button>
+
         <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
         {/* <WalletDetails /> */}
         <Link href="/admin/settings">
