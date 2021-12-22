@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import AddMedia from "./AddMediaLinks";
 import LiquidityRight from "../Cards/LiquidityRight";
 import LiquidityLeft from "../Cards/LiquidityLeft";
 import AddRemoveLiq from "../Cards/AddRemoveLiq";
 
 function Liquidity({ setPage }) {
   const [asDeveloper, setAsDeveloper] = useState(false);
-  const asDevSetter = () => {
-    setAsDeveloper(!asDeveloper);
-  };
+
+  const asDevSetter = () => setAsDeveloper(!asDeveloper);
 
   const [activeLeft, setActiveLeft] = useState("home");
 
@@ -31,11 +29,9 @@ function Liquidity({ setPage }) {
   return (
     <div>
       <div className="bg-grey_70">
-        <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
-          <div className="flex flex-col justify-between md:flex-row mb-10">
-            {activeLeft === "home" ? tabs[0].component : tabs[1].component}
-            {/* <ManageLiquidity /> */}
-            {/* <AddMedia /> */}
+        <div className="py-6 md:py-12 md:w-11/12 md:mx-auto text-white">
+          <div className="flex flex-col justify-between md:flex-row mb-10 px-4 md:px-0">
+            <>{activeLeft === "home" ? tabs[0].component : tabs[1].component}</>
 
             <LiquidityRight />
 

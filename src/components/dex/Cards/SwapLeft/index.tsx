@@ -3,6 +3,7 @@ import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
 import SelectPair from "../../Modals/SelectPair";
 import Settings from "../../Modals/Settings";
+import TrxnHistory from "../../Modals/TrxnHistory";
 
 const RefreshIcon = () => (
   <svg
@@ -88,9 +89,9 @@ export default function SwapLeft({
   tabChanger,
 }) {
   return (
-    <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-12 rounded-xl">
-      <div className="w-full flex justify-between bg-grey_50 rounded-r-lg">
-        <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base">
+    <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-8 md:py-12 rounded-xl">
+      <div className="w-full flex justify-between bg-grey_50 rounded-r-lg rounded-l-lg">
+        <button className="md:py-5 py-3 w-1/3 btn-primary border-primary border-r border-solid rounded-r-lg rounded-l-lg font-bold md:text-xl text-base">
           Swap
         </button>
         <PoolDisclaimer
@@ -118,9 +119,7 @@ export default function SwapLeft({
         <div className="flex items-center">
           <div className="flex items-center mr-6">
             <Settings />
-            <button className="p-2.5 bg-grey_50 rounded-2xl">
-              <RefreshIcon />
-            </button>
+            <TrxnHistory />
           </div>
           <button className="p-2.5">
             <HeartIcon className="hover-primary" />

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Barcode from "../../Modals/Barcode";
+import AddTrxnSuccess from "../../Modals/AddTrxnSuccess";
 import classes from "./styles/index.module.css";
+import RemoveTrxnSuccess from "../../Modals/RemovTrxnSuccess";
 
 function AddRemoveLiq({ setActiveLeft }) {
-  const AddLiquidity = () => (
+  const AddLiquidity = ({ handleAddLiquidity, showModal, setShowModal }) => (
     <>
       <div className="flex flex-col mt-8 w-full">
         <div className="self-end text-tertiary">
@@ -72,22 +74,27 @@ function AddRemoveLiq({ setActiveLeft }) {
           <p className="">1000 ETH / 561,2345345 USDC</p>
         </div>
       </>
-      <button className="btn-primary w-full p-3 mt-5 rounded-md">
-        Enter Amount
+      <button
+        className="btn-primary w-full p-3 mt-5 rounded-md font-bold"
+        onClick={() => handleAddLiquidity()}
+      >
+        Add liquidity
       </button>
     </>
   );
-  const RemoveLiquid = () => (
+  const RemoveLiquid = ({ handleRemoveLiquidity }) => (
     <>
       <div className="flex flex-col mt-8 w-full">
         <div className="self-end text-tertiary">
           Available:<span>5000</span>
         </div>
-        <div className="flex w-full justify-start  border rounded-md p-3">
-          <img src="/assets/icons/usdt.png" alt="USDC" />
-          <span className="mx-3">USDC</span>
-          <img src="/assets/icons/arrow-down.svg" alt="pop-up" />
-          <span className="justify-self-center ml-80">5000</span>
+        <div className="flex w-full justify-between items-center border rounded-md p-3">
+          <div className="flex items-center">
+            <img src="/assets/icons/usdt.png" alt="USDC" />
+            <span className="mx-3">USDC</span>
+            <img src="/assets/icons/arrow-down.svg" alt="pop-up" />
+          </div>
+          <span className="font-bold text-base">5000</span>
         </div>
       </div>
       <div className="flex flex-col mt-8">
@@ -99,11 +106,14 @@ function AddRemoveLiq({ setActiveLeft }) {
         <p className="my-1 text-tertiary">Total Liquidity</p>
         <p className="">7000 ETH / 861,223.4345 USDC</p>
       </div>
-      <button className="btn-primary w-full p-3 mt-5 rounded-md">
-        Enter Amount
+      <button
+        className="btn-primary w-full p-3 mt-5 rounded-md font-bold"
+        onClick={() => handleRemoveLiquidity()}
+      >
+        Remove liquidity
       </button>
       <div className="bg-tertiary p-5 mt-3 rounded-b-lg">
-        <p className="w-3/4 text-tertiary">
+        <p className="text-tertiary text-sm">
           Tokens can be redeemed by removing liquidity. The number of redeemed
           tokens may change due to price fluctuations.
         </p>
@@ -111,52 +121,79 @@ function AddRemoveLiq({ setActiveLeft }) {
     </>
   );
 
-  const tabs = [
-    { component: <AddLiquidity /> },
-    { component: <RemoveLiquid /> },
-  ];
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-
   const [showModal, setShowModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessModalRem, setShowSuccessModalRem] = useState(false);
+  const [showPairModal, setShowPairModal] = useState(false);
+
+  const handleAddLiquidity = () => setShowSuccessModal(true);
+  const handleRemoveLiquidity = () => setShowSuccessModalRem(true);
+
+  const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div
-      className={`${classes.add_remove} bg-blue_grey px-4 py-3 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg`}
-    >
-      <div className="mt-5 flex justify-between items-center">
-        <button className="" onClick={() => setActiveLeft("home")}>
-          <img src="/assets/icons/arrow-back.svg" alt="back" />
-        </button>
-        <Barcode
-          content={
-            <button onClick={() => setShowModal(true)}>
-              <img src="/assets/icons/extract.svg" alt="extract" />
-            </button>
-          }
-          showModal={showModal}
-          setShowModal={setShowModal}
+    <>
+      {showSuccessModal && (
+        <AddTrxnSuccess
+          showModal={showSuccessModal}
+          setShowModal={setShowSuccessModal}
         />
+      )}
+      {showSuccessModalRem && (
+        <RemoveTrxnSuccess
+          showModal={showSuccessModalRem}
+          setShowModal={setShowSuccessModalRem}
+        />
+      )}
+
+      <div
+        className={`${classes.add_remove} bg-blue_grey px-4 py-3 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg`}
+      >
+        <div className="mt-5 flex justify-between items-center">
+          <button className="" onClick={() => setActiveLeft("home")}>
+            <img src="/assets/icons/arrow-back.svg" alt="back" />
+          </button>
+          <Barcode
+            content={
+              <button onClick={() => setShowModal(true)}>
+                <img src="/assets/icons/extract.svg" alt="extract" />
+              </button>
+            }
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+        </div>
+        <div className="w-full flex mt-8 justify-between bg-grey_50 rounded-r-lg">
+          <button
+            className={`md:py-5 py-3 w-1/2 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base ${
+              activeTab === 0 ? "btn-primary" : "bg-grey_50"
+            }`}
+            onClick={() => setActiveTab(0)}
+          >
+            Add
+          </button>
+          <button
+            className={`md:py-5 py-3 w-1/2 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base ${
+              activeTab === 1 ? "btn-primary" : "bg-grey_50"
+            }`}
+            onClick={() => setActiveTab(1)}
+          >
+            Remove
+          </button>
+        </div>
+        <>
+          {activeTab === 0 ? (
+            <AddLiquidity
+              handleAddLiquidity={handleAddLiquidity}
+              showModal={showPairModal}
+              setShowModal={setShowPairModal}
+            />
+          ) : (
+            <RemoveLiquid handleRemoveLiquidity={handleRemoveLiquidity} />
+          )}
+        </>
       </div>
-      <div className="w-full flex mt-8 justify-between bg-grey_50 rounded-r-lg">
-        <button
-          className={`md:py-5 py-3 w-1/2 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base ${
-            activeTab === tabs[0] ? "btn-primary" : "bg-grey_50"
-          }`}
-          onClick={() => setActiveTab(tabs[0])}
-        >
-          Add
-        </button>
-        <button
-          className={`md:py-5 py-3 w-1/2 border-primary border-r border-solid rounded-r-lg font-bold md:text-xl text-base ${
-            activeTab === tabs[1] ? "btn-primary" : "bg-grey_50"
-          }`}
-          onClick={() => setActiveTab(tabs[1])}
-        >
-          Remove
-        </button>
-      </div>
-      <>{activeTab.component}</>
-    </div>
+    </>
   );
 }
 export default AddRemoveLiq;

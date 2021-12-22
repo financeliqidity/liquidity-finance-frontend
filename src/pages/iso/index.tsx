@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Slider from "../../components/iso/Cards/Slider";
 
 import Layout from "../../components/Layout";
+import WhitelistedIso from "../../components/iso/Forms/WhiteListedIso";
+import DirectIso from "../../components/iso/Forms/DirectIso";
+import RiskDisclaimerIso from "../../components/iso/Modals/RiskDisclaimerIso";
+import AddMedia from "../../components/dex/Containers/AddMediaLinks";
 
 const Magnification = () => (
   <svg
@@ -74,11 +78,332 @@ const Telegram = () => (
   </svg>
 );
 
+const Circle = ({ fill }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12 3.93548C16.4569 3.93548 20.0645 7.54238 20.0645 12C20.0645 16.4569 16.4576 20.0645 12 20.0645C7.54306 20.0645 3.93548 16.4576 3.93548 12C3.93548 7.54306 7.54238 3.93548 12 3.93548ZM12 2C6.47714 2 2 6.47714 2 12C2 17.5229 6.47714 22 12 22C17.5229 22 22 17.5229 22 12C22 6.47714 17.5229 2 12 2ZM12 8.77419C10.2184 8.77419 8.77419 10.2184 8.77419 12C8.77419 13.7816 10.2184 15.2258 12 15.2258C13.7816 15.2258 15.2258 13.7816 15.2258 12C15.2258 10.2184 13.7816 8.77419 12 8.77419Z"
+      fill={`${fill}`}
+    />
+  </svg>
+);
+
 export default function Iso() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
       <Slider />
+      {/* <WhitelistedIso /> */}
+      {/* <DirectIso /> */}
       <div className="w-full py-8 px-8 rounded-xl bg-grey_70 mt-6">
+        {showModal && (
+          <RiskDisclaimerIso
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+        )}
+
+        <div className="flex justify-between items-center mb-6">
+          <button
+            className="btn-primary uppercase font-bold text-2xl py-4 rounded-lg w-7/25"
+            onClick={() => setShowModal(true)}
+          >
+            APPLY FOR ISO
+          </button>
+          <div className="relative w-7/10">
+            <input
+              type="search"
+              className="bg-grey_50 rounded-lg py-5 w-full transition pl-14 px-4"
+              placeholder="Search by token address (Ex. 0x54da...e276)"
+            />
+            <div
+              className="absolute search-icon"
+              style={{ top: "1.3rem", left: "1.5rem" }}
+            >
+              <Magnification />
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex items-center p-3 rounded-xl bg-blue_grey">
+          <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center mr-8">
+            <Circle fill="#2669F5" />
+            <span className="ml-1 text-lg font-semibold text-primary">
+              Active
+            </span>
+          </button>
+          <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
+            <Circle fill="#FFD95C" />
+            <span className="ml-1 text-lg font-semibold text-yellow_">
+              Upcoming
+            </span>
+          </button>
+          <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
+            <Circle fill="#45C581" />
+            <span className="ml-1 text-lg font-semibold text-secondary">
+              Completed
+            </span>
+          </button>
+          <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
+            <Circle fill="#F84239" />
+            <span className="ml-1 text-lg font-semibold text-danger">
+              Failed
+            </span>
+          </button>
+        </div>
+        <div className="mt-6">
+          <div className="flex flex-wrap -mx-4 overflow-hidden sm:-mx-5 md:-mx-4 lg:-mx-5 xl:-mx-5">
+            <div className="my-4 px-4 w-full overflow-hidden sm:my-5 sm:px-5 sm:w-1/3 md:my-4 md:px-4 md:w-1/3 lg:my-5 lg:px-5 lg:w-1/3 xl:my-5 xl:px-5 xl:w-1/3">
+              <div className="p-6 rounded-3xl bg-blue_grey">
+                <div className="bg-grey_50 flex items-center justify-center mb-6 w-full rounded-2xl h-64">
+                  <img src="/assets/images/lfi-biggest.png" alt="..." />
+                </div>
+                <div className="status mb-6">
+                  <p className="grey-10 mb-2">Status:</p>
+                  <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
+                    <Circle fill="#2669F5" />
+                    <span className="ml-1 text-lg font-semibold text-primary">
+                      Active
+                    </span>
+                  </button>
+                </div>
+                <div className="raised">
+                  <p className="grey-10 mb-2">Raised:</p>
+                  <div className="w-full bg-grey_50 h-2">
+                    <div
+                      className="bg-secondary h-2"
+                      style={{ width: "25%" }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="mt-6 bg-grey_70 p-4">
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Softcap:</span>
+                    <span>500 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Hardcap:</span>
+                    <span>1000 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Minimum Allocation:</span>
+                    <span>0.1 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center">
+                    <span className="grey-10">Maximum Allocation:</span>
+                    <span>6 BNB</span>
+                  </p>
+
+                  <hr className="my-3" />
+
+                  <div className="mb-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="text-sm font-bold btn-primary rounded py-1 px-2">
+                      More info
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="my-4 px-4 w-full overflow-hidden sm:my-5 sm:px-5 sm:w-1/3 md:my-4 md:px-4 md:w-1/3 lg:my-5 lg:px-5 lg:w-1/3 xl:my-5 xl:px-5 xl:w-1/3">
+              <div className="p-6 rounded-3xl bg-blue_grey">
+                <div className="bg-grey_50 flex items-center justify-center mb-6 w-full rounded-2xl h-64">
+                  <img src="/assets/images/lfi-biggest.png" alt="..." />
+                </div>
+                <div className="status mb-6">
+                  <p className="grey-10 mb-2">Status:</p>
+                  <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
+                    <Circle fill="#2669F5" />
+                    <span className="ml-1 text-lg font-semibold text-primary">
+                      Active
+                    </span>
+                  </button>
+                </div>
+                <div className="raised">
+                  <p className="grey-10 mb-2">Raised:</p>
+                  <div className="w-full bg-grey_50 h-2">
+                    <div
+                      className="bg-secondary h-2"
+                      style={{ width: "25%" }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="mt-6 bg-grey_70 p-4">
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Softcap:</span>
+                    <span>500 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Hardcap:</span>
+                    <span>1000 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Minimum Allocation:</span>
+                    <span>0.1 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center">
+                    <span className="grey-10">Maximum Allocation:</span>
+                    <span>6 BNB</span>
+                  </p>
+
+                  <hr className="my-3" />
+
+                  <div className="mb-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="text-sm font-bold btn-primary rounded py-1 px-2">
+                      More info
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="my-4 px-4 w-full overflow-hidden sm:my-5 sm:px-5 sm:w-1/3 md:my-4 md:px-4 md:w-1/3 lg:my-5 lg:px-5 lg:w-1/3 xl:my-5 xl:px-5 xl:w-1/3">
+              <div className="p-6 rounded-3xl bg-blue_grey">
+                <div className="bg-grey_50 flex items-center justify-center mb-6 w-full rounded-2xl h-64">
+                  <img src="/assets/images/lfi-biggest.png" alt="..." />
+                </div>
+                <div className="status mb-6">
+                  <p className="grey-10 mb-2">Status:</p>
+                  <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
+                    <Circle fill="#2669F5" />
+                    <span className="ml-1 text-lg font-semibold text-primary">
+                      Active
+                    </span>
+                  </button>
+                </div>
+                <div className="raised">
+                  <p className="grey-10 mb-2">Raised:</p>
+                  <div className="w-full bg-grey_50 h-2">
+                    <div
+                      className="bg-secondary h-2"
+                      style={{ width: "25%" }}
+                    ></div>
+                  </div>
+                </div>
+                <div className="mt-6 bg-grey_70 p-4">
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Softcap:</span>
+                    <span>500 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Hardcap:</span>
+                    <span>1000 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center mb-3">
+                    <span className="grey-10">Minimum Allocation:</span>
+                    <span>0.1 BNB</span>
+                  </p>
+                  <p className="flex justify-between items-center">
+                    <span className="grey-10">Maximum Allocation:</span>
+                    <span>6 BNB</span>
+                  </p>
+
+                  <hr className="my-3" />
+
+                  <div className="mb-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium grey-10">Sale Started:</span>
+                      <div className="flex">
+                        <p className="mr-1">
+                          6 <span className="text-xs">Days</span>
+                        </p>
+                        <p className="mr-1">
+                          8 <span className="text-xs">Hours</span>
+                        </p>
+                        <p className="">
+                          45 <span className="text-xs">Mins</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <button className="text-sm font-bold btn-primary rounded py-1 px-2">
+                      More info
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="flex justify-between items-center w-full mb-6">
           <div className="flex justify-between items-center w-12/25">
             <button className="bg-grey_50 text-xl font-bold uppercase p-4 rounded-lg">

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
-import WalletDetails from "../Modals/WalletDetails";
 
 const CaretDown = () => (
   <svg
@@ -35,7 +34,6 @@ const WalletDropdown = () => {
     <>
       <button
         className="px-5 py-4 flex items-center justify-between bg-grey_50 rounded-lg"
-        //@ts-ignore
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
@@ -49,7 +47,6 @@ const WalletDropdown = () => {
         <CaretDown />
       </button>
       <div
-        //@ts-ignore
         ref={popoverDropdownRef}
         className={
           (dropdownPopoverShow ? "block " : "hidden ") +

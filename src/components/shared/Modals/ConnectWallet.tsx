@@ -88,12 +88,12 @@ export default function ConnectWallet() {
                         value={walletTerms}
                         onChange={handleCheck}
                       />
-                      <span className="ml-2 text-sm">
+                      <p className="ml-2 text-sm">
                         I have read, understand, and agree to the
                         <span className="underline text-primary font-bold ml-1">
                           Terms of Service.
                         </span>
-                      </span>
+                      </p>
                     </label>
                   </div>
                   <div className="mt-6">
