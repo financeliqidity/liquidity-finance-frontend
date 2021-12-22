@@ -16,7 +16,7 @@ const More = () => (
   </svg>
 );
 
-export default function LiquidityRight() {
+export default function LiquidityRight({ setPage }) {
   return (
     <div className={"right w-full md:mt-0 mt-10 md:w-12/25 " + styles.right_}>
       <div className="bg-blue_grey p-6 rounded-2xl border border-solid border-grey_20">
@@ -74,7 +74,10 @@ export default function LiquidityRight() {
                         <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
                           Manage
                         </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
+                        <button
+                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+                          onClick={() => setPage("details")}
+                        >
                           Details
                         </button>
                       </td>
@@ -108,7 +111,10 @@ export default function LiquidityRight() {
                         <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
                           Manage
                         </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
+                        <button
+                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+                          onClick={() => setPage("details")}
+                        >
                           Details
                         </button>
                       </td>
@@ -142,7 +148,10 @@ export default function LiquidityRight() {
                         <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
                           Manage
                         </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
+                        <button
+                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+                          onClick={() => setPage("details")}
+                        >
                           Details
                         </button>
                       </td>
@@ -176,7 +185,10 @@ export default function LiquidityRight() {
                         <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
                           Manage
                         </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
+                        <button
+                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+                          onClick={() => setPage("details")}
+                        >
                           Details
                         </button>
                       </td>
@@ -210,7 +222,10 @@ export default function LiquidityRight() {
                         <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
                           Manage
                         </button>
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary">
+                        <button
+                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+                          onClick={() => setPage("details")}
+                        >
                           Details
                         </button>
                       </td>

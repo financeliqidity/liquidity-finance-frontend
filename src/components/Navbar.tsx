@@ -6,11 +6,11 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <nav className="md:mt-12 mt-16 py-8 md:px-9 px-4 flex text-white bg-grey_70 md:w-11/12 md:mx-auto border border-solid border-grey_50 rounded-xl">
-      <div className="flex items-center justify-between w-full overflow-x-scroll md:overflow-auto md:w-full">
+      <div className="w-full grid grid-cols-4 md:grid-cols-7 grid-rows-2 md:grid-rows-1 gap-3">
         <Link href="/dex">
           <div
             className={
-              "rounded-lg mr-3 py-5 px-10  uppercase font-bold cursor-pointer " +
+              "text-center rounded-lg py-5  uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/dex") !== -1
                 ? "btn-primary"
                 : "bg-blue_grey")
@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Link href="/pool">
           <div
             className={
-              "rounded-lg mr-3 py-5 px-10 uppercase font-bold cursor-pointer " +
+              "text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/pool") !== -1
                 ? "btn-primary"
                 : "bg-blue_grey")
@@ -33,16 +33,16 @@ const Navbar: React.FC<NavbarProps> = () => {
           </div>
         </Link>
 
-        <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
           FARM
         </div>
-        <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
           VOTE
         </div>
         <Link href="/iso">
           <div
             className={
-              "rounded-lg mr-3 py-5 px-10 uppercase font-bold cursor-pointer " +
+              "text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/iso") !== -1
                 ? "btn-primary"
                 : "bg-blue_grey")
@@ -51,10 +51,10 @@ const Navbar: React.FC<NavbarProps> = () => {
             ISO
           </div>
         </Link>
-        <div className="rounded-lg mr-3 py-5 px-10 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
           NFT
         </div>
-        <div className="rounded-lg mr-0 py-5 px-10 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
           FAVORITE
         </div>
       </div>

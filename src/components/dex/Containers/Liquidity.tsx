@@ -33,7 +33,7 @@ function Liquidity({ setPage }) {
           <div className="flex flex-col justify-between md:flex-row mb-10 px-4 md:px-0">
             <>{activeLeft === "home" ? tabs[0].component : tabs[1].component}</>
 
-            <LiquidityRight />
+            <LiquidityRight setPage={setPage} />
 
             {/* <div className="right w-full md:mt-0 mt-10 md:w-12/25">
               <div className="bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg h-full">
