@@ -51,8 +51,17 @@ const Clip = () => (
   </svg>
 );
 
-export default function RiskDisclaimerIso({ showModal, setShowModal }) {
+export default function RiskDisclaimerIso({
+  showModal,
+  setShowModal,
+  setActiveTab,
+}) {
   const [riskTerms, setRiskTerms] = useState(false);
+
+  const handleConfirm = () => {
+    setActiveTab(1);
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -124,6 +133,7 @@ export default function RiskDisclaimerIso({ showModal, setShowModal }) {
                       Cancel
                     </button>
                     <button
+                      onClick={handleConfirm}
                       className={`${
                         riskTerms
                           ? "btn-primary"

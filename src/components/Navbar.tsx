@@ -10,9 +10,9 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Link href="/dex">
           <div
             className={
-              "text-center rounded-lg py-5  uppercase font-bold cursor-pointer " +
+              "flex items-center justify-center text-center rounded-lg py-5  uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/dex") !== -1
-                ? "btn-primary"
+                ? "btn-primary text-3xl"
                 : "bg-blue_grey")
             }
           >
@@ -23,9 +23,9 @@ const Navbar: React.FC<NavbarProps> = () => {
         <Link href="/pool">
           <div
             className={
-              "text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
+              "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/pool") !== -1
-                ? "btn-primary"
+                ? "btn-primary text-3xl"
                 : "bg-blue_grey")
             }
           >
@@ -33,28 +33,28 @@ const Navbar: React.FC<NavbarProps> = () => {
           </div>
         </Link>
 
-        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
-          FARM
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
+          GAMING
         </div>
-        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
           VOTE
         </div>
         <Link href="/iso">
           <div
             className={
-              "text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
+              "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
               (router.pathname.indexOf("/iso") !== -1
-                ? "btn-primary"
+                ? "btn-primary text-3xl"
                 : "bg-blue_grey")
             }
           >
             ISO
           </div>
         </Link>
-        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
           NFT
         </div>
-        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold">
+        <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
           FAVORITE
         </div>
       </div>

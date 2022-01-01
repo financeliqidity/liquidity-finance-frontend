@@ -21,6 +21,7 @@ module.exports = {
         golden: "#C18306",
         yellow_: "#FFD95C",
         danger: "#F84239",
+        icons_color: "#B7BECB",
       },
       width: {
         "12/25": "48%",
@@ -35,7 +36,9 @@ module.exports = {
       },
       minWidth: {
         "140-px": "140px",
+        51.5: "12.875rem",
         48: "12rem",
+        24: "6rem",
       },
     },
   },

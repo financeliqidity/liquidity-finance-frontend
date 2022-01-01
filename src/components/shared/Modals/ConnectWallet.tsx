@@ -40,14 +40,20 @@ export default function ConnectWallet() {
 
   const handleCheck = () => setWalletTerms(!walletTerms);
 
-  const connectWallet = () => {
+  const connectWallet = async () => {
     //@ts-ignore
     if (typeof window.ethereum !== "undefined") {
       //@ts-ignore
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      //@ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      console.log(provider);
+      console.log("provider", provider);
+
+      //@ts-ignore
+      console.log("window.ethereum", window.ethereum);
     }
   };
+
   return (
     <>
       <button
@@ -126,6 +132,7 @@ export default function ConnectWallet() {
                       className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
                         walletTerms ? "bg-grey_20" : "bg-grey_30"
                       }`}
+                      onClick={connectWallet}
                     >
                       <Image
                         src={bsc_wallet}
