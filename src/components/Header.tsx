@@ -33,10 +33,10 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
         <div className="flex">
           <div className="flex items-center">
-            <div className="relative">
+            <div className="relative hidden md:block">
               <Language />
             </div>
-            <span className="p-3 flex items-center bg-grey_50 rounded-lg mx-4">
+            <span className="p-3 hidden md:flex items-center bg-grey_50 rounded-lg mx-4">
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
