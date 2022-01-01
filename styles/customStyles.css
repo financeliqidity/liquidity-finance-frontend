@@ -24,6 +24,10 @@
   stroke: #2669f5;
 }
 
+.font-poppins {
+  font-family: "Poppins";
+}
+
 .pool-item {
   background: #0e1c37;
 }

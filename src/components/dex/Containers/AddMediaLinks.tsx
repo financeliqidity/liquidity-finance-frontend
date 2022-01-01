@@ -1,5 +1,30 @@
 import React from "react";
 
+const Close = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M7 7L17 17"
+      stroke="#B7BECB"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M7 17L17 7"
+      stroke="#B7BECB"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 function AddMedia({ showModal, setShowModal, setTab }) {
   return (
     <>
@@ -8,9 +33,19 @@ function AddMedia({ showModal, setShowModal, setTab }) {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-xl md:w-7/12 rounded-3xl">
               <div className="w-full bg-blue_grey px-4 py-5 md:px-8 md:py-12 border-2 border-solid border-grey_50 rounded-lg text-gray">
-                <p className="text-center text-primary text-xl font-bold">
-                  Add Platform links
-                </p>
+                <div className="flex justify-between items-center">
+                  <span className="bg-transparent"></span>
+                  <p className="text-center text-primary text-xl font-bold">
+                    Add Platform links
+                  </p>
+                  <button
+                    className="p-1 bg-transparent border-0 float-right outline-none focus:outline-none cursor-pointer"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <Close />
+                  </button>
+                </div>
+
                 <div className="my-8">
                   <p className="text-white text-lg font-semibold mb-3">
                     Website

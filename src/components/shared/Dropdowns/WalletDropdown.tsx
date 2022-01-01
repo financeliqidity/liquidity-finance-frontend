@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
+import WalletDetails from "../Modals/WalletDetails";
 
 const CaretDown = () => (
   <svg
@@ -25,11 +26,20 @@ const WalletDropdown = () => {
   const popoverDropdownRef = useRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-start",
+      placement: "auto",
+      modifiers: [
+        { name: "offset", options: { offset: [0, 8] } },
+        { name: "preventOverflow", options: { mainAxis: false } },
+      ],
     });
     setDropdownPopoverShow(true);
   };
   const closeDropdownPopover = () => setDropdownPopoverShow(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  console.log(showModal);
+
   return (
     <>
       <button
@@ -46,45 +56,46 @@ const WalletDropdown = () => {
         </span>
         <CaretDown />
       </button>
-      <div
-        ref={popoverDropdownRef}
-        className={
-          (dropdownPopoverShow ? "block " : "hidden ") +
-          "bg-grey_50 text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48 text-white"
-        }
-      >
-        <button
-          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
-          id="open-btn"
-          type="button"
+      <>
+        <div
+          ref={popoverDropdownRef}
+          className={
+            (dropdownPopoverShow ? "block " : "hidden ") +
+            "bg-grey_50 text-base z-30 float-left py-2 list-none text-left rounded shadow-lg min-w-51.5 text-white w-full relative"
+          }
         >
-          Wallet
-        </button>
+          <button
+            className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
+            type="button"
+          >
+            <WalletDetails show={showModal} setShowModal={setShowModal} />
+          </button>
 
-        <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
-        {/* <WalletDetails /> */}
-        <Link href="/admin/settings">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Transactions
-          </a>
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
-        <Link href="/admin/tables">
-          <a
-            href="#pablo"
-            className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }
-          >
-            Disconnect
-          </a>
-        </Link>
-      </div>
+          <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
+
+          <Link href="/#">
+            <a
+              href="#pablo"
+              className={
+                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+              }
+            >
+              Transactions
+            </a>
+          </Link>
+          <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
+          <Link href="/admin/tables">
+            <a
+              href="#pablo"
+              className={
+                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+              }
+            >
+              Disconnect
+            </a>
+          </Link>
+        </div>
+      </>
     </>
   );
 };

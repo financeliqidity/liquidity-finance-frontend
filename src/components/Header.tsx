@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Card from "../customs/Card";
 import lfiLogo from "../../public/assets/images/LFILogo1.png";
 import ethlogo from "../../public/assets/images/eth.png";
-import menu from "../../public/assets/icons/menu.svg";
-import global from "../../public/assets/icons/global.svg";
+
 import ConnectWallet from "./shared/Modals/ConnectWallet";
 import WalletDropdown from "./shared/Dropdowns/WalletDropdown";
 import WalletDetails from "./shared/Modals/WalletDetails";
+import Language from "./shared/Dropdowns/Language";
+import MoreDrop from "./shared/Dropdowns/MoreDrop";
+
+import { ethers } from "ethers";
 
 interface HeaderProps {
   checkWallet?: () => boolean;
@@ -30,18 +33,23 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
         <div className="flex">
           <div className="flex items-center">
-            <Image src={global} alt="..." width={32} height={32} />
-            <span className="p-3 flex items-center bg-grey_50 rounded-lg mx-4">
+            <div className="relative hidden md:block">
+              <Language />
+            </div>
+            <span className="p-3 hidden md:flex items-center bg-grey_50 rounded-lg mx-4">
               <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
               <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
             </span>
-            {/* <WalletDropdown /> */}
-            <ConnectWallet />
-            <span className="md:p-4 p-2.5 hidden md:flex items-center bg-grey_50 rounded-lg ml-4">
-              <Image src={menu} alt="..." width={24} height={24} />
-            </span>
+
+            {/* <ConnectWallet /> */}
+            <div className="relative">
+              <WalletDropdown />
+              {/* <WalletDetails /> */}
+            </div>
+            <div className="relative ml-4">
+              <MoreDrop />
+            </div>
           </div>
-          <div></div>
         </div>
       </Card>
     </>

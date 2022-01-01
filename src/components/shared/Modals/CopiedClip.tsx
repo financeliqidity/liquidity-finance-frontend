@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import CopiedClip from "../../../shared/Modals/CopiedClip";
+
+import meta_mask from "../../../../public/assets/icons/meta-mask.svg";
+import bsc_wallet from "../../../../public/assets/icons/bsc-wallet.svg";
+import walletconect from "../../../../public/assets/icons/walletconnect.svg";
+import portis from "../../../../public/assets/icons/portis.svg";
+import more from "../../../../public/assets/icons/more.svg";
 
 const Close = () => (
   <svg
@@ -26,6 +31,7 @@ const Close = () => (
     />
   </svg>
 );
+
 const Clip = () => (
   <svg
     width="18"
@@ -51,24 +57,49 @@ const Clip = () => (
     />
   </svg>
 );
+const Tick = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M21 6L8.625 18.375L3 12.75"
+      stroke="#45C581"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
-export default function Barcode({ showModal, setShowModal, content }) {
+export default function CopiedClip({}) {
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
-
   return (
     <>
-      {content}
+      <button
+        className="p-5 bg-grey_20 rounded-xl"
+        type="button"
+        onClick={() => {
+          setShowModal(true);
+        }}
+      >
+        <Clip />
+      </button>
 
       {showModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
-            <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-3/12 rounded-3xl">
+            <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12">
               {/*content*/}
-              <div className="shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none rounded-3xl">
+              <div className="border-0 rounded-3xl shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-center justify-between py-6 px-6">
-                  <h3 className="text-lg font-semibold text-white leading-5 flex items-center">
-                    Scan QR Code
+                <div className="flex items-center justify-between py-6 px-6 rounded-t">
+                  <h3 className="text-lg font-semibold text-white leading-5">
+                    Copied
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 float-right outline-none focus:outline-none cursor-pointer"
@@ -78,29 +109,22 @@ export default function Barcode({ showModal, setShowModal, content }) {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative px-6 pt-4 pb-6 flex-auto">
-                  <div className="flex justify-center items-center flex-col">
-                    <img
-                      src="/assets/images/qr.jpg"
-                      alt="..."
-                      className="mb-10"
-                    />
-
-                    <div>
-                      <div className="flex justify-center">
-                        <span className="cursor-pointer">
-                          <CopiedClip />
-                        </span>
-                      </div>
-                      <p className="mt-3 text-sm font-bold text-center">
-                        Copy Link
-                      </p>
-                    </div>
+                <div className="relative px-6 pt-5 pb-8 flex-auto">
+                  <div className="mb-6 flex items-center justify-between">
+                    <p className="flex items-center">
+                      <span className="mr-2.5 text-sm">
+                        Address copied to clipboard
+                      </span>
+                    </p>
+                    <span>
+                      <Tick />
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>

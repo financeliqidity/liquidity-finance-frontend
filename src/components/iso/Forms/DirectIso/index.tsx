@@ -15,17 +15,23 @@ const ArrowLeft = () => (
   </svg>
 );
 
-export default function DirectIso() {
+export default function DirectIso({ setActiveTab }) {
+  const handleApply = (event) => {
+    event.preventDefault();
+    setActiveTab(4);
+  };
+
   return (
     <div className="w-full py-12 px-12 rounded-xl bg-grey_70 mt-6">
       <button
         className="flex px-6 py-2.5 items-center bg-blue_grey rounded-3xl"
         style={{ boxShadow: "0px 6px 12px rgba(9, 22, 46, 0.35)" }}
+        onClick={() => setActiveTab(1)}
       >
         <ArrowLeft />
         <span className="ml-3 font-bold grey-10">Back</span>
       </button>
-      <form className="mt-7">
+      <form className="mt-7" onSubmit={handleApply}>
         <h1 className="text-primary font-bold mb-6 text-4xl text-center">
           Direct ISO Form
         </h1>

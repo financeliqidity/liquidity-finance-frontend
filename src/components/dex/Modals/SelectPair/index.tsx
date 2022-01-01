@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import ManageTokens from "../../../shared/Modals/ManageTokens";
 
 const Close = () => (
   <svg
@@ -99,7 +100,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12 border border-solid border-grey_20 rounded-3xl">
               {/*content*/}
-              <div className="shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none rounded-3xl">
+              <div className="shadow-lg relative flex flex-col w-full bg-blue_grey outline-none focus:outline-none rounded-3xl">
                 {/*header*/}
                 <div className="flex items-center justify-between py-6 px-6">
                   <h3 className="text-lg font-semibold text-white leading-5 flex items-center">
@@ -221,7 +222,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                     </div>
                   </div>
                   <ul>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer">
+                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
                       <div className="flex items-center">
                         <img
                           src="/assets/images/BTC_logo.png"
@@ -232,7 +233,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                       </div>
                       <span className="font-bold text-base grey-10">0</span>
                     </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer">
+                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
                       <div className="flex items-center">
                         <img
                           src="/assets/images/BTC_logo.png"
@@ -243,7 +244,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                       </div>
                       <span className="font-bold text-base grey-10">0</span>
                     </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer">
+                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 btn-primary rounded-lg">
                       <div className="flex items-center">
                         <img
                           src="/assets/images/BTC_logo.png"
@@ -254,7 +255,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                       </div>
                       <span className="font-bold text-base grey-10">0</span>
                     </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer">
+                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
                       <div className="flex items-center">
                         <img
                           src="/assets/images/BTC_logo.png"
@@ -265,7 +266,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                       </div>
                       <span className="font-bold text-base grey-10">0</span>
                     </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer">
+                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
                       <div className="flex items-center">
                         <img
                           src="/assets/images/BTC_logo.png"
@@ -280,10 +281,7 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                 </div>
                 {/*footer*/}
                 <div className="flex p-6 justify-center bg-dark_grey items-center rounded-b-3xl">
-                  <Edit className="cursor-pointer" />
-                  <p className="ml-2 text-primary font-normal text-base text-center cursor-pointer">
-                    Manage Token Lists
-                  </p>
+                  <ManageTokens setParentModal={setShowModal} />
                 </div>
               </div>
             </div>
