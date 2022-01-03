@@ -28,7 +28,12 @@ const Close = () => (
   </svg>
 );
 
-export default function LockLiquidity({ showModal, setShowModal }) {
+export default function LockLiquidity({
+  showModal,
+  setShowModal,
+  showSuccessModal,
+  setShowSuccessModal,
+}) {
   return (
     <>
       {showModal ? (
@@ -105,10 +110,9 @@ export default function LockLiquidity({ showModal, setShowModal }) {
                 <button
                   type="submit"
                   className="w-full btn-primary text-2xl font-bold py-2 rounded-lg text-white"
-                  //   onClick={() => {
-                  //     setTab("add");
-                  //     setShowModal(false);
-                  //   }}
+                  onClick={() => {
+                    setShowSuccessModal(true);
+                  }}
                 >
                   Continue
                 </button>
