@@ -135,30 +135,44 @@ export default function Iso() {
               </div>
             </div>
             <div className="w-full flex items-center p-3 rounded-xl bg-blue_grey">
-              <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center mr-8">
-                <Circle fill="#2669F5" />
-                <span className="ml-1 text-lg font-semibold text-primary">
-                  Active
-                </span>
-              </button>
-              <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
-                <Circle fill="#FFD95C" />
-                <span className="ml-1 text-lg font-semibold text-yellow_">
-                  Upcoming
-                </span>
-              </button>
-              <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
-                <Circle fill="#45C581" />
-                <span className="ml-1 text-lg font-semibold text-secondary">
-                  Completed
-                </span>
-              </button>
-              <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center mr-8">
-                <Circle fill="#F84239" />
-                <span className="ml-1 text-lg font-semibold text-danger">
-                  Failed
-                </span>
-              </button>
+              <div
+                className="grid-cols-2 grid-rows-2
+                space-y-2 md:flex 
+                lg:space-y-0 grid lg:gap-8 lg:grid-rows-1 w-full"
+              >
+                <div className="md:mr-8">
+                  <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
+                    <Circle fill="#2669F5" />
+                    <span className="ml-1 text-lg font-semibold text-primary">
+                      Active
+                    </span>
+                  </button>
+                </div>
+                <div className="md:mr-8">
+                  <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center">
+                    <Circle fill="#FFD95C" />
+                    <span className="ml-1 text-lg font-semibold text-yellow_">
+                      Upcoming
+                    </span>
+                  </button>
+                </div>
+                <div className="md:mr-8">
+                  <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center">
+                    <Circle fill="#45C581" />
+                    <span className="ml-1 text-lg font-semibold text-secondary">
+                      Completed
+                    </span>
+                  </button>
+                </div>
+                <div className="md:mr-8">
+                  <button className="py-2.5 px-4 bg-transparent rounded-lg flex items-center">
+                    <Circle fill="#F84239" />
+                    <span className="ml-1 text-lg font-semibold text-danger">
+                      Failed
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="mt-6">
               <div className="flex flex-wrap -mx-4 overflow-hidden sm:-mx-5 md:-mx-4 lg:-mx-5 xl:-mx-5">

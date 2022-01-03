@@ -233,19 +233,25 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
               </div>
             </div>
           </div>
-          <div className="flex justify-between mt-8">
-            <div className="flex text-tertiary items-center">
-              <input
-                type="checkbox"
-                className="form-checkbox h-4 w-4 self-center rounded-md bg-transparent mr-1 "
-              />
-              <span className="text-sm text-white">
-                Lock Liquidity,
-                <Link href="/#learn_more">
-                  <a className="isLink ml-1">Learn more</a>
-                </Link>
-              </span>
-            </div>
+          <div
+            className={`flex ${
+              asDeveloper ? "justify-between" : "justify-end"
+            } mt-8`}
+          >
+            {asDeveloper && (
+              <div className="flex text-tertiary items-center">
+                <input
+                  type="checkbox"
+                  className="form-checkbox h-4 w-4 self-center rounded-md bg-transparent mr-1 "
+                />
+                <span className="text-sm text-white">
+                  Lock Liquidity,
+                  <Link href="/#learn_more">
+                    <a className="isLink ml-1">Learn more</a>
+                  </Link>
+                </span>
+              </div>
+            )}
             <div className="flex justify-center items-center h-5">
               <span className="text-tertiary text-sm">Add as a developer</span>
               <div className="relative inline-block w-10 ml-2 align-middle select-none transition duration-200 ease-in">
@@ -299,6 +305,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             liquidity
           </p>
         </div>
+        <SocialLinks />
       </div>
     </>
   );
