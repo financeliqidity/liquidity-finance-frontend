@@ -7,7 +7,13 @@ import SelectPair from "../../Modals/SelectPair";
 import LockLiquidity from "../../Modals/LockLiquidity";
 
 function AddRemoveLiq({ setActiveLeft }) {
-  const AddLiquidity = ({ handleAddLiquidity, showModal, setShowModal }) => {
+  const AddLiquidity = ({
+    handleAddLiquidity,
+    showModal,
+    setShowModal,
+    showSuccessModal,
+    setShowSuccessModal,
+  }) => {
     const [showPair, setShowPair] = useState(false);
     const [openMore, setOpenMore] = useState(false);
 
@@ -19,6 +25,8 @@ function AddRemoveLiq({ setActiveLeft }) {
           <LockLiquidity
             showModal={showLockModal}
             setShowModal={setShowLockModal}
+            showSuccessModal={showSuccessModal}
+            setShowSuccessModal={setShowSuccessModal}
           />
         )}
         <>
@@ -259,6 +267,8 @@ function AddRemoveLiq({ setActiveLeft }) {
               handleAddLiquidity={handleAddLiquidity}
               showModal={showPairModal}
               setShowModal={setShowPairModal}
+              showSuccessModal={showSuccessModal}
+              setShowSuccessModal={setShowSuccessModal}
             />
           ) : (
             <RemoveLiquid handleRemoveLiquidity={handleRemoveLiquidity} />
