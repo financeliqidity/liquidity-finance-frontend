@@ -105,17 +105,6 @@ const Cog = () => (
 export default function ManageTokens({ setParentModal }) {
   const [showModal, setShowModal] = useState(false);
 
-  // const connectWallet = async () => {
-  //   if (typeof window.ethereum !== "undefined") {
-  //     await window.ethereum.request({ method: "eth_requestAccounts" });
-
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     console.log("provider", provider);
-
-  //     console.log("window.ethereum", window.ethereum);
-  //   }
-  // };
-
   const handleOpen = () => {
     // setParentModal(false);
     setShowModal(true);
