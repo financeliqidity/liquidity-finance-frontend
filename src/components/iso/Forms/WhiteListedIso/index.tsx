@@ -21,7 +21,7 @@ export default function WhitelistedIso({ setActiveTab }) {
     setActiveTab(2);
   };
   return (
-    <div className="w-full py-12 px-12 rounded-xl bg-grey_70 mt-6">
+    <div className="w-full py-12 px-6 sm:px-8 md:px-12 rounded-xl bg-grey_70 mt-6">
       <button
         className="flex px-6 py-2.5 items-center bg-blue_grey rounded-3xl"
         style={{ boxShadow: "0px 6px 12px rgba(9, 22, 46, 0.35)" }}
@@ -40,7 +40,7 @@ export default function WhitelistedIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Whitelisted Address Here"
           />
         </div>
@@ -53,7 +53,7 @@ export default function WhitelistedIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Contract Address Here"
           />
         </div>
@@ -63,7 +63,7 @@ export default function WhitelistedIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Website URL"
           />
         </div>
@@ -73,7 +73,7 @@ export default function WhitelistedIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Total Token Supply"
           />
         </div>
@@ -83,12 +83,12 @@ export default function WhitelistedIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Total Token Supply"
           />
         </div>
         <div className="flex flex-col justify-between md:flex-row mb-6">
-          <div className="relative w-full md:w-12/25">
+          <div className="relative w-full md:w-12/25 md:mb-0 mb-6">
             <label
               htmlFor="softcap"
               className="text-lg font-semibold mb-5 block"
@@ -97,7 +97,7 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Softcap"
             />
           </div>
@@ -110,13 +110,13 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Softcap"
             />
           </div>
         </div>
         <div className="flex flex-col justify-between md:flex-row mb-6">
-          <div className="relative w-full md:w-12/25">
+          <div className="relative w-full md:w-12/25 md:mb-0 mb-6">
             <label
               htmlFor="min-all"
               className="text-lg font-semibold mb-5 block"
@@ -125,7 +125,7 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Minimum Allocation"
             />
           </div>
@@ -138,13 +138,13 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Maximum Allocation"
             />
           </div>
         </div>
         <div className="flex flex-col justify-between md:flex-row">
-          <div className="relative w-full md:w-12/25">
+          <div className="relative w-full md:w-12/25 md:mb-0 mb-6">
             <label
               htmlFor="twitter"
               className="text-lg font-semibold mb-5 block"
@@ -153,7 +153,7 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Twitter Account URL"
             />
           </div>
@@ -166,7 +166,7 @@ export default function WhitelistedIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Telegram Account URL"
             />
           </div>
