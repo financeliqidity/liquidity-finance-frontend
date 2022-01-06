@@ -17,7 +17,7 @@ const ArrowLeft = () => (
 
 export default function ApplyIso({ setActiveTab }) {
   return (
-    <div className="w-full py-12 px-12 rounded-xl bg-grey_70 mt-6">
+    <div className="w-full py-12 md:px-12 rounded-xl bg-grey_70 mt-6">
       <button
         className="flex px-6 py-2.5 items-center bg-blue_grey rounded-3xl"
         style={{ boxShadow: "0px 6px 12px rgba(9, 22, 46, 0.35)" }}
@@ -27,9 +27,9 @@ export default function ApplyIso({ setActiveTab }) {
         <span className="ml-3 font-bold grey-10">Back</span>
       </button>
       <div className="mt-6">
-        <div className="rounded-xl bg-blue_grey flex justify-between p-8">
-          <div className="">
-            <button className="py-6 bg-grey_70 font-bold text-2xl rounded-xl px-12">
+        <div className="rounded-xl flex-col bg-blue_grey flex justify-between p-6 md:p-8 md:flex-row">
+          <div className="md:mb-0 mb-5">
+            <button className="py-6 bg-grey_70 font-bold text-2xl rounded-xl px-12 md:w-auto w-full">
               Governance ISO
             </button>
             <p className="mt-6 font-bold grey-10 mb-1 text-center">
@@ -41,7 +41,7 @@ export default function ApplyIso({ setActiveTab }) {
           </div>
           <div className="">
             <button
-              className="py-6 hover:bg-primary hover:border-2 hover:border-primary font-bold text-2xl rounded-xl px-12 border-2 border-grey_50"
+              className="py-6 hover:bg-primary hover:border-2 hover:border-primary font-bold text-2xl rounded-xl px-12 border-2 border-grey_50 md:w-auto w-full"
               onClick={() => setActiveTab(3)}
             >
               Whitelisted ISO
@@ -54,9 +54,9 @@ export default function ApplyIso({ setActiveTab }) {
             </button>
           </div>
         </div>
-        <div className="mt-6 rounded-xl bg-blue_grey flex justify-between p-8">
-          <div className="">
-            <button className="py-6 bg-grey_70 font-bold text-2xl rounded-xl px-12">
+        <div className="mt-6 flex-col rounded-xl bg-blue_grey flex justify-between p-6 md:p-8 md:flex-row">
+          <div className="md:mb-0 mb-5">
+            <button className="py-6 bg-grey_70 font-bold text-2xl rounded-xl px-12 md:w-auto w-full">
               Non Governance ISO
             </button>
             <p className="mt-6 font-bold grey-10 mb-1 text-center">
@@ -68,7 +68,7 @@ export default function ApplyIso({ setActiveTab }) {
           </div>
           <div className="">
             <button
-              className="py-6 hover:bg-primary hover:border-2 hover:border-primary font-bold text-2xl rounded-xl px-12 border-2 border-grey_50"
+              className="py-6 hover:bg-primary hover:border-2 hover:border-primary font-bold text-2xl rounded-xl px-12 border-2 border-grey_50 md:w-auto w-full"
               onClick={() => setActiveTab(3)}
             >
               Whitelisted ISO

@@ -102,7 +102,7 @@ export default function Iso() {
     <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
       <Slider />
 
-      <div className="w-full sm:py-8 sm:px-8 rounded-xl bg-grey_70 mt-6">
+      <div className="w-full px-4 py-4 sm:py-8 sm:px-8 rounded-xl bg-grey_70 mt-6">
         {showModal && (
           <RiskDisclaimerIso
             showModal={showModal}
@@ -113,14 +113,14 @@ export default function Iso() {
 
         {activeTab === 0 && (
           <>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col justify-between md:items-center mb-6 md:flex-row">
               <button
-                className="btn-primary uppercase font-bold text-2xl py-4 rounded-lg w-7/25"
+                className="btn-primary uppercase font-bold text-2xl py-4 rounded-lg sm:w-7/25 mb-4 sm:mb-0 min-w-max"
                 onClick={() => setShowModal(true)}
               >
                 APPLY FOR ISO
               </button>
-              <div className="relative w-7/10">
+              <div className="relative w-full md:w-7/10 ">
                 <input
                   type="search"
                   className="bg-grey_50 rounded-lg py-5 w-full transition pl-14 px-4"
@@ -137,7 +137,7 @@ export default function Iso() {
             <div className="w-full flex items-center p-3 rounded-xl bg-blue_grey">
               <div
                 className="grid-cols-2 grid-rows-2
-                space-y-2 md:flex 
+                space-y-2 md:grid-cols-2 md:grid-rows-2
                 lg:space-y-0 grid lg:gap-8 lg:grid-rows-1 w-full"
               >
                 <div className="md:mr-8">
