@@ -102,7 +102,7 @@ export default function Iso() {
     <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
       <Slider />
 
-      <div className="w-full py-8 px-8 rounded-xl bg-grey_70 mt-6">
+      <div className="w-full sm:py-8 sm:px-8 rounded-xl bg-grey_70 mt-6">
         {showModal && (
           <RiskDisclaimerIso
             showModal={showModal}

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function SocialLinks() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-8 bg-grey_70 w-full rounded-lg p-6 flex flex-col items-center justify-center">
+    <div className="mt-8 bg-grey_70 w-full rounded-lg p-4 sm:p-6 flex flex-col items-center justify-center">
       <div
         className="bg-grey_50 w-full flex justify-between p-2 cursor-pointer rounded-t-lg"
         onClick={() => setOpen(!open)}

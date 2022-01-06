@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 
 const Close = () => (
   <svg
@@ -145,9 +144,25 @@ const CaretDown = () => (
     />
   </svg>
 );
+const CaretUp = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.334 10.0003L8.00065 4.66699L2.66732 10.0003L4.00065 11.3337L8.00065 7.33366L12.0007 11.3337L13.334 10.0003Z"
+      fill="white"
+    />
+  </svg>
+);
 
 export default function SelectPool({ showModal, setShowModal, content }) {
-  const [loading, setLoading] = useState(true);
+  const [showMore, setShowMore] = useState(false);
   return (
     <>
       {content}
@@ -212,11 +227,35 @@ export default function SelectPool({ showModal, setShowModal, content }) {
                         <Adjust />
                         <span className="text-sm ml-2 grey-10">Single</span>
                       </div>
-                      <div className="flex items-center cursor-pointer">
-                        <span className="text-sm mr-2 grey-10">More</span>
-                        <CaretDown />
-                      </div>
+                      {showMore ? (
+                        <button
+                          className="flex items-center cursor-pointer"
+                          onClick={() => setShowMore(!showMore)}
+                        >
+                          <span className="text-sm mr-2 grey-10">Less</span>
+                          <CaretUp />
+                        </button>
+                      ) : (
+                        <button
+                          className="flex items-center cursor-pointer"
+                          onClick={() => setShowMore(!showMore)}
+                        >
+                          <span className="text-sm mr-2 grey-10">More</span>
+                          <CaretDown />
+                        </button>
+                      )}
                     </div>
+                    {showMore && (
+                      <div className="text-sm grey-10 pt-5">
+                        <p className="mb-2">Single token market making</p>
+                        <p className="mb-2">Fee Rate = 0%</p>
+                        <p className="mb-2">Slippage Coefficient = 0.6</p>
+                        <p className="flex items-center justify-between">
+                          <span>Created by 0x6BDA...EF21 </span>
+                          <span>10/04/2021</span>
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <p className="mt-5 text-sm grey-10">
                     If this pool is not suitable, you can

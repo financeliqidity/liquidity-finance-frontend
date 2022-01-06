@@ -70,9 +70,9 @@ export default function RiskDisclaimerIso({
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-2xl md:w-9/12 rounded-xl">
               {/*content*/}
-              <div className="shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none rounded-xl px-12 pb-2">
+              <div className="shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none rounded-xl px-6 sm:px-12 pb-2">
                 {/*header*/}
-                <div className="flex items-center justify-between pt-12 pb-8">
+                <div className="flex items-center justify-between pt-8 sm:pt-12 pb-6 sm:pb-8">
                   <h3 className="text-xl font-bold text-white leading-5 flex items-center">
                     Risk Disclaimer
                   </h3>
@@ -124,8 +124,8 @@ export default function RiskDisclaimerIso({
                   </div>
                 </div>
                 {/* Footer */}
-                <div className="py-10">
-                  <div className="flex items-center">
+                <div className="py-6 md:py-10">
+                  <div className="flex items-center sm:justify-start justify-between">
                     <button
                       className="bg-grey_20 text-white text-xl font-bold px-9 py-4 rounded-lg border border-grey_20"
                       onClick={() => setShowModal(false)}
