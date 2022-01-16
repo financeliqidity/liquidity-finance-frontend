@@ -1,6 +1,6 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Tab } from "@headlessui/react";
+import { ethers } from "ethers";
 
 const Close = () => (
   <svg
@@ -40,6 +40,7 @@ const BackArrow = () => (
     />
   </svg>
 );
+
 const Edit = ({ className }) => (
   <svg
     width="24"
@@ -273,60 +274,39 @@ export default function ManageTokens({ setParentModal }) {
                 </div>
                 <div>
                   {/*body*/}
-
-                  <Tab.Group>
-                    <div className="p-6 border-t border-grey_50">
-                      <div className="rounded-2xl p-2 bg-grey_50 flex justify-between items-centered">
-                        <Tab.List className="flex justify-between w-full">
-                          <div className="font-bold grey-10 rounded-2xl  py-2">
-                            <Tab as={Fragment}>
-                              {({ selected }) => (
-                                <button
-                                  className={
-                                    "w-12/25 " + selected
-                                      ? "bg-grey_70"
-                                      : "bg-transparent"
-                                  }
-                                >
-                                  {console.log(selected)}
-                                  Lists
-                                </button>
-                              )}
-                            </Tab>
-                          </div>
-                          <Tab>
-                            <button
-                              className={`w-12/25 py-2 ${
-                                active === 1 ? "bg-grey_70" : "bg-transparent"
-                              } font-bold grey-10 rounded-2xl`}
-                              onClick={() => setActive(1)}
-                            >
-                              Tokens
-                            </button>
-                          </Tab>
-                        </Tab.List>
-                      </div>
-                      <div className="mt-8">
-                        <input
-                          type="text"
-                          className="px-4 py-2 rounded-2xl border border-grey_20 w-full bg-transparent text-grey_20"
-                          placeholder={`${
-                            active === 0
-                              ? "https:// or ipfs:// or ENS name"
-                              : "0x0000"
-                          }`}
-                        />
-                      </div>
+                  <div className="p-6 border-t border-grey_50">
+                    <div className="rounded-2xl p-2 bg-grey_50 flex justify-between items-centered">
+                      <button
+                        className={`w-12/25 py-2 ${
+                          active === 0 ? "bg-grey_70" : "bg-transparent"
+                        } font-bold grey-10 rounded-2xl`}
+                        onClick={() => setActive(0)}
+                      >
+                        Lists
+                      </button>
+                      <button
+                        className={`w-12/25 py-2 ${
+                          active === 1 ? "bg-grey_70" : "bg-transparent"
+                        } font-bold grey-10 rounded-2xl`}
+                        onClick={() => setActive(1)}
+                      >
+                        Tokens
+                      </button>
                     </div>
-                    <Tab.Panels>
-                      <Tab.Panel>
-                        <List />
-                      </Tab.Panel>
-                      <Tab.Panel>
-                        <Token />
-                      </Tab.Panel>
-                    </Tab.Panels>
-                  </Tab.Group>
+                    <div className="mt-8">
+                      <input
+                        type="text"
+                        className="px-4 py-2 rounded-2xl border border-grey_20 w-full bg-transparent text-grey_20"
+                        placeholder={`${
+                          active === 0
+                            ? "https:// or ipfs:// or ENS name"
+                            : "0x0000"
+                        }`}
+                      />
+                    </div>
+                  </div>
+                  <>{active === 0 && <List />}</>
+                  <>{active === 1 && <Token />}</>
                 </div>
               </div>
             </div>
