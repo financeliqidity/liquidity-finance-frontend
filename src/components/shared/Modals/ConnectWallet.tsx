@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
-import { ethers } from "ethers";
 
 import meta_mask from "../../../../public/assets/icons/meta-mask.svg";
 import bsc_wallet from "../../../../public/assets/icons/bsc-wallet.svg";
 import walletconect from "../../../../public/assets/icons/walletconnect.svg";
 import portis from "../../../../public/assets/icons/portis.svg";
 import more from "../../../../public/assets/icons/more.svg";
+import { WalletContext } from "../../../context";
 
 const Close = () => (
   <svg
@@ -38,21 +38,9 @@ export default function ConnectWallet() {
   const [loading, setLoading] = useState(true);
   const [walletTerms, setWalletTerms] = useState(false);
 
-  const handleCheck = () => setWalletTerms(!walletTerms);
+  const { connectWallet } = useContext(WalletContext);
 
-  // const connectWallet = async () => {
-  //   //@ts-ignore
-  //   if (typeof window.ethereum !== "undefined") {
-  //     //@ts-ignore
-  //     await window.ethereum.request({ method: "eth_requestAccounts" });
-  //     //@ts-ignore
-  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //     console.log("provider", provider);
-
-  //     //@ts-ignore
-  //     console.log("window.ethereum", window.ethereum);
-  //   }
-  // };
+  const handleCheck = (event) => setWalletTerms(event.target.checked);
 
   return (
     <>
@@ -108,7 +96,7 @@ export default function ConnectWallet() {
                       className={`cursor-pointer p-4 flex items-center rounded-2xl mb-4 w-full ${
                         walletTerms ? "bg-grey_20" : "bg-grey_30"
                       }`}
-                      // onClick={connectWallet}
+                      onClick={connectWallet}
                     >
                       <Image
                         src={meta_mask}

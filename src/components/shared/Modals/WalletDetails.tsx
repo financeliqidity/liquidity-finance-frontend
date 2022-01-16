@@ -174,8 +174,11 @@ const Cancel = () => (
   </svg>
 );
 
-export default function WalletDetails({ show, setShowModal }) {
+export default function WalletDetails({ show, setShowModal, wallet }) {
   const [isBrowser, setIsBrowser] = useState(false);
+
+  const trimAddress = (str) =>
+    (str.slice(0, 6) + "..." + str.slice(-4)).toLocaleUpperCase();
 
   useEffect(() => {
     setIsBrowser(true);
@@ -202,7 +205,7 @@ export default function WalletDetails({ show, setShowModal }) {
             {/*body*/}
             <div className="relative px-6 pb-10 flex-auto">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-xl font-bold">0x6BDA...EF21</p>
+                <p className="text-xl font-bold">{trimAddress(wallet)}</p>
                 <div className="flex items-center">
                   <button className="mr-2 p-2.5 rounded-xl bg-grey_30">
                     <Direct />

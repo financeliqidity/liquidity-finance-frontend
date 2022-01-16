@@ -5,8 +5,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper";
+// import Swiper core and required modules
+import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper";
 
+// install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 
 const CaretUp = () => (
@@ -58,17 +60,39 @@ const CaretRight = () => (
 
 export default function Slider() {
   return (
-    <div className="py-6 px-8 bg-grey_70 rounded-xl">
+    <div className="py-6 px-4 md:px-8 bg-grey_70 rounded-xl">
       <h1 className="text-lg font-semibold mb-5">Trending:</h1>
 
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{ delay: 2500 }}
-      >
-        <SwiperSlide>
-          <ul className="flex justify-between items-center">
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+      <>
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          // pagination={{
+          //   clickable: true,
+          // }}
+          // navigation={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          breakpoints={{
+            "640": {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            "768": {
+              slidesPerView: 4,
+              spaceBetween: 40,
+            },
+            "1024": {
+              slidesPerView: 5,
+              spaceBetween: 50,
+            },
+          }}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
@@ -80,77 +104,10 @@ export default function Slider() {
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
-              <img src="/assets/icons/lfi-icon.svg" alt="..." />
-              <div className="ml-2">
-                <p className="text-sm font-bold">LFI</p>
-                <p className="text-sm font-semibold">0.001</p>
-              </div>
-              <div className="flex items-end ml-2">
-                <p className="text-xs text-secondary flex items-center">
-                  <CaretUp />
-                  <span className="ml-1">20.08</span>
-                </p>
-              </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
-              <img src="/assets/icons/lfi-icon.svg" alt="..." />
-              <div className="ml-2">
-                <p className="text-sm font-bold">LFI</p>
-                <p className="text-sm font-semibold">0.001</p>
-              </div>
-              <div className="flex items-end ml-2">
-                <p className="text-xs text-secondary flex items-center">
-                  <CaretUp />
-                  <span className="ml-1">20.08</span>
-                </p>
-              </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
-              <img src="/assets/icons/lfi-icon.svg" alt="..." />
-              <div className="ml-2">
-                <p className="text-sm font-bold">LFI</p>
-                <p className="text-sm font-semibold">0.001</p>
-              </div>
-              <div className="flex items-end ml-2">
-                <p className="text-xs text-secondary flex items-center">
-                  <CaretUp />
-                  <span className="ml-1">20.08</span>
-                </p>
-              </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
-              <img src="/assets/icons/lfi-icon.svg" alt="..." />
-              <div className="ml-2">
-                <p className="text-sm font-bold">LFI</p>
-                <p className="text-sm font-semibold">0.001</p>
-              </div>
-              <div className="flex items-end ml-2">
-                <p className="text-xs text-secondary flex items-center">
-                  <CaretUp />
-                  <span className="ml-1">20.08</span>
-                </p>
-              </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
-              <img src="/assets/icons/lfi-icon.svg" alt="..." />
-              <div className="ml-2">
-                <p className="text-sm font-bold">LFI</p>
-                <p className="text-sm font-semibold">0.001</p>
-              </div>
-              <div className="flex items-end ml-2">
-                <p className="text-xs text-secondary flex items-center">
-                  <CaretUp />
-                  <span className="ml-1">20.08</span>
-                </p>
-              </div>
-            </li>
-          </ul>
-        </SwiperSlide>
-        <SwiperSlide>
-          <ul className="flex justify-between items-center">
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
@@ -162,75 +119,115 @@ export default function Slider() {
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
                 <p className="text-sm font-semibold">0.001</p>
               </div>
-              <div className="flex items-end ml-2">
+              <div className="flex ml-2 items-stretch h-full mb-0">
                 <p className="text-xs text-secondary flex items-center">
                   <CaretUp />
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
                 <p className="text-sm font-semibold">0.001</p>
               </div>
-              <div className="flex items-end ml-2">
+              <div className="flex ml-2 items-stretch h-full mb-0">
                 <p className="text-xs text-secondary flex items-center">
                   <CaretUp />
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
                 <p className="text-sm font-semibold">0.001</p>
               </div>
-              <div className="flex items-end ml-2">
+              <div className="flex ml-2 items-stretch h-full mb-0">
                 <p className="text-xs text-secondary flex items-center">
                   <CaretUp />
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
                 <p className="text-sm font-semibold">0.001</p>
               </div>
-              <div className="flex items-end ml-2">
+              <div className="flex ml-2 items-stretch h-full mb-0">
                 <p className="text-xs text-secondary flex items-center">
                   <CaretUp />
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-            <li className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
               <img src="/assets/icons/lfi-icon.svg" alt="..." />
               <div className="ml-2">
                 <p className="text-sm font-bold">LFI</p>
                 <p className="text-sm font-semibold">0.001</p>
               </div>
-              <div className="flex items-end ml-2">
+              <div className="flex ml-2 items-stretch h-full mb-0">
                 <p className="text-xs text-secondary flex items-center">
                   <CaretUp />
                   <span className="ml-1">20.08</span>
                 </p>
               </div>
-            </li>
-          </ul>
-        </SwiperSlide>
-      </Swiper>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+              <img src="/assets/icons/lfi-icon.svg" alt="..." />
+              <div className="ml-2">
+                <p className="text-sm font-bold">LFI</p>
+                <p className="text-sm font-semibold">0.001</p>
+              </div>
+              <div className="flex ml-2 items-stretch h-full mb-0">
+                <p className="text-xs text-secondary flex items-center">
+                  <CaretUp />
+                  <span className="ml-1">20.08</span>
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="py-3 px-4 bg-grey_50 rounded-lg flex items-center">
+              <img src="/assets/icons/lfi-icon.svg" alt="..." />
+              <div className="ml-2">
+                <p className="text-sm font-bold">LFI</p>
+                <p className="text-sm font-semibold">0.001</p>
+              </div>
+              <div className="flex ml-2 items-stretch h-full mb-0">
+                <p className="text-xs text-secondary flex items-center">
+                  <CaretUp />
+                  <span className="ml-1">20.08</span>
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </>
 
       <div className="mt-4 flex justify-between w-full items-center">
         <button className="border-2 border-grey_50 py-3 px-4 rounded-lg">

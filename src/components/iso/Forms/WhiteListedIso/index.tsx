@@ -111,7 +111,7 @@ export default function WhitelistedIso({ setActiveTab }) {
             <input
               type="text"
               className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
-              placeholder="Enter Softcap"
+              placeholder="Enter Hardcap"
             />
           </div>
         </div>

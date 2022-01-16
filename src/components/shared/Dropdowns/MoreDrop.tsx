@@ -350,7 +350,7 @@ const MoreDrop = () => {
   return (
     <>
       <button
-        className="md:p-4 p-2.5 hidden md:flex items-center bg-grey_50 rounded-lg"
+        className="md:p-4 p-2.5 md:flex items-center bg-grey_50 rounded-lg"
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();

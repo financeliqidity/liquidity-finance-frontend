@@ -22,7 +22,7 @@ export default function DirectIso({ setActiveTab }) {
   };
 
   return (
-    <div className="w-full py-12 px-12 rounded-xl bg-grey_70 mt-6">
+    <div className="w-full py-12 px-6 sm:px-8 md:px-12 rounded-xl bg-grey_70 mt-6">
       <button
         className="flex px-6 py-2.5 items-center bg-blue_grey rounded-3xl"
         style={{ boxShadow: "0px 6px 12px rgba(9, 22, 46, 0.35)" }}
@@ -45,7 +45,7 @@ export default function DirectIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Contract Address Here"
           />
         </div>
@@ -55,7 +55,7 @@ export default function DirectIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Website URL"
           />
         </div>
@@ -65,7 +65,7 @@ export default function DirectIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Total Token Supply"
           />
         </div>
@@ -75,7 +75,7 @@ export default function DirectIso({ setActiveTab }) {
           </label>
           <input
             type="text"
-            className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+            className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
             placeholder="Enter Total Token Supply"
           />
         </div>
@@ -89,7 +89,7 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Softcap"
             />
           </div>
@@ -102,8 +102,8 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
-              placeholder="Enter Softcap"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              placeholder="Enter Hardcap"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Minimum Allocation"
             />
           </div>
@@ -130,7 +130,7 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Maximum Allocation"
             />
           </div>
@@ -145,7 +145,7 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Twitter Account URL"
             />
           </div>
@@ -158,7 +158,7 @@ export default function DirectIso({ setActiveTab }) {
             </label>
             <input
               type="text"
-              className="px-6 py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
+              className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-grey_50 rounded-lg w-full placeholder-grey_20 grey-10"
               placeholder="Enter Telegram Account URL"
             />
           </div>
