@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { createPopper } from "@popperjs/core";
 import WalletDetails from "../Modals/WalletDetails";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 
 const CaretDown = () => (
   <svg
@@ -19,8 +20,26 @@ const CaretDown = () => (
     />
   </svg>
 );
+const CaretDownIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M13.2807 5.96655L8.93404 10.3132C8.4207 10.8266 7.5807 10.8266 7.06737 10.3132L2.7207 5.96655"
+      stroke="#B7BECB"
+      strokeWidth="1.5"
+      strokeMiterlimit="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
-const WalletDropdown = () => {
+const WalletDropdown = ({ wallet }) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const btnDropdownRef = useRef();
   const popoverDropdownRef = useRef();
@@ -38,24 +57,50 @@ const WalletDropdown = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  console.log(showModal);
+  const isSmall = useMediaQuery("(max-width: 768px)");
+
+  const trimAddress = (str) =>
+    (str.slice(0, 6) + "..." + str.slice(-4)).toLocaleUpperCase();
 
   return (
     <>
-      <button
-        className="px-5 py-4 flex items-center justify-between bg-grey_50 rounded-lg"
-        ref={btnDropdownRef}
-        onClick={(e) => {
-          e.preventDefault();
-          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
-        }}
-      >
-        <img src="/assets/icons/wallet.svg" alt="..." />
-        <span className="font-bold uppercase text-white hover:text-primary mx-2">
-          0x6BDA...EF21
-        </span>
-        <CaretDown />
-      </button>
+      {isSmall ? (
+        <button
+          className="p-1 bg-grey_50 flex items-center justify-between rounded-lg ml-3"
+          ref={btnDropdownRef}
+          onClick={(e) => {
+            e.preventDefault();
+            dropdownPopoverShow
+              ? closeDropdownPopover()
+              : openDropdownPopover();
+          }}
+        >
+          <img
+            src="/assets/icons/wallet-mobile.svg"
+            alt="..."
+            className="w-6 h-6 mr-4"
+          />
+          <CaretDownIcon />
+        </button>
+      ) : (
+        <button
+          className="px-5 py-4 flex items-center justify-between bg-grey_50 rounded-lg group"
+          ref={btnDropdownRef}
+          onClick={(e) => {
+            e.preventDefault();
+            dropdownPopoverShow
+              ? closeDropdownPopover()
+              : openDropdownPopover();
+          }}
+        >
+          <img src="/assets/icons/wallet.svg" alt="..." />
+          <span className="font-bold uppercase text-white group-hover:text-primary mx-2">
+            {trimAddress(wallet)}
+          </span>
+          <CaretDown />
+        </button>
+      )}
+
       <>
         <div
           ref={popoverDropdownRef}
@@ -68,7 +113,11 @@ const WalletDropdown = () => {
             className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
             type="button"
           >
-            <WalletDetails show={showModal} setShowModal={setShowModal} />
+            <WalletDetails
+              wallet={wallet}
+              show={showModal}
+              setShowModal={setShowModal}
+            />
           </button>
 
           <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />

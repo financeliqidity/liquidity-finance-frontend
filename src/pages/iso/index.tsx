@@ -100,7 +100,9 @@ export default function Iso() {
 
   return (
     <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
-      <Slider />
+      <div className="px-4">
+        <Slider />
+      </div>
 
       <div className="w-full px-4 py-4 sm:py-8 sm:px-8 rounded-xl bg-grey_70 mt-6">
         {showModal && (
@@ -137,7 +139,7 @@ export default function Iso() {
             <div className="w-full flex items-center p-3 rounded-xl bg-blue_grey">
               <div
                 className="grid-cols-2 grid-rows-2
-                space-y-2 md:grid-cols-2 md:grid-rows-2
+                space-y-2 md:grid-cols-2 md:grid-rows-1 lg:grid-cols-6
                 lg:space-y-0 grid lg:gap-8 lg:grid-rows-1 w-full"
               >
                 <div className="md:mr-8">
@@ -442,19 +444,19 @@ export default function Iso() {
 
         {activeTab === 2 && (
           <>
-            <div className="flex justify-between items-center w-full mb-6">
-              <div className="flex justify-between items-center w-12/25">
-                <button className="bg-grey_50 text-xl font-bold uppercase p-4 rounded-lg">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full mb-6">
+              <div className="flex justify-between items-center w-full md:w-12/25">
+                <button className="bg-grey_50 text-xs sm:text-xl font-bold uppercase p-4 rounded-lg">
                   APPLY FOR ISO
                 </button>
-                <button className="btn-primary text-xl font-bold uppercase p-4 rounded-lg">
+                <button className="btn-primary text-xs sm:text-xl font-bold uppercase p-4 rounded-lg">
                   STAKE LFI
                 </button>
-                <button className="bg-grey_50 text-xl font-bold uppercase p-4 rounded-lg">
+                <button className="bg-grey_50 text-xs sm:text-xl font-bold uppercase p-4 rounded-lg">
                   PARTICIPATE
                 </button>
               </div>
-              <div className="relative w-9/50">
+              <div className="relative w-full md:w-9/50 md:mt-0 mt-4">
                 <input
                   type="search"
                   className="bg-grey_50 rounded-lg py-5 w-full transition pl-14 px-4"
@@ -468,10 +470,10 @@ export default function Iso() {
                 </div>
               </div>
             </div>
-            <div className="bg-grey_50 rounded-xl py-3 px-6 mb-12">
-              <div className="flex justify-between items-center w-full">
-                <div className="bg-blue_grey rounded-xl">
-                  <div className="flex">
+            <div className="bg-grey_50 rounded-xl py-3 px-4 md:px-6 mb-12">
+              <div className="flex flex-col justify-between items-center w-full md:flex-row">
+                <div className="w-full md:w-auto bg-blue_grey rounded-xl md:mb-0 mb-5">
+                  <div className="flex justify-between">
                     <button className="bg-grey_20 text-xl font-bold px-6 py-5 rounded-t-xl rounded-l-xl">
                       Contract:
                     </button>
@@ -483,7 +485,7 @@ export default function Iso() {
                     </button>
                   </div>
                 </div>
-                <div className="md:w-1/4 bg-blue_grey rounded-xl p-3">
+                <div className="w-full md:w-1/4 bg-blue_grey rounded-xl p-3 md:mb-0 mb-5">
                   <div className="flex justify-between items-center">
                     <button className="py-2 px-3 text-lg font-semibold btn-primary rounded-lg">
                       Website
@@ -496,7 +498,7 @@ export default function Iso() {
                     </button>
                   </div>
                 </div>
-                <div className="md:w-1/4 bg-blue_grey rounded-xl p-3">
+                <div className="w-full md:w-1/4 bg-blue_grey rounded-xl p-3">
                   <div className="flex justify-between items-center">
                     <button className="py-2 px-3 text-lg font-semibold btn-primary rounded-lg flex items-center">
                       <Twitter />
@@ -513,8 +515,8 @@ export default function Iso() {
             <div className="w-full bg-grey_50 h-2 mb-12">
               <div className="bg-secondary h-2" style={{ width: "25%" }}></div>
             </div>
-            <div className="flex justify-between">
-              <div className="md:w-19/50">
+            <div className="flex flex-col justify-between md:flex-row">
+              <div className="w-full md:w-19/50">
                 <div className="mb-5">
                   <p className="flex justify-between items-center mb-3">
                     <span className="grey-10">Softcap Reached:</span>
@@ -530,7 +532,7 @@ export default function Iso() {
                   </p>
                 </div>
                 <div
-                  className="p-6 bg-blue_grey rounded-xl"
+                  className="p-4 sm:p-6 bg-blue_grey rounded-xl"
                   style={{ boxShadow: "0px 6px 12px #09162E" }}
                 >
                   <p className="flex justify-between items-center mb-4">
@@ -576,8 +578,8 @@ export default function Iso() {
                   </button>
                 </div>
               </div>
-              <div className="md:w-49/100 h-full">
-                <div className="p-6 h-full">
+              <div className="w-full md:w-49/100 h-full">
+                <div className="p-4 sm:p-6 h-full">
                   <p className="flex justify-between items-center mb-3">
                     <span className="grey-10">Total BNB Raised</span>
                     <span>500 BNB</span>
@@ -633,7 +635,7 @@ export default function Iso() {
                       </div>
                     </button>
                     <button className="flex items-center justify-between rounded-3xl bg-grey_50 px-3 py-2 w-full">
-                      <span className="font-medium grey-10">Sale Started:</span>
+                      <span className="font-medium grey-10">Sale Ends:</span>
                       <div className="flex">
                         <p className="mr-1">
                           14 <span className="text-xs">Days</span>

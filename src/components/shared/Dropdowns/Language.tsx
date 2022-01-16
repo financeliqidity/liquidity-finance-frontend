@@ -65,12 +65,10 @@ const Language = () => {
   return (
     <>
       <button
-        className="mb-0"
         ref={btnDropdownRef}
-        onClick={(e) => {
-          e.preventDefault();
-          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
-        }}
+        onClick={(e) =>
+          dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover()
+        }
       >
         <span
           className={dropdownPopoverShow ? "text-primary" : "text-icons_color"}

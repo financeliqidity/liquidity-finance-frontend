@@ -1,16 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Card from "../customs/Card";
-import lfiLogo from "../../public/assets/images/LFILogo1.png";
+import lfiLogo from "../../public/assets/images/logo.png";
 import ethlogo from "../../public/assets/images/eth.png";
 
 import ConnectWallet from "./shared/Modals/ConnectWallet";
 import WalletDropdown from "./shared/Dropdowns/WalletDropdown";
-import WalletDetails from "./shared/Modals/WalletDetails";
+
 import Language from "./shared/Dropdowns/Language";
 import MoreDrop from "./shared/Dropdowns/MoreDrop";
 
-import { ethers } from "ethers";
+import { WalletContext } from "../context";
 
 interface HeaderProps {
   checkWallet?: () => boolean;
@@ -18,6 +18,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = () => {
+  const { wallet } = React.useContext(WalletContext);
+
   return (
     <>
       <Card
@@ -33,20 +35,15 @@ const Header: React.FC<HeaderProps> = () => {
         </div>
         <div className="flex">
           <div className="flex items-center">
-            <div className="relative hidden md:block">
+            <div className="relative flex items-center justify-center">
               <Language />
             </div>
-            <span className="p-3 hidden md:flex items-center bg-grey_50 rounded-lg mx-4">
-              <Image src={ethlogo} alt="Ethereum Logo" width={32} height={32} />
-              <span className="font-bold ml-2 md:flex hidden">Ethereum</span>
-            </span>
 
-            {/* <ConnectWallet /> */}
-            <div className="relative">
-              <WalletDropdown />
-              {/* <WalletDetails /> */}
+            <div className="ml-3 md:ml-4 relative">
+              {wallet ? <WalletDropdown wallet={wallet} /> : <ConnectWallet />}
             </div>
-            <div className="relative ml-4">
+
+            <div className="relative ml-3 md:ml-4">
               <MoreDrop />
             </div>
           </div>
