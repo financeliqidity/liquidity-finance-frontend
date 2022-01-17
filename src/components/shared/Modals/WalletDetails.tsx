@@ -174,15 +174,10 @@ const Cancel = () => (
   </svg>
 );
 
-export default function WalletDetails({ show, setShowModal, wallet }) {
+export default function WalletDetails({ show, setShowModal, wallet, trim }) {
   const [isBrowser, setIsBrowser] = useState(false);
 
-  const trimAddress = (str) =>
-    (str.slice(0, 6) + "..." + str.slice(-4)).toLocaleUpperCase();
-
-  useEffect(() => {
-    setIsBrowser(true);
-  }, []);
+  useEffect(() => setIsBrowser(true), []);
 
   const modalContent = show ? (
     <>
@@ -205,7 +200,7 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
             {/*body*/}
             <div className="relative px-6 pb-10 flex-auto">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-xl font-bold">{trimAddress(wallet)}</p>
+                <p className="text-xl font-bold">{trim}</p>
                 <div className="flex items-center">
                   <button className="mr-2 p-2.5 rounded-xl bg-grey_30">
                     <Direct />

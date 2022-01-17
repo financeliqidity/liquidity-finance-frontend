@@ -1,6 +1,6 @@
 import React from "react";
 
-const Caret = () => (
+const CaretUpIcon = () => (
   <svg
     width="25"
     height="24"
@@ -14,16 +14,40 @@ const Caret = () => (
     />
   </svg>
 );
+const CaretDownIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M6 7L12 13L18 7L20 9L12 17L4 9L6 7Z"
+      fill="#B7BECB"
+    />
+  </svg>
+);
 
 export default function PairChart() {
+  const [open, setOpen] = React.useState(true);
   return (
-    <div className="bg-blue_grey py-3 px-6 border-grey_40 border border-l-0 border-r-0">
-      <div className="flex items-center justify-between">
-        <span className="text-lg font-semibold">BNB/LFI Chart</span>
-        <button>
-          <Caret />
-        </button>
+    <>
+      <div className="bg-blue_grey py-3 px-6 border-grey_40 border border-l-0 border-r-0">
+        <div className="flex items-center justify-between">
+          <span className="text-lg font-semibold">BNB/LFI Chart</span>
+          <button onClick={() => setOpen(!open)}>
+            {open ? <CaretUpIcon /> : <CaretDownIcon />}
+          </button>
+        </div>
       </div>
-    </div>
+      {open && (
+        <div className="bg-blue_grey px-6 py-4">
+          <img src="assets/images/trading-view.png" alt="..." />
+        </div>
+      )}
+    </>
   );
 }

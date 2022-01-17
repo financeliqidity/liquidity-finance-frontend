@@ -39,7 +39,7 @@ const CaretDownIcon = () => (
   </svg>
 );
 
-const WalletDropdown = ({ wallet }) => {
+const WalletDropdown = ({ wallet, trim }) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const btnDropdownRef = useRef();
   const popoverDropdownRef = useRef();
@@ -58,9 +58,6 @@ const WalletDropdown = ({ wallet }) => {
   const [showModal, setShowModal] = useState(false);
 
   const isSmall = useMediaQuery("(max-width: 768px)");
-
-  const trimAddress = (str) =>
-    (str.slice(0, 6) + "..." + str.slice(-4)).toLocaleUpperCase();
 
   return (
     <>
@@ -95,7 +92,7 @@ const WalletDropdown = ({ wallet }) => {
         >
           <img src="/assets/icons/wallet.svg" alt="..." />
           <span className="font-bold uppercase text-white group-hover:text-primary mx-2">
-            {trimAddress(wallet)}
+            {trim}
           </span>
           <CaretDown />
         </button>
@@ -114,6 +111,7 @@ const WalletDropdown = ({ wallet }) => {
             type="button"
           >
             <WalletDetails
+              trim={trim}
               wallet={wallet}
               show={showModal}
               setShowModal={setShowModal}
