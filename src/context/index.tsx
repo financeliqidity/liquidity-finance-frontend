@@ -47,9 +47,7 @@ const WalletProvider: React.FC = ({ children }) => {
     getWalletBalance(account.toString());
   };
 
-  const chainChangeHandler = () => {
-    window.location.reload();
-  };
+  const chainChangeHandler = () => window.location.reload();
 
   const getWalletBalance = (address) => {
     //@ts-ignore
@@ -74,34 +72,34 @@ const WalletProvider: React.FC = ({ children }) => {
   console.log(walletBalance);
   console.log(provider);
 
-  // const checkIfWalletIsConnected = async () => {
-  //   try {
-  //     //@ts-ignore
-  //     if (!window.ethereum) return alert("Please install metamask");
-  //     //@ts-ignore
-  //     const accounts = await window.ethereum.request({
-  //       method: "eth_accounts",
-  //     });
+  const checkIfWalletIsConnected = async () => {
+    try {
+      //@ts-ignore
+      if (!window.ethereum) return alert("Please install metamask");
 
-  //     if (accounts.length) {
-  //       setWallet(accounts[0]);
+      //@ts-ignore
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
-  //       //get all account transaction
-  //     } else {
-  //       console.log("No accounts found");
-  //     }
+      if (accounts.length > 0) {
+        accountChangeHandler(accounts[0]);
+      } else {
+        return alert("No wallet account found");
+      }
 
-  //     console.log(accounts);
-  //   } catch (error) {
-  //     console.log(error);
+      //@ts-ignore
+      setProvider(new ethers.providers.Web3Provider(window.ethereum));
+    } catch (error) {
+      console.log(error);
 
-  //     throw new Error("No ethereum object found");
-  //   }
-  // };
+      throw new Error("No ethereum object found");
+    }
+  };
 
-  // useEffect(() => {
-  //   checkIfWalletIsConnected();
-  // }, []);
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
 
   return (
     <WalletContext.Provider value={{ wallet, connectWallet, walletBalance }}>

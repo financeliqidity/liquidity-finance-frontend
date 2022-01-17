@@ -89,7 +89,7 @@ export default function SwapLeft({
   setLiquidityTerms,
   tabChanger,
 }) {
-  const { wallet } = React.useContext(WalletContext);
+  const { wallet, connectWallet } = React.useContext(WalletContext);
   return (
     <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-8 md:py-12 rounded-xl">
       <div className="w-full flex justify-between bg-grey_50 rounded-r-lg rounded-l-lg">
@@ -300,12 +300,22 @@ export default function SwapLeft({
         </form>
       </div>
       {/* CTA Button */}
-      <button
-        type="submit"
-        className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
-      >
-        {wallet ? "Swap" : "Connect Wallet"}
-      </button>
+      {wallet ? (
+        <button
+          type="submit"
+          className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
+        >
+          Swap
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
+          onClick={connectWallet}
+        >
+          Connect Wallet
+        </button>
+      )}
 
       {/* Summary */}
       <div className="mt-8 py-3 px-4 bg-dark_grey rounded-lg">
