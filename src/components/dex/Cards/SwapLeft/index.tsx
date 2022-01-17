@@ -1,4 +1,5 @@
 import React from "react";
+import { WalletContext } from "../../../../context";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
 import SelectPair from "../../Modals/SelectPair";
@@ -88,6 +89,7 @@ export default function SwapLeft({
   setLiquidityTerms,
   tabChanger,
 }) {
+  const { wallet } = React.useContext(WalletContext);
   return (
     <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-8 md:py-12 rounded-xl">
       <div className="w-full flex justify-between bg-grey_50 rounded-r-lg rounded-l-lg">
@@ -302,7 +304,7 @@ export default function SwapLeft({
         type="submit"
         className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
       >
-        Connect Wallet
+        {wallet ? "Swap" : "Connect Wallet"}
       </button>
 
       {/* Summary */}

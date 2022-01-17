@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Card from "../customs/Card";
 import lfiLogo from "../../public/assets/images/logo.png";
@@ -19,6 +19,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = () => {
   const { wallet } = React.useContext(WalletContext);
+  const [trim, setTrim] = React.useState(null);
+
+  useEffect(() => {
+    const trim = (
+      wallet?.slice(0, 6) +
+      "..." +
+      wallet?.slice(-4)
+    ).toLocaleUpperCase();
+
+    setTrim(trim);
+  }, [wallet]);
 
   return (
     <>
@@ -40,7 +51,11 @@ const Header: React.FC<HeaderProps> = () => {
             </div>
 
             <div className="ml-3 md:ml-4 relative">
-              {wallet ? <WalletDropdown wallet={wallet} /> : <ConnectWallet />}
+              {wallet ? (
+                <WalletDropdown trim={trim} wallet={wallet} />
+              ) : (
+                <ConnectWallet />
+              )}
             </div>
 
             <div className="relative ml-3 md:ml-4">
