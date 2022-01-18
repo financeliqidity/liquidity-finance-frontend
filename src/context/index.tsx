@@ -16,6 +16,8 @@ export const WalletContext = createContext<ContextType>({
 const WalletProvider: React.FC = ({ children }) => {
   const [wallet, setWallet] = useState(null);
   const [walletBalance, setWalletBalance] = useState("0");
+
+  // eslint-disable-next-line
   const [provider, setProvider] = useState(null);
 
   const connectWallet = async () => {
@@ -69,8 +71,8 @@ const WalletProvider: React.FC = ({ children }) => {
     window.ethereum.on("chainChanged", chainChangeHandler);
   }
 
-  console.log(walletBalance);
-  console.log(provider);
+  // console.log(walletBalance);
+  // console.log(provider);
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -97,9 +99,9 @@ const WalletProvider: React.FC = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
+  // useEffect(() => {
+  //   checkIfWalletIsConnected();
+  // }, []);
 
   return (
     <WalletContext.Provider value={{ wallet, connectWallet, walletBalance }}>
