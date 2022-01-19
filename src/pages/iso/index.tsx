@@ -239,8 +239,92 @@ export default function Iso() {
                           </div>
                         </div>
                         <div className="flex items-center justify-between">
+                          <span className="font-medium grey-10">Sale End:</span>
+                          <div className="flex">
+                            <p className="mr-1">
+                              6 <span className="text-xs">Days</span>
+                            </p>
+                            <p className="mr-1">
+                              8 <span className="text-xs">Hours</span>
+                            </p>
+                            <p className="">
+                              45 <span className="text-xs">Mins</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex justify-center">
+                        <button className="text-sm font-bold btn-primary rounded py-1 px-2">
+                          More info
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="my-4 px-4 w-full overflow-hidden sm:my-5 sm:px-5 sm:w-1/3 md:my-4 md:px-4 md:w-1/3 lg:my-5 lg:px-5 lg:w-1/3 xl:my-5 xl:px-5 xl:w-1/3">
+                  <div className="p-6 rounded-3xl bg-blue_grey">
+                    <div className="bg-grey_50 flex items-center justify-center mb-6 w-full rounded-2xl h-64">
+                      <img src="/assets/images/lfi-biggest.png" alt="..." />
+                    </div>
+                    <div className="status mb-6">
+                      <p className="grey-10 mb-2">Status:</p>
+                      <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
+                        <Circle fill="#2669F5" />
+                        <span className="ml-1 text-lg font-semibold text-primary">
+                          Active
+                        </span>
+                      </button>
+                    </div>
+                    <div className="raised">
+                      <p className="grey-10 mb-2">Raised:</p>
+                      <div className="w-full bg-grey_50 h-2">
+                        <div
+                          className="bg-secondary h-2"
+                          style={{ width: "25%" }}
+                        ></div>
+                      </div>
+                    </div>
+                    <div className="mt-6 bg-grey_70 p-4">
+                      <p className="flex justify-between items-center mb-3">
+                        <span className="grey-10">Softcap:</span>
+                        <span>500 BNB</span>
+                      </p>
+                      <p className="flex justify-between items-center mb-3">
+                        <span className="grey-10">Hardcap:</span>
+                        <span>1000 BNB</span>
+                      </p>
+                      <p className="flex justify-between items-center mb-3">
+                        <span className="grey-10">Minimum Allocation:</span>
+                        <span>0.1 BNB</span>
+                      </p>
+                      <p className="flex justify-between items-center">
+                        <span className="grey-10">Maximum Allocation:</span>
+                        <span>6 BNB</span>
+                      </p>
+
+                      <hr className="my-3" />
+
+                      <div className="mb-10">
+                        <div className="flex items-center justify-between mb-3">
                           <span className="font-medium grey-10">
                             Sale Started:
+                          </span>
+                          <div className="flex">
+                            <p className="mr-1">
+                              6 <span className="text-xs">Days</span>
+                            </p>
+                            <p className="mr-1">
+                              8 <span className="text-xs">Hours</span>
+                            </p>
+                            <p className="">
+                              45 <span className="text-xs">Mins</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium grey-10">
+                            Sale Ended:
                           </span>
                           <div className="flex">
                             <p className="mr-1">
@@ -326,93 +410,7 @@ export default function Iso() {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="font-medium grey-10">
-                            Sale Started:
-                          </span>
-                          <div className="flex">
-                            <p className="mr-1">
-                              6 <span className="text-xs">Days</span>
-                            </p>
-                            <p className="mr-1">
-                              8 <span className="text-xs">Hours</span>
-                            </p>
-                            <p className="">
-                              45 <span className="text-xs">Mins</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex justify-center">
-                        <button className="text-sm font-bold btn-primary rounded py-1 px-2">
-                          More info
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="my-4 px-4 w-full overflow-hidden sm:my-5 sm:px-5 sm:w-1/3 md:my-4 md:px-4 md:w-1/3 lg:my-5 lg:px-5 lg:w-1/3 xl:my-5 xl:px-5 xl:w-1/3">
-                  <div className="p-6 rounded-3xl bg-blue_grey">
-                    <div className="bg-grey_50 flex items-center justify-center mb-6 w-full rounded-2xl h-64">
-                      <img src="/assets/images/lfi-biggest.png" alt="..." />
-                    </div>
-                    <div className="status mb-6">
-                      <p className="grey-10 mb-2">Status:</p>
-                      <button className="py-2.5 px-4 bg-grey_50 rounded-lg flex items-center">
-                        <Circle fill="#2669F5" />
-                        <span className="ml-1 text-lg font-semibold text-primary">
-                          Active
-                        </span>
-                      </button>
-                    </div>
-                    <div className="raised">
-                      <p className="grey-10 mb-2">Raised:</p>
-                      <div className="w-full bg-grey_50 h-2">
-                        <div
-                          className="bg-secondary h-2"
-                          style={{ width: "25%" }}
-                        ></div>
-                      </div>
-                    </div>
-                    <div className="mt-6 bg-grey_70 p-4">
-                      <p className="flex justify-between items-center mb-3">
-                        <span className="grey-10">Softcap:</span>
-                        <span>500 BNB</span>
-                      </p>
-                      <p className="flex justify-between items-center mb-3">
-                        <span className="grey-10">Hardcap:</span>
-                        <span>1000 BNB</span>
-                      </p>
-                      <p className="flex justify-between items-center mb-3">
-                        <span className="grey-10">Minimum Allocation:</span>
-                        <span>0.1 BNB</span>
-                      </p>
-                      <p className="flex justify-between items-center">
-                        <span className="grey-10">Maximum Allocation:</span>
-                        <span>6 BNB</span>
-                      </p>
-
-                      <hr className="my-3" />
-
-                      <div className="mb-10">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="font-medium grey-10">
-                            Sale Started:
-                          </span>
-                          <div className="flex">
-                            <p className="mr-1">
-                              6 <span className="text-xs">Days</span>
-                            </p>
-                            <p className="mr-1">
-                              8 <span className="text-xs">Hours</span>
-                            </p>
-                            <p className="">
-                              45 <span className="text-xs">Mins</span>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium grey-10">
-                            Sale Started:
+                            Sale Ended:
                           </span>
                           <div className="flex">
                             <p className="mr-1">
@@ -621,7 +619,7 @@ export default function Iso() {
 
                   <div className="mt-4">
                     <button className="flex items-center justify-between rounded-3xl bg-grey_50 px-3 py-2 w-full mb-4">
-                      <span className="font-medium grey-10">Sale Started:</span>
+                      <span className="font-medium grey-10">Sale Ends:</span>
                       <div className="flex">
                         <p className="mr-1">
                           6 <span className="text-xs">Days</span>
