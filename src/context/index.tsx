@@ -34,6 +34,7 @@ const WalletProvider: React.FC = ({ children }) => {
           "Missing install Metamask. Please access https://metamask.io/ to install extension on your browser"
         );
 
+      //@ts-ignore
       const accounts = await window?.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -61,6 +62,7 @@ const WalletProvider: React.FC = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install metamask");
 
+      //@ts-ignore
       const accounts = await window?.ethereum.request({
         method: "eth_accounts",
       });
