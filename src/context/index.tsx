@@ -19,6 +19,7 @@ const WalletProvider: React.FC = ({ children }) => {
   let ethereum;
 
   if (typeof window !== "undefined") {
+    //@ts-ignore
     ethereum = window?.ethereum;
   }
 
@@ -86,6 +87,7 @@ const WalletProvider: React.FC = ({ children }) => {
     }
   };
 
+  //@ts-ignore
   useEffect(() => checkIfWalletIsConnected(), []);
 
   ethereum?.on("accountsChanged", accountChangedHandler);
