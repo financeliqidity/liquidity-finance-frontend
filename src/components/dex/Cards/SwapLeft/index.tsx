@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { WalletContext } from "../../../../context";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
@@ -143,7 +143,7 @@ export default function SwapLeft({
               <input
                 type="number"
                 name="pay"
-                className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-40"
+                className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
               />
               <span className="text-gray-100 text-xs mt-1 block">
                 ~$ 2900.00
@@ -225,7 +225,11 @@ export default function SwapLeft({
         <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
           <div className="flex justify-between">
             <div className="left">
-              <p className="text-xl font-bold text-white">2869.02</p>
+              <input
+                type="number"
+                name="receive"
+                className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+              />
               <span className="text-gray-100 text-xs mt-1 block">
                 ~$ 0.944518
               </span>
@@ -299,7 +303,6 @@ export default function SwapLeft({
           />
         </form>
       </div>
-      {/* CTA Button */}
       {wallet ? (
         <button
           type="submit"

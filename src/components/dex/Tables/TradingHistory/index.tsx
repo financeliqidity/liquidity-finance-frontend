@@ -14,7 +14,6 @@ const Buy = () => (
     />
   </svg>
 );
-
 const Sell = () => (
   <svg
     width="14"
@@ -29,7 +28,6 @@ const Sell = () => (
     />
   </svg>
 );
-
 const HashIn = () => (
   <svg
     width="14"
@@ -46,7 +44,6 @@ const HashIn = () => (
     />
   </svg>
 );
-
 const HashOut = () => (
   <svg
     width="14"
@@ -64,7 +61,7 @@ const HashOut = () => (
   </svg>
 );
 
-export default function index() {
+export default function TradingHistory() {
   return (
     <div
       className={`trading-history py-6 md:py-12 px-6 md:px-8 bg-grey_70 ${styles.trading_history}`}
@@ -77,13 +74,7 @@ export default function index() {
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div
-              className="
-        shadow
-        overflow-hidden
-        sm:rounded-lg px-8 bg-blue_grey py-9
-      "
-            >
+            <div className="shadow overflow-hidden sm:rounded-lg px-8 bg-blue_grey py-9">
               <table className="min-w-full">
                 <thead className="">
                   <tr>
