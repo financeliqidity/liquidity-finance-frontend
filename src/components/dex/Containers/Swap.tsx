@@ -1,17 +1,14 @@
 import { useState } from "react";
-import LiquidityAlert from "../../dex/Cards/LiquidityAlert";
-import TokenSelectbox from "../../shared/Selectboxes/TokenSelectbox";
-import OrderCard from "../../dex/Cards/OrderCard";
-import OrderFunds from "../../dex/Cards/OrderFunds";
+import { useRecoilState } from "recoil";
 import TradingHistory from "../../dex/Tables/TradingHistory";
 
-import eth from "../../../../public/assets/icons/eth.png";
-import usdt from "../../../../public/assets/icons/usdt.png";
 import PoolDisclaimer from "../../dex/Modals/PoolDisclaimer";
 import PairChart from "../Arcodions/PairChart";
 import SelectPair from "../Modals/SelectPair";
 import SwapLeft from "../Cards/SwapLeft";
 import SwapRight from "../Cards/SwapRight";
+
+import { selectTokenPair } from "../../../selectTokenPair";
 
 const SettingsIcon = () => (
   <svg
@@ -85,6 +82,8 @@ function Swap({
   const [showPairModal, setShowPairModal] = useState(false);
   const [showPairModalReceive, setShowPairModalReceive] = useState(false);
 
+  const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
+
   return (
     <div className="bg-grey_70 mb-6 md:mb-0">
       <div className="md:py-12 py-6 md:w-11/12 md:mx-auto text-white">
@@ -137,7 +136,7 @@ function Swap({
           mobileTab === 2 && (
             <>
               <div className="mt-8 mb-10">
-                <PairChart />
+                <PairChart pair={tokenPair} />
               </div>
               <TradingHistory />
             </>
@@ -145,7 +144,7 @@ function Swap({
         ) : (
           <>
             <div className="mt-8 mb-10">
-              <PairChart />
+              <PairChart pair={tokenPair} />
             </div>
             <TradingHistory />
           </>

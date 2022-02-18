@@ -43,7 +43,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   : "bg-blue_grey")
               }
             >
-              FARMING
+              FARM
             </div>
           </Link>
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   : "bg-blue_grey")
               }
             >
-              ISO
+              IDO
             </div>
           </Link>
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
