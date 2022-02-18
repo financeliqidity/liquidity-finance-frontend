@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
+import { useRecoilState } from "recoil";
 
 const Close = () => (
   <svg
@@ -89,8 +89,26 @@ const Edit = ({ className }) => (
   </svg>
 );
 
-export default function SelectPair({ showModal, setShowModal, content }) {
+export default function SelectPair({
+  showModal,
+  setShowModal,
+  content,
+  setPair,
+}) {
   const [loading, setLoading] = useState(true);
+
+  const TOKENS = [
+    { id: 1, name: "BTC", icon: "/assets/images/BTC_logo.png" },
+    { id: 2, name: "ETH", icon: "/assets/icons/eth.png" },
+    { id: 3, name: "USDT", icon: "/assets/icons/usdt.png" },
+  ];
+
+  const handleSelect = (token) => {
+    console.log("token to set", token);
+
+    setPair(token);
+    setShowModal(false);
+  };
   return (
     <>
       {content}
@@ -222,50 +240,26 @@ export default function SelectPair({ showModal, setShowModal, content }) {
                     </div>
                   </div>
                   <ul>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
-                      <div className="flex items-center">
-                        <img
-                          src="/assets/images/BTC_logo.png"
-                          alt="..."
-                          className="w-6 h-6 mr-2"
-                        />
-                        <span className="text-sm font-bold">BNB</span>
-                      </div>
-                      <span className="font-bold text-base grey-10">0</span>
-                    </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
-                      <div className="flex items-center">
-                        <img
-                          src="/assets/images/BTC_logo.png"
-                          alt="..."
-                          className="w-6 h-6 mr-2"
-                        />
-                        <span className="text-sm font-bold">BNB</span>
-                      </div>
-                      <span className="font-bold text-base grey-10">0</span>
-                    </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 btn-primary rounded-lg">
-                      <div className="flex items-center">
-                        <img
-                          src="/assets/images/BTC_logo.png"
-                          alt="..."
-                          className="w-6 h-6 mr-2"
-                        />
-                        <span className="text-sm font-bold">BNB</span>
-                      </div>
-                      <span className="font-bold text-base grey-10">0</span>
-                    </li>
-                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
-                      <div className="flex items-center">
-                        <img
-                          src="/assets/images/BTC_logo.png"
-                          alt="..."
-                          className="w-6 h-6 mr-2"
-                        />
-                        <span className="text-sm font-bold">BNB</span>
-                      </div>
-                      <span className="font-bold text-base grey-10">0</span>
-                    </li>
+                    {TOKENS.map((token) => (
+                      <li
+                        key={token.id}
+                        className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
+                        onClick={() => handleSelect(token)}
+                      >
+                        <div className="flex items-center">
+                          <img
+                            src={token.icon}
+                            alt="..."
+                            className="w-6 h-6 mr-2"
+                          />
+                          <span className="text-sm font-bold">
+                            {token.name}
+                          </span>
+                        </div>
+                        <span className="font-bold text-base grey-10">0</span>
+                      </li>
+                    ))}
+
                     <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
                       <div className="flex items-center">
                         <img

@@ -4,94 +4,84 @@ import { ethers } from "ethers";
 type ContextType = {
   connectWallet: () => void;
   wallet: any;
-  walletBalance: string;
+  disconnectWallet: () => void;
 };
 
 export const WalletContext = createContext<ContextType>({
   connectWallet: () => {},
   wallet: null,
-  walletBalance: "0",
+  disconnectWallet: () => {},
 });
 
 const WalletProvider: React.FC = ({ children }) => {
   const [wallet, setWallet] = useState(null);
-  const [walletBalance, setWalletBalance] = useState("0");
 
-  // eslint-disable-next-line
-  const [provider, setProvider] = useState(null);
-
-  const connectWallet = async () => {
-    try {
-      //@ts-ignore
-      if (!window.ethereum) return alert("Please install metamask");
-
-      //@ts-ignore
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      if (accounts.length > 0) {
-        accountChangeHandler(accounts[0]);
-      } else {
-        return alert("No wallet account found");
-      }
-
-      //@ts-ignore
-      setProvider(new ethers.providers.Web3Provider(window.ethereum));
-    } catch (error) {
-      console.log(error);
-      throw new Error("No ethereum object found");
-    }
-  };
-
-  const accountChangeHandler = (account) => {
-    setWallet(account);
-    getWalletBalance(account.toString());
-  };
-
-  const chainChangeHandler = () => window.location.reload();
-
-  const getWalletBalance = (address) => {
-    //@ts-ignore
-    window.ethereum
-      .request({ method: "eth_getBalance", params: [address, "latest"] })
-      .then((balance) => {
-        setWalletBalance(ethers.utils.formatEther(balance));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  let ethereum;
 
   if (typeof window !== "undefined") {
     //@ts-ignore
-    window.ethereum.on("accountsChanged", accountChangeHandler);
-
-    //@ts-ignore
-    window.ethereum.on("chainChanged", chainChangeHandler);
+    ethereum = window?.ethereum;
   }
 
-  // console.log(walletBalance);
-  // console.log(provider);
+  const accountChangedHandler = () => checkIfWalletIsConnected();
 
-  const checkIfWalletIsConnected = async () => {
+  const chainChangedHandler = () => window.location.reload();
+
+  const connectWallet = async () => {
     try {
-      //@ts-ignore
-      if (!window.ethereum) return alert("Please install metamask");
+      if (!ethereum)
+        return alert(
+          "Missing install Metamask. Please access https://metamask.io/ to install extension on your browser"
+        );
 
       //@ts-ignore
-      const accounts = await window.ethereum.request({
+      const accounts = await window?.ethereum.request({
         method: "eth_requestAccounts",
       });
 
-      if (accounts.length > 0) {
-        accountChangeHandler(accounts[0]);
-      } else {
-        return alert("No wallet account found");
+      const provider = new ethers.providers.Web3Provider(ethereum);
+
+      const network = await await provider.getNetwork();
+
+      if (network.name !== "bnb") {
+        window.alert("Select Binance Smart Chain Main net.");
+        window.location.reload();
+        return;
       }
 
+      setWallet(accounts[0]);
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object found");
+    }
+  };
+
+  const disconnectWallet = () => setWallet(null);
+
+  const checkIfWalletIsConnected = async () => {
+    try {
+      if (!ethereum) return alert("Please install metamask");
+
       //@ts-ignore
-      setProvider(new ethers.providers.Web3Provider(window.ethereum));
+      const accounts = await window?.ethereum.request({
+        method: "eth_accounts",
+      });
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+
+      const network = await await provider.getNetwork();
+
+      if (network.name !== "bnb") {
+        window.alert("Select Binance Smart Chain Main net.");
+        window.location.reload();
+        return;
+      }
+
+      if (accounts.length) {
+        setWallet(accounts[0]);
+      } else {
+        console.log("No accounts found");
+      }
     } catch (error) {
       console.log(error);
 
@@ -99,12 +89,15 @@ const WalletProvider: React.FC = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   checkIfWalletIsConnected();
-  // }, []);
+  //@ts-ignore
+  useEffect(() => checkIfWalletIsConnected(), []);
+
+  ethereum?.on("accountsChanged", accountChangedHandler);
+
+  ethereum?.on("chainChanged", chainChangedHandler);
 
   return (
-    <WalletContext.Provider value={{ wallet, connectWallet, walletBalance }}>
+    <WalletContext.Provider value={{ wallet, connectWallet, disconnectWallet }}>
       {children}
     </WalletContext.Provider>
   );

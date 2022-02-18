@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import LiquidityAlert from "../LiquidityAlert";
 import OrderCard from "../OrderCard";
 import OrderFunds from "../OrderFunds";
+
+import { selectTokenPair } from "../../../../selectTokenPair";
 
 const SettingsIcon = () => (
   <svg
@@ -44,6 +47,8 @@ const AddCircle = () => (
 );
 
 export default function SwapRight({ buyMode, setBuyMode }) {
+  const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
+
   return (
     <div className="right w-full md:mt-0 mt-10 md:w-12/25">
       <div className="bg-blue_grey px-4 md:px-8 py-12 rounded-xl">
@@ -52,7 +57,9 @@ export default function SwapRight({ buyMode, setBuyMode }) {
           <div className="pair-rate flex items-center">
             <div className="pair flex items-center">
               <img src="/assets/icons/arrow-swap.svg" alt="..." />
-              <span className="text-lg font-semibold ml-2">BNB/LFI</span>
+              <span className="text-lg font-semibold ml-2">
+                {tokenPair.pay.name}/{tokenPair.receive.name}
+              </span>
             </div>
             <div className="ml-3 md:ml-4 flex items-center">
               <svg

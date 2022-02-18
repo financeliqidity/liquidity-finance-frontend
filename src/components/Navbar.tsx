@@ -34,9 +34,18 @@ const Navbar: React.FC<NavbarProps> = () => {
             </div>
           </Link>
 
-          <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
-            GAMING
-          </div>
+          <Link href="/farming">
+            <div
+              className={
+                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
+                (router.pathname.indexOf("/farming") !== -1
+                  ? "btn-primary text-3xl"
+                  : "bg-blue_grey")
+              }
+            >
+              FARM
+            </div>
+          </Link>
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             VOTE
           </div>
@@ -49,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   : "bg-blue_grey")
               }
             >
-              ISO
+              IDO
             </div>
           </Link>
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
