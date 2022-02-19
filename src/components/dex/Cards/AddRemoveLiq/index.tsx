@@ -9,12 +9,9 @@ import LockLiquidity from "../../Modals/LockLiquidity";
 function AddRemoveLiq({ setActiveLeft }) {
   const AddLiquidity = ({
     handleAddLiquidity,
-    showModal,
-    setShowModal,
     showSuccessModal,
     setShowSuccessModal,
   }) => {
-    const [showPair, setShowPair] = useState(false);
     const [openMore, setOpenMore] = useState(false);
 
     const [showLockModal, setShowLockModal] = useState(false);
@@ -38,17 +35,12 @@ function AddRemoveLiq({ setActiveLeft }) {
               <SelectPair
                 setPair={(pair) => console.log(pair)}
                 content={
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => setShowModal(true)}
-                  >
+                  <div className="flex items-center">
                     <img src="/assets/icons/usdt.png" alt="USDC" />
                     <span className="mx-3">USDC</span>
                     <img src="/assets/icons/arrow-down.svg" alt="pop-up" />
                   </div>
                 }
-                showModal={showModal}
-                setShowModal={setShowModal}
               />
 
               <span className="font-bold text-base">5000</span>
@@ -83,17 +75,12 @@ function AddRemoveLiq({ setActiveLeft }) {
               <SelectPair
                 setPair={(pair) => console.log(pair)}
                 content={
-                  <div
-                    className="flex items-center cursor-pointer"
-                    onClick={() => setShowPair(true)}
-                  >
+                  <div className="flex items-center cursor-pointer">
                     <img src="/assets/icons/eth.png" alt="ETH" />
                     <span className="mx-3">USDC</span>
                     <img src="/assets/icons/arrow-down.svg" alt="pop-up" />
                   </div>
                 }
-                showModal={showPair}
-                setShowModal={setShowPair}
               />
 
               <span className="font-bold text-base">5000</span>
@@ -153,7 +140,6 @@ function AddRemoveLiq({ setActiveLeft }) {
   };
 
   const RemoveLiquid = ({ handleRemoveLiquidity }) => {
-    const [showPair, setShowPair] = useState(false);
     return (
       <>
         <div className="flex flex-col mt-8 w-full">
@@ -164,17 +150,12 @@ function AddRemoveLiq({ setActiveLeft }) {
             <SelectPair
               setPair={(pair) => console.log(pair)}
               content={
-                <div
-                  className="flex items-center cursor-pointer"
-                  onClick={() => setShowPair(true)}
-                >
+                <div className="flex items-center">
                   <img src="/assets/icons/usdt.png" alt="USDC" />
                   <span className="mx-3">USDC</span>
                   <img src="/assets/icons/arrow-down.svg" alt="pop-up" />
                 </div>
               }
-              showModal={showPair}
-              setShowModal={setShowPair}
             />
             <span className="font-bold text-base">5000</span>
           </div>
@@ -268,8 +249,6 @@ function AddRemoveLiq({ setActiveLeft }) {
           {activeTab === 0 ? (
             <AddLiquidity
               handleAddLiquidity={handleAddLiquidity}
-              showModal={showPairModal}
-              setShowModal={setShowPairModal}
               showSuccessModal={showSuccessModal}
               setShowSuccessModal={setShowSuccessModal}
             />

@@ -84,10 +84,6 @@ const Selector = () => (
 export default function SwapLeft({
   showModal,
   setShowModal,
-  showPairModal,
-  setShowPairModal,
-  showPairModalReceive,
-  setShowPairModalReceive,
   swapNTransfer,
   setSwapNTransfer,
   liquidityTerms,
@@ -117,7 +113,100 @@ export default function SwapLeft({
     console.log(values);
   };
 
-  console.log(tokenPair);
+  const Pay = () => (
+    <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
+      <div className="flex justify-between">
+        <div className="left">
+          <input
+            type="number"
+            name="pay"
+            className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+            {...register("pay", { required: true })}
+          />
+          <span className="text-gray-100 text-xs mt-1 block">~$ 2900.00</span>
+          {errors.pay?.type === "required" && (
+            <p className="text-left text-red-600 text-xs mt-1">
+              Pay is required
+            </p>
+          )}
+        </div>
+        <div className="right">
+          <SelectPair
+            setPair={(pair) =>
+              setTokenPair({
+                ...tokenPair,
+                pay: { name: pair.name, icon: pair.icon },
+              })
+            }
+            content={
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                <img
+                  src={tokenPair.pay.icon}
+                  alt="..."
+                  className="w-5 h-5 mr-2"
+                />
+
+                <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                  {tokenPair.pay.name}
+                </span>
+                <span className="flex items-center justify-center">
+                  <Selector />
+                </span>
+              </div>
+            }
+          />
+          <span className="mt-1 text-gray-100 text-xs">
+            Balance: 0 {tokenPair.pay.name}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+
+  const Receive = () => (
+    <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
+      <div className="flex justify-between">
+        <div className="left">
+          <input
+            type="number"
+            name="receive"
+            className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+            {...register("receive", { required: true })}
+          />
+          <span className="text-gray-100 text-xs mt-1 block">~$ 0.944518</span>
+        </div>
+        <div className="right flex items-center">
+          <span className="text-sm font-semibold text-gray-100 mr-3">
+            $2.9K
+          </span>
+          <SelectPair
+            setPair={(pair) =>
+              setTokenPair({
+                ...tokenPair,
+                receive: { name: pair.name, icon: pair.icon },
+              })
+            }
+            content={
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                <img
+                  src={tokenPair.receive.icon}
+                  alt="..."
+                  className="w-5 h-5 mr-2"
+                />
+
+                <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                  {tokenPair.receive.name}
+                </span>
+                <span className="flex items-center justify-center">
+                  <Selector />
+                </span>
+              </div>
+            }
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-8 md:py-12 rounded-xl">
@@ -167,60 +256,7 @@ export default function SwapLeft({
         {/* Pay */}
         <div className="pay">
           <p className="text-sm text-gray-100 mb-3">Pay</p>
-          <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-            <div className="flex justify-between">
-              <div className="left">
-                <input
-                  type="number"
-                  name="pay"
-                  className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-                  {...register("pay", { required: true })}
-                />
-                <span className="text-gray-100 text-xs mt-1 block">
-                  ~$ 2900.00
-                </span>
-                {errors.pay?.type === "required" && (
-                  <p className="text-left text-red-600 text-xs mt-1">
-                    Pay is required
-                  </p>
-                )}
-              </div>
-              <div className="right">
-                <SelectPair
-                  showModal={showPairModal}
-                  setShowModal={setShowPairModal}
-                  setPair={(pair) =>
-                    setTokenPair({
-                      receive: tokenPair.receive,
-                      pay: { name: pair.name, icon: pair.icon },
-                    })
-                  }
-                  content={
-                    <div
-                      className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
-                      onClick={() => setShowPairModal(true)}
-                    >
-                      <img
-                        src={tokenPair.pay.icon}
-                        alt="..."
-                        className="w-5 h-5 mr-2"
-                      />
-
-                      <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                        {tokenPair.pay.name}
-                      </span>
-                      <span className="flex items-center justify-center">
-                        <Selector />
-                      </span>
-                    </div>
-                  }
-                />
-                <span className="mt-1 text-gray-100 text-xs">
-                  Balance: 0 {tokenPair.pay.name}
-                </span>
-              </div>
-            </div>
-          </div>
+          <Pay />
           <PercentageSelect value={pPercentage} setValue={setPPercentage} />
         </div>
         {/* Switch Button */}
@@ -236,55 +272,7 @@ export default function SwapLeft({
         {/* Receive */}
         <div className="receive mb-8">
           <p className="text-sm text-gray-100 mb-3">Receive</p>
-          <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-            <div className="flex justify-between">
-              <div className="left">
-                <input
-                  type="number"
-                  name="receive"
-                  className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-                  {...register("receive", { required: true })}
-                />
-                <span className="text-gray-100 text-xs mt-1 block">
-                  ~$ 0.944518
-                </span>
-              </div>
-              <div className="right flex items-center">
-                <span className="text-sm font-semibold text-gray-100 mr-3">
-                  $2.9K
-                </span>
-                <SelectPair
-                  showModal={showPairModalReceive}
-                  setShowModal={setShowPairModalReceive}
-                  setPair={(pair) =>
-                    setTokenPair({
-                      pay: tokenPair.pay,
-                      receive: { name: pair.name, icon: pair.icon },
-                    })
-                  }
-                  content={
-                    <div
-                      className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
-                      onClick={() => setShowPairModal(true)}
-                    >
-                      <img
-                        src={tokenPair.receive.icon}
-                        alt="..."
-                        className="w-5 h-5 mr-2"
-                      />
-
-                      <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                        {tokenPair.receive.name}
-                      </span>
-                      <span className="flex items-center justify-center">
-                        <Selector />
-                      </span>
-                    </div>
-                  }
-                />
-              </div>
-            </div>
-          </div>
+          <Receive />
         </div>
         <SocialLinks />
         {/* Swap & Transfer */}

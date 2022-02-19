@@ -108,10 +108,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             <SelectPair
               setPair={(pair) => console.log(pair)}
               content={
-                <div
-                  className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer"
-                  onClick={() => setShowFirstModal(true)}
-                >
+                <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer">
                   <div className="flex items-center">
                     <img
                       src="/assets/icons/eth-32.png"
@@ -123,17 +120,12 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
                   <CaretDown />
                 </div>
               }
-              showModal={showFirstModal}
-              setShowModal={setShowFirstModal}
             />
             <Plus />
             <SelectPair
               setPair={(pair) => console.log(pair)}
               content={
-                <div
-                  className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer"
-                  onClick={() => setShowLastModal(true)}
-                >
+                <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4">
                   <div className="flex items-center">
                     <img
                       src="/assets/icons/eth-32.png"
@@ -145,8 +137,6 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
                   <CaretDown />
                 </div>
               }
-              showModal={showLastModal}
-              setShowModal={setShowLastModal}
             />
           </div>
         </div>
