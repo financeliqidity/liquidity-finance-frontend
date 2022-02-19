@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = () => {
                   : "bg-blue_grey")
               }
             >
-              POOL
+              EARN
             </div>
           </Link>
 
