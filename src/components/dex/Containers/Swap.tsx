@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
 import TradingHistory from "../../dex/Tables/TradingHistory";
 
 import PoolDisclaimer from "../../dex/Modals/PoolDisclaimer";
@@ -7,8 +6,6 @@ import PairChart from "../Arcodions/PairChart";
 import SelectPair from "../Modals/SelectPair";
 import SwapLeft from "../Cards/SwapLeft";
 import SwapRight from "../Cards/SwapRight";
-
-import { selectTokenPair } from "../../../selectTokenPair";
 
 const SettingsIcon = () => (
   <svg
@@ -79,10 +76,6 @@ function Swap({
   isMobile,
 }) {
   const [swapNTransfer, setSwapNTransfer] = useState(false);
-  const [showPairModal, setShowPairModal] = useState(false);
-  const [showPairModalReceive, setShowPairModalReceive] = useState(false);
-
-  const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
 
   return (
     <div className="bg-grey_70 mb-6 md:mb-0">
@@ -94,10 +87,6 @@ function Swap({
               <SwapLeft
                 showModal={showModal}
                 setShowModal={setShowModal}
-                showPairModal={showPairModal}
-                setShowPairModal={setShowPairModal}
-                showPairModalReceive={showPairModalReceive}
-                setShowPairModalReceive={setShowPairModalReceive}
                 swapNTransfer={swapNTransfer}
                 setSwapNTransfer={setSwapNTransfer}
                 liquidityTerms={liquidityTerms}
@@ -109,10 +98,6 @@ function Swap({
             <SwapLeft
               showModal={showModal}
               setShowModal={setShowModal}
-              showPairModal={showPairModal}
-              setShowPairModal={setShowPairModal}
-              showPairModalReceive={showPairModalReceive}
-              setShowPairModalReceive={setShowPairModalReceive}
               swapNTransfer={swapNTransfer}
               setSwapNTransfer={setSwapNTransfer}
               liquidityTerms={liquidityTerms}
@@ -136,7 +121,7 @@ function Swap({
           mobileTab === 2 && (
             <>
               <div className="mt-8 mb-10">
-                <PairChart pair={tokenPair} />
+                <PairChart />
               </div>
               <TradingHistory />
             </>
@@ -144,7 +129,7 @@ function Swap({
         ) : (
           <>
             <div className="mt-8 mb-10">
-              <PairChart pair={tokenPair} />
+              <PairChart />
             </div>
             <TradingHistory />
           </>

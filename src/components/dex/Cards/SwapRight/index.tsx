@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import LiquidityAlert from "../LiquidityAlert";
 import OrderCard from "../OrderCard";
 import OrderFunds from "../OrderFunds";
@@ -47,7 +47,7 @@ const AddCircle = () => (
 );
 
 export default function SwapRight({ buyMode, setBuyMode }) {
-  const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
+  const tokenPair = useRecoilValue(selectTokenPair);
 
   return (
     <div className="right w-full md:mt-0 mt-10 md:w-12/25">
@@ -140,11 +140,6 @@ export default function SwapRight({ buyMode, setBuyMode }) {
 
       {/* Order-Funds Card */}
       <OrderFunds />
-
-      {/* Pair Chart Accordion */}
-      {/* <div className="mt-8">
-          <PairChart />
-        </div> */}
     </div>
   );
 }

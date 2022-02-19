@@ -54,12 +54,8 @@ const Magnification = () => (
   </svg>
 );
 
-export default function SelectPair({
-  showModal,
-  setShowModal,
-  content,
-  setPair,
-}) {
+export default function SelectPair({ content, setPair }) {
+  const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const TOKENS = [
@@ -76,7 +72,9 @@ export default function SelectPair({
   };
   return (
     <>
-      {content}
+      <div className="cursor-pointer" onClick={() => setShowModal(true)}>
+        {content}
+      </div>
 
       {showModal ? (
         <>

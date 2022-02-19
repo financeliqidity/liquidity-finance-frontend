@@ -84,10 +84,6 @@ const Selector = () => (
 export default function SwapLeft({
   showModal,
   setShowModal,
-  showPairModal,
-  setShowPairModal,
-  showPairModalReceive,
-  setShowPairModalReceive,
   swapNTransfer,
   setSwapNTransfer,
   liquidityTerms,
@@ -136,19 +132,14 @@ export default function SwapLeft({
         </div>
         <div className="right">
           <SelectPair
-            showModal={showPairModal}
-            setShowModal={setShowPairModal}
             setPair={(pair) =>
               setTokenPair({
-                receive: tokenPair.receive,
+                ...tokenPair,
                 pay: { name: pair.name, icon: pair.icon },
               })
             }
             content={
-              <div
-                className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
-                onClick={() => setShowPairModal(true)}
-              >
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
                 <img
                   src={tokenPair.pay.icon}
                   alt="..."
@@ -189,19 +180,14 @@ export default function SwapLeft({
             $2.9K
           </span>
           <SelectPair
-            showModal={showPairModalReceive}
-            setShowModal={setShowPairModalReceive}
             setPair={(pair) =>
               setTokenPair({
-                pay: tokenPair.pay,
+                ...tokenPair,
                 receive: { name: pair.name, icon: pair.icon },
               })
             }
             content={
-              <div
-                className="flex items-center cursor-pointer bg-grey_50 px-2 py-1 rounded-lg"
-                onClick={() => setShowPairModal(true)}
-              >
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
                 <img
                   src={tokenPair.receive.icon}
                   alt="..."
