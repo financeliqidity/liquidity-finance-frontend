@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import tokens from "../../../../constants/tokens.json";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
+import axios from "axios";
 
 const Close = () => (
   <svg
@@ -55,8 +57,8 @@ const Magnification = () => (
 );
 
 export default function SelectPair({ content, setPair }) {
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const TOKENS = [
     { id: 1, name: "BTC", icon: "/assets/images/BTC_logo.png" },
@@ -65,11 +67,33 @@ export default function SelectPair({ content, setPair }) {
   ];
 
   const handleSelect = (token) => {
-    console.log("token to set", token);
-
     setPair(token);
     setShowModal(false);
   };
+
+  const fetchTokenList: any = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get(
+        "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
+        {
+          headers: {
+            "X-CMC_PRO_API_KEY": "1d7c62c1-3240-40e5-8b59-395843ba84ee",
+          },
+        }
+      );
+
+      console.log(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => fetchTokenList(), []);
+
   return (
     <>
       <div className="cursor-pointer" onClick={() => setShowModal(true)}>
