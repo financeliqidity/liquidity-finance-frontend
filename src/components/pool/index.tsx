@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-import Layout from "../../components/Layout";
-import PoolGrid from "../../components/pool/Containers/PoolGrid";
-import PoolList from "../../components/pool/Containers/PoolList";
-import PoolTab from "../../components/pool/Containers/PoolTab";
+import PoolGrid from "./Containers/PoolGrid";
+import PoolList from "./Containers/PoolList";
+import PoolTab from "./Containers/PoolTab";
 
 export default function Pool() {
   const [isList, setIsList] = useState(true);
+
   return (
     <div className="md:py-12 md:w-11/12 md:mx-auto text-white">
       <PoolTab isList={isList} setIsList={setIsList} />
@@ -16,5 +16,3 @@ export default function Pool() {
     </div>
   );
 }
-
-Pool.layout = Layout;

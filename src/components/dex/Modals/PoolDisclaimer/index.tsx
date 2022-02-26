@@ -90,9 +90,14 @@ export default function PoolDisclaimer({
                     Continue
                   </button>
                   <button
-                    className="p-5 flex justify-center w-23/100 ml-auto btn-primary border-0 float-right outline-none focus:outline-none cursor-pointer rounded-lg"
+                    className={`p-5 flex justify-center w-23/100 ml-auto border-0 float-right outline-none focus:outline-none cursor-pointer rounded-lg ${
+                      liquidityTerms
+                        ? "bg-grey_40 text-grey_20"
+                        : "btn-primary text-white"
+                    }`}
                     onClick={() => setShowModal(false)}
                     style={{ width: "16.3%" }}
+                    disabled={liquidityTerms}
                   >
                     <Close />
                   </button>

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import tokens from "../../../../constants/tokens.json";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
+import axios from "axios";
 
 const Close = () => (
   <svg
@@ -55,21 +57,41 @@ const Magnification = () => (
 );
 
 export default function SelectPair({ content, setPair }) {
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const TOKENS = [
-    { id: 1, name: "BTC", icon: "/assets/images/BTC_logo.png" },
-    { id: 2, name: "ETH", icon: "/assets/icons/eth.png" },
-    { id: 3, name: "USDT", icon: "/assets/icons/usdt.png" },
-  ];
+  const [coins, setCoins] = useState([]);
 
   const handleSelect = (token) => {
-    console.log("token to set", token);
-
     setPair(token);
     setShowModal(false);
   };
+
+  const fetchTokenList: any = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axios.get(
+        "https://coinranking1.p.rapidapi.com/coins",
+        {
+          headers: {
+            "x-rapidapi-host": "coinranking1.p.rapidapi.com",
+            "x-rapidapi-key":
+              "d0f6d804f8msha74d0e47c8ce43bp1342bdjsn0208e9d58e9b",
+          },
+        }
+      );
+
+      console.log(response.data);
+      setLoading(false);
+      setCoins(response.data.data.coins);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => fetchTokenList(), []);
+
   return (
     <>
       <div className="cursor-pointer" onClick={() => setShowModal(true)}>
@@ -202,39 +224,29 @@ export default function SelectPair({ content, setPair }) {
                       </div>
                     </div>
                   </div>
-                  <ul>
-                    {TOKENS.map((token) => (
-                      <li
-                        key={token.id}
-                        className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
-                        onClick={() => handleSelect(token)}
-                      >
-                        <div className="flex items-center">
-                          <img
-                            src={token.icon}
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">
-                            {token.name}
-                          </span>
-                        </div>
-                        <span className="font-bold text-base grey-10">0</span>
-                      </li>
-                    ))}
-
-                    <li className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg">
-                      <div className="flex items-center">
-                        <img
-                          src="/assets/images/BTC_logo.png"
-                          alt="..."
-                          className="w-6 h-6 mr-2"
-                        />
-                        <span className="text-sm font-bold">BNB</span>
-                      </div>
-                      <span className="font-bold text-base grey-10">0</span>
-                    </li>
-                  </ul>
+                  {!loading && (
+                    <ul>
+                      {coins.slice(0, 5).map((token) => (
+                        <li
+                          key={token.uuid}
+                          className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
+                          onClick={() => handleSelect(token)}
+                        >
+                          <div className="flex items-center">
+                            <img
+                              src={token.iconUrl}
+                              alt="..."
+                              className="w-6 h-6 mr-2"
+                            />
+                            <span className="text-sm font-bold">
+                              {token.symbol}
+                            </span>
+                          </div>
+                          <span className="font-bold text-base grey-10">0</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 {/*footer*/}
                 <div className="flex p-6 justify-center bg-dark_grey items-center rounded-b-3xl">

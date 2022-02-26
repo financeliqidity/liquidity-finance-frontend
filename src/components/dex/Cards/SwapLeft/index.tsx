@@ -135,19 +135,23 @@ export default function SwapLeft({
             setPair={(pair) =>
               setTokenPair({
                 ...tokenPair,
-                pay: { name: pair.name, icon: pair.icon },
+                pay: {
+                  name: pair.name,
+                  iconUrl: pair.iconUrl,
+                  symbol: pair.symbol,
+                },
               })
             }
             content={
               <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
                 <img
-                  src={tokenPair.pay.icon}
+                  src={tokenPair.pay.iconUrl}
                   alt="..."
                   className="w-5 h-5 mr-2"
                 />
 
                 <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                  {tokenPair.pay.name}
+                  {tokenPair.pay.symbol}
                 </span>
                 <span className="flex items-center justify-center">
                   <Selector />
@@ -156,7 +160,7 @@ export default function SwapLeft({
             }
           />
           <span className="mt-1 text-gray-100 text-xs">
-            Balance: 0 {tokenPair.pay.name}
+            Balance: 0 {tokenPair.pay.symbol}
           </span>
         </div>
       </div>
@@ -183,19 +187,23 @@ export default function SwapLeft({
             setPair={(pair) =>
               setTokenPair({
                 ...tokenPair,
-                receive: { name: pair.name, icon: pair.icon },
+                receive: {
+                  name: pair.name,
+                  iconUrl: pair.iconUrl,
+                  symbol: pair.symbol,
+                },
               })
             }
             content={
               <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
                 <img
-                  src={tokenPair.receive.icon}
+                  src={tokenPair.receive.iconUrl}
                   alt="..."
                   className="w-5 h-5 mr-2"
                 />
 
                 <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                  {tokenPair.receive.name}
+                  {tokenPair.receive.symbol}
                 </span>
                 <span className="flex items-center justify-center">
                   <Selector />

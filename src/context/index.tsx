@@ -39,16 +39,6 @@ const WalletProvider: React.FC = ({ children }) => {
         method: "eth_requestAccounts",
       });
 
-      const provider = new ethers.providers.Web3Provider(ethereum);
-
-      const network = await await provider.getNetwork();
-
-      if (network.name !== "bnb") {
-        window.alert("Select Binance Smart Chain Main net.");
-        window.location.reload();
-        return;
-      }
-
       setWallet(accounts[0]);
     } catch (error) {
       console.log(error);
@@ -66,16 +56,6 @@ const WalletProvider: React.FC = ({ children }) => {
       const accounts = await window?.ethereum.request({
         method: "eth_accounts",
       });
-
-      const provider = new ethers.providers.Web3Provider(ethereum);
-
-      const network = await await provider.getNetwork();
-
-      if (network.name !== "bnb") {
-        window.alert("Select Binance Smart Chain Main net.");
-        window.location.reload();
-        return;
-      }
 
       if (accounts.length) {
         setWallet(accounts[0]);

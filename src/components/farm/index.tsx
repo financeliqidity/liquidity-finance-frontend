@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
-import Layout from "../../components/Layout";
-import PoolGrid from "../../components/pool/Containers/PoolGrid";
-import FarmingList from "../../components/farming/Containers/FarmingList";
-import FarmingTab from "../../components/farming/Containers/FarmingTab";
+import FarmingList from "./Containers/FarmingList";
+import FarmingTab from "./Containers/FarmingTab";
 
-export default function Farming() {
+export default function Farm() {
   const [isList, setIsList] = useState(true);
 
   return (
@@ -17,5 +15,3 @@ export default function Farming() {
     </div>
   );
 }
-
-Farming.layout = Layout;
