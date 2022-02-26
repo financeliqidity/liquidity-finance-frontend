@@ -21,11 +21,11 @@ const Navbar: React.FC<NavbarProps> = () => {
             </div>
           </Link>
 
-          <Link href="/pool">
+          <Link href="/earn">
             <div
               className={
                 "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/pool") !== -1
+                (router.pathname.indexOf("/earn") !== -1
                   ? "btn-primary text-3xl"
                   : "bg-blue_grey")
               }
@@ -34,18 +34,17 @@ const Navbar: React.FC<NavbarProps> = () => {
             </div>
           </Link>
 
-          <Link href="/farming">
-            <div
-              className={
-                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/farming") !== -1
-                  ? "btn-primary text-3xl"
-                  : "bg-blue_grey")
-              }
-            >
-              FARM
-            </div>
-          </Link>
+          <div
+            className={
+              "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
+              (router.pathname.indexOf("/metaverse") !== -1
+                ? "btn-primary text-3xl"
+                : "bg-blue_grey")
+            }
+          >
+            METAVERSE
+          </div>
+
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             VOTE
           </div>
