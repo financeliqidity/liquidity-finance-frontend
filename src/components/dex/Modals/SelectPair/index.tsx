@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
-import tokens from "../../../../constants/tokens.json";
+import React, { useState, useEffect, useMemo } from "react";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
 import axios from "axios";
+import Image from "next/image";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../../redux";
+import useFetchListCallback from "../../../../hooks/useFetchListCallback";
+import { useAllTokens } from "../../../../hooks/Tokens";
 
 const Close = () => (
   <svg
@@ -57,16 +61,21 @@ const Magnification = () => (
 );
 
 export default function SelectPair({ content, setPair }) {
+  const lists = useSelector<AppState, AppState["lists"]["byUrl"]>(
+    (state) => state.lists.byUrl
+  );
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [coins, setCoins] = useState([]);
+
+  const [listView, setListView] = useState<boolean>(false);
 
   const handleSelect = (token) => {
     setPair(token);
     setShowModal(false);
   };
 
-  const fetchTokenList: any = async () => {
+  const fetchTokenList = async () => {
     try {
       setLoading(true);
 
@@ -81,7 +90,6 @@ export default function SelectPair({ content, setPair }) {
         }
       );
 
-      console.log(response.data);
       setLoading(false);
       setCoins(response.data.data.coins);
     } catch (error) {
@@ -91,6 +99,55 @@ export default function SelectPair({ content, setPair }) {
   };
 
   useEffect(() => fetchTokenList(), []);
+
+  const fetchList = useFetchListCallback();
+
+  const sortedLists = useMemo(() => {
+    const listUrls = Object.keys(lists);
+    return listUrls
+      .filter((listUrl) => {
+        return Boolean(lists[listUrl].current);
+      })
+      .sort((u1, u2) => {
+        const { current: l1 } = lists[u1];
+        const { current: l2 } = lists[u2];
+        if (l1 && l2) {
+          return l1.name.toLowerCase() < l2.name.toLowerCase()
+            ? -1
+            : l1.name.toLowerCase() === l2.name.toLowerCase()
+            ? 0
+            : 1;
+        }
+        if (l1) return -1;
+        if (l2) return 1;
+        return 0;
+      });
+  }, [lists]);
+
+  const allTokens = useAllTokens();
+
+  console.log(allTokens);
+
+  // const itemData = useMemo(() => (showETH ? [Currency.ETHER, ...currencies] : [...currencies]), [currencies, showETH])
+
+  // const Row = useCallback(
+  //   ({data, index, style}) => {
+  //     const currency: Currency = data[index]
+  //     const isSelected = Boolean(selectedCurrency && currencyEquals(selectedCurrency, currency))
+  //     const otherSelected = Boolean(otherCurrency && currencyEquals(otherCurrency, currency))
+  //     const handleSelect = () => onCurrencySelect(currency)
+  //     return (
+  //       <CurrencyRow
+  //         style={style}
+  //         currency={currency}
+  //         isSelected={isSelected}
+  //         onSelect={handleSelect}
+  //         otherSelected={otherSelected}
+  //       />
+  //     )
+  //   },
+  //   [onCurrencySelect, otherCurrency, selectedCurrency]
+  // )
 
   return (
     <>
@@ -233,12 +290,13 @@ export default function SelectPair({ content, setPair }) {
                           onClick={() => handleSelect(token)}
                         >
                           <div className="flex items-center">
-                            <img
-                              src={token.iconUrl}
+                            <Image
+                              src={token?.iconUrl}
                               alt="..."
-                              className="w-6 h-6 mr-2"
+                              width={24}
+                              height={24}
                             />
-                            <span className="text-sm font-bold">
+                            <span className="text-sm font-bold ml-2">
                               {token.symbol}
                             </span>
                           </div>

@@ -1,5 +1,10 @@
 import { createContext, useState, useEffect } from "react";
 import { ethers } from "ethers";
+import detectEthereumProvider from "@metamask/detect-provider";
+import { hexToUTF8 } from "@47ng/codec";
+
+import Dex from "../artifacts/abis/Dex.json";
+import ERC20Abi from "../artifacts/abis/ERC20Abi.json";
 
 type ContextType = {
   connectWallet: () => void;
@@ -14,7 +19,10 @@ export const WalletContext = createContext<ContextType>({
 });
 
 const WalletProvider: React.FC = ({ children }) => {
+  const [provider, setProvider] = useState(null);
+  const [accounts, setAccounts] = useState([]);
   const [wallet, setWallet] = useState(null);
+  const [contracts, setContracts] = useState(null);
 
   let ethereum;
 
@@ -22,10 +30,6 @@ const WalletProvider: React.FC = ({ children }) => {
     //@ts-ignore
     ethereum = window?.ethereum;
   }
-
-  const accountChangedHandler = () => checkIfWalletIsConnected();
-
-  const chainChangedHandler = () => window.location.reload();
 
   const connectWallet = async () => {
     try {
@@ -35,16 +39,46 @@ const WalletProvider: React.FC = ({ children }) => {
         );
 
       //@ts-ignore
-      const accounts = await window?.ethereum.request({
+      const accountsList = await window?.ethereum.request({
         method: "eth_requestAccounts",
       });
 
-      setWallet(accounts[0]);
+      setWallet(accountsList[0]);
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      // const contracts = await getContracts(provider.provider);
+      const accounts = await provider.listAccounts();
+
+      setProvider(provider);
+      // setContracts(contracts);
+      setAccounts(accounts);
     } catch (error) {
       console.log(error);
       throw new Error("No ethereum object found");
     }
   };
+
+  // const getContracts = async (web3) => {
+  //   const networkId = await web3.provider.networkVersion;
+  //   const deployedNetwork = Dex.networks[networkId];
+
+  //   const signer = await web3.getSigner();
+
+  //   const dex = new ethers.Contract(deployedNetwork.address, Dex.abi, signer);
+
+  //   const tokens = await dex.getTokens();
+  //   const tokenContracts = tokens.reduce(
+  //     (acc, token) => ({
+  //       ...acc,
+  //       [hexToUTF8(token.ticker)]: new ethers.Contract(
+  //         token.tokenAddress,
+  //         ERC20Abi
+  //       ),
+  //     }),
+  //     {}
+  //   );
+  //   return { dex, ...tokenContracts };
+  // };
 
   const disconnectWallet = () => setWallet(null);
 
@@ -53,15 +87,23 @@ const WalletProvider: React.FC = ({ children }) => {
       if (!ethereum) return alert("Please install metamask");
 
       //@ts-ignore
-      const accounts = await window?.ethereum.request({
+      const accountsList = await window?.ethereum.request({
         method: "eth_accounts",
       });
 
-      if (accounts.length) {
-        setWallet(accounts[0]);
+      if (accountsList.length) {
+        setWallet(accountsList[0]);
       } else {
         console.log("No accounts found");
       }
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      // const contracts = await getContracts(provider);
+      const accounts = await provider.listAccounts();
+
+      setProvider(provider);
+      // setContracts(contracts);
+      setAccounts(accounts);
     } catch (error) {
       console.log(error);
 
@@ -71,6 +113,12 @@ const WalletProvider: React.FC = ({ children }) => {
 
   //@ts-ignore
   useEffect(() => checkIfWalletIsConnected(), []);
+
+  console.log(accounts, contracts);
+
+  const accountChangedHandler = () => checkIfWalletIsConnected();
+
+  const chainChangedHandler = () => window.location.reload();
 
   ethereum?.on("accountsChanged", accountChangedHandler);
 

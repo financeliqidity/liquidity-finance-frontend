@@ -18,7 +18,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = () => {
-  const { wallet } = React.useContext(WalletContext);
+  const { wallet, disconnectWallet } = React.useContext(WalletContext);
   const [trim, setTrim] = React.useState(null);
 
   useEffect(() => {
@@ -52,7 +52,10 @@ const Header: React.FC<HeaderProps> = () => {
 
             <div className="ml-3 md:ml-4 relative">
               {wallet ? (
-                <WalletDropdown trim={trim} wallet={wallet} />
+                <WalletDropdown
+                  wallet={wallet}
+                  disconnectWallet={disconnectWallet}
+                />
               ) : (
                 <ConnectWallet />
               )}

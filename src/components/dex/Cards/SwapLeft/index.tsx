@@ -8,8 +8,10 @@ import SelectPair from "../../Modals/SelectPair";
 import Settings from "../../Modals/Settings";
 import TrxnHistory from "../../Modals/TrxnHistory";
 import PercentageSelect from "../../PercentageSelect";
+import { Field } from "../../../../redux/dex/actions";
 
 import { selectTokenPair } from "../../../../selectTokenPair";
+import { useActiveWeb3React } from "../../../../hooks";
 
 const RefreshIcon = () => (
   <svg
@@ -94,6 +96,31 @@ export default function SwapLeft({
   const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
 
   const [pPercentage, setPPercentage] = useState(null);
+  // check if user has gone through approval process, used to show two step buttons, reset on token change
+  const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false);
+
+  // const {v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError} = useDerivedSwapInfo()
+
+  // modal and loading
+  const [
+    { showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash },
+    setSwapState,
+  ] = useState<{
+    showConfirm: boolean;
+    tradeToConfirm: undefined;
+    // tradeToConfirm: Trade | undefined;
+    attemptingTxn: boolean;
+    swapErrorMessage: string | undefined;
+    txHash: string | undefined;
+  }>({
+    showConfirm: false,
+    tradeToConfirm: undefined,
+    attemptingTxn: false,
+    swapErrorMessage: undefined,
+    txHash: undefined,
+  });
+
+  // const { account } = useActiveWeb3React();
 
   const {
     register,
@@ -101,6 +128,20 @@ export default function SwapLeft({
     watch,
     formState: { errors },
   } = useForm();
+
+  // const handleInputSelect = useCallback(
+  //   (inputCurrency) => {
+  //     setApprovalSubmitted(false) // reset 2 step UI for approvals
+  //     onCurrencySelection(Field.INPUT, inputCurrency)
+  //     if (inputCurrency.symbol === 'SYRUP') {
+  //       checkForWarning(inputCurrency.symbol, 'Selling')
+  //     }
+  //     if (inputCurrency.symbol === 'SAFEMOON') {
+  //       checkForWarning(inputCurrency.symbol, 'Selling')
+  //     }
+  //   },
+  //   [onCurrencySelection, setApprovalSubmitted, checkForWarning]
+  // )
 
   const handleSwitchPair = () => {
     const pay = tokenPair.pay;
