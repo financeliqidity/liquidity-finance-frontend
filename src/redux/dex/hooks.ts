@@ -1,11 +1,26 @@
 import { parseUnits } from "@ethersproject/units";
+import {
+  Currency,
+  CurrencyAmount,
+  ETHER,
+  JSBI,
+  Token,
+  TokenAmount,
+  Trade,
+} from "cd3d-dex-libs-sdk";
 
 import { ParsedQs } from "qs";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppState } from "..";
-import { Currency, ETHER } from "../../sdk-demo/dist/entities/currency";
-import { Token } from "../../sdk-demo/dist/entities/token";
+import { useActiveWeb3React } from "../../hooks";
+import { useCurrency } from "../../hooks/Tokens";
+import { useTradeExactIn, useTradeExactOut } from "../../hooks/Trades";
+import useENS from "../../hooks/useENS";
+import { isAddress } from "../../utils";
+import { computeSlippageAdjustedAmounts } from "../../utils/prices";
+import { useUserSlippageTolerance } from "../user/hooks";
+import { useCurrencyBalances } from "../wallet/hooks";
 import {
   Field,
   selectCurrency,
@@ -70,108 +85,151 @@ export function useSwapActionHandlers(): {
   };
 }
 
-// // from the current swap inputs, compute the best trade and return it.
-// export function useDerivedSwapInfo(): {
-//   currencies: { [field in Field]?: Currency };
-//   currencyBalances: { [field in Field]?: CurrencyAmount };
-//   parsedAmount: CurrencyAmount | undefined;
-//   v2Trade: Trade | undefined;
-//   inputError?: string;
-// } {
-//   const { account } = useActiveWeb3React();
+// try to parse a user entered amount for a given token
+export function tryParseAmount(
+  value?: string,
+  currency?: Currency
+): CurrencyAmount | undefined {
+  if (!value || !currency) {
+    return undefined;
+  }
+  try {
+    const typedValueParsed = parseUnits(value, currency.decimals).toString();
+    if (typedValueParsed !== "0") {
+      return currency instanceof Token
+        ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed))
+        : CurrencyAmount.ether(JSBI.BigInt(typedValueParsed));
+    }
+  } catch (error) {
+    // should fail if the user specifies too many decimal places of precision (or maybe exceed max uint?)
+    console.info(`Failed to parse input amount: "${value}"`, error);
+  }
+  // necessary for all paths to return a value
+  return undefined;
+}
 
-//   const {
-//     independentField,
-//     typedValue,
-//     [Field.INPUT]: { currencyId: inputCurrencyId },
-//     [Field.OUTPUT]: { currencyId: outputCurrencyId },
-//     recipient,
-//   } = useSwapState();
+const BAD_RECIPIENT_ADDRESSES: string[] = [
+  "0xBCfCcbde45cE874adCB698cC183deBcF17952812", // v2 factory
+  "0xf164fC0Ec4E93095b804a4795bBe1e041497b92a", // v2 router 01
+  "0x05fF2B0DB69458A0750badebc4f9e13aDd608C7F", // v2 router 02
+];
 
-//   const inputCurrency = useCurrency(inputCurrencyId);
-//   const outputCurrency = useCurrency(outputCurrencyId);
-//   const recipientLookup = useENS(recipient ?? undefined);
-//   const to: string | null =
-//     (recipient === null ? account : recipientLookup.address) ?? null;
+/**
+ * Returns true if any of the pairs or tokens in a trade have the given checksummed address
+ * @param trade to check for the given address
+ * @param checksummedAddress address to check in the pairs and tokens
+ */
+function involvesAddress(trade: Trade, checksummedAddress: string): boolean {
+  return (
+    trade.route.path.some((token) => token.address === checksummedAddress) ||
+    trade.route.pairs.some(
+      (pair) => pair.liquidityToken.address === checksummedAddress
+    )
+  );
+}
 
-//   const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [
-//     inputCurrency ?? undefined,
-//     outputCurrency ?? undefined,
-//   ]);
+// from the current swap inputs, compute the best trade and return it.
+export function useDerivedSwapInfo(): {
+  currencies: { [field in Field]?: Currency };
+  currencyBalances: { [field in Field]?: CurrencyAmount };
+  parsedAmount: CurrencyAmount | undefined;
+  v2Trade: Trade | undefined;
+  inputError?: string;
+} {
+  const { account } = useActiveWeb3React();
 
-//   const isExactIn: boolean = independentField === Field.INPUT;
-//   const parsedAmount = tryParseAmount(
-//     typedValue,
-//     (isExactIn ? inputCurrency : outputCurrency) ?? undefined
-//   );
+  const {
+    independentField,
+    typedValue,
+    [Field.INPUT]: { currencyId: inputCurrencyId },
+    [Field.OUTPUT]: { currencyId: outputCurrencyId },
+    recipient,
+  } = useSwapState();
 
-//   const bestTradeExactIn = useTradeExactIn(
-//     isExactIn ? parsedAmount : undefined,
-//     outputCurrency ?? undefined
-//   );
-//   const bestTradeExactOut = useTradeExactOut(
-//     inputCurrency ?? undefined,
-//     !isExactIn ? parsedAmount : undefined
-//   );
+  const inputCurrency = useCurrency(inputCurrencyId);
+  const outputCurrency = useCurrency(outputCurrencyId);
+  const recipientLookup = useENS(recipient ?? undefined);
+  const to: string | null =
+    (recipient === null ? account : recipientLookup.address) ?? null;
 
-//   const v2Trade = isExactIn ? bestTradeExactIn : bestTradeExactOut;
+  const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [
+    inputCurrency ?? undefined,
+    outputCurrency ?? undefined,
+  ]);
 
-//   const currencyBalances = {
-//     [Field.INPUT]: relevantTokenBalances[0],
-//     [Field.OUTPUT]: relevantTokenBalances[1],
-//   };
+  const isExactIn: boolean = independentField === Field.INPUT;
+  const parsedAmount = tryParseAmount(
+    typedValue,
+    (isExactIn ? inputCurrency : outputCurrency) ?? undefined
+  );
 
-//   const currencies: { [field in Field]?: Currency } = {
-//     [Field.INPUT]: inputCurrency ?? undefined,
-//     [Field.OUTPUT]: outputCurrency ?? undefined,
-//   };
+  const bestTradeExactIn = useTradeExactIn(
+    isExactIn ? parsedAmount : undefined,
+    outputCurrency ?? undefined
+  );
+  const bestTradeExactOut = useTradeExactOut(
+    inputCurrency ?? undefined,
+    !isExactIn ? parsedAmount : undefined
+  );
 
-//   let inputError: string | undefined;
-//   if (!account) {
-//     inputError = "Connect Wallet";
-//   }
+  const v2Trade = isExactIn ? bestTradeExactIn : bestTradeExactOut;
 
-//   if (!parsedAmount) {
-//     inputError = inputError ?? "Enter an amount";
-//   }
+  const currencyBalances = {
+    [Field.INPUT]: relevantTokenBalances[0],
+    [Field.OUTPUT]: relevantTokenBalances[1],
+  };
 
-//   if (!currencies[Field.INPUT] || !currencies[Field.OUTPUT]) {
-//     inputError = inputError ?? "Select a token";
-//   }
+  const currencies: { [field in Field]?: Currency } = {
+    [Field.INPUT]: inputCurrency ?? undefined,
+    [Field.OUTPUT]: outputCurrency ?? undefined,
+  };
 
-//   const formattedTo = isAddress(to);
-//   if (!to || !formattedTo) {
-//     inputError = inputError ?? "Enter a recipient";
-//   } else if (
-//     BAD_RECIPIENT_ADDRESSES.indexOf(formattedTo) !== -1 ||
-//     (bestTradeExactIn && involvesAddress(bestTradeExactIn, formattedTo)) ||
-//     (bestTradeExactOut && involvesAddress(bestTradeExactOut, formattedTo))
-//   ) {
-//     inputError = inputError ?? "Invalid recipient";
-//   }
+  let inputError: string | undefined;
+  if (!account) {
+    inputError = "Connect Wallet";
+  }
 
-//   const [allowedSlippage] = useUserSlippageTolerance();
+  if (!parsedAmount) {
+    inputError = inputError ?? "Enter an amount";
+  }
 
-//   const slippageAdjustedAmounts =
-//     v2Trade &&
-//     allowedSlippage &&
-//     computeSlippageAdjustedAmounts(v2Trade, allowedSlippage);
+  if (!currencies[Field.INPUT] || !currencies[Field.OUTPUT]) {
+    inputError = inputError ?? "Select a token";
+  }
 
-//   // compare input balance to max input based on version
-//   const [balanceIn, amountIn] = [
-//     currencyBalances[Field.INPUT],
-//     slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null,
-//   ];
+  const formattedTo = isAddress(to);
+  if (!to || !formattedTo) {
+    inputError = inputError ?? "Enter a recipient";
+  } else if (
+    BAD_RECIPIENT_ADDRESSES.indexOf(formattedTo) !== -1 ||
+    (bestTradeExactIn && involvesAddress(bestTradeExactIn, formattedTo)) ||
+    (bestTradeExactOut && involvesAddress(bestTradeExactOut, formattedTo))
+  ) {
+    inputError = inputError ?? "Invalid recipient";
+  }
 
-//   if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
-//     inputError = `Insufficient ${amountIn.currency.symbol} balance`;
-//   }
+  const [allowedSlippage] = useUserSlippageTolerance();
 
-//   return {
-//     currencies,
-//     currencyBalances,
-//     parsedAmount,
-//     v2Trade: v2Trade ?? undefined,
-//     inputError,
-//   };
-// }
+  const slippageAdjustedAmounts =
+    v2Trade &&
+    allowedSlippage &&
+    computeSlippageAdjustedAmounts(v2Trade, allowedSlippage);
+
+  // compare input balance to max input based on version
+  const [balanceIn, amountIn] = [
+    currencyBalances[Field.INPUT],
+    slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null,
+  ];
+
+  if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
+    inputError = `Insufficient ${amountIn.currency.symbol} balance`;
+  }
+
+  return {
+    currencies,
+    currencyBalances,
+    parsedAmount,
+    v2Trade: v2Trade ?? undefined,
+    inputError,
+  };
+}

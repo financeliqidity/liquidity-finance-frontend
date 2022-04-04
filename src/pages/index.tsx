@@ -1,12 +1,11 @@
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
+import Link from "next/link";
 
 const injected = new InjectedConnector();
 
 export default function Home() {
   const { active, activate, library: provider } = useWeb3React();
-
-  console.log(active, provider);
 
   const connect = async () => {
     try {
@@ -19,6 +18,10 @@ export default function Home() {
   return (
     <div className="bg-dark_grey h-full min-h-screen w-full text-white font-bold">
       {active ? "Connected!" : <button onClick={connect}>Connect</button>}
+      <br />
+      <Link href="/dex">
+        <a>DEX</a>
+      </Link>
     </div>
   );
 }

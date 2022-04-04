@@ -58,28 +58,6 @@ const WalletProvider: React.FC = ({ children }) => {
     }
   };
 
-  // const getContracts = async (web3) => {
-  //   const networkId = await web3.provider.networkVersion;
-  //   const deployedNetwork = Dex.networks[networkId];
-
-  //   const signer = await web3.getSigner();
-
-  //   const dex = new ethers.Contract(deployedNetwork.address, Dex.abi, signer);
-
-  //   const tokens = await dex.getTokens();
-  //   const tokenContracts = tokens.reduce(
-  //     (acc, token) => ({
-  //       ...acc,
-  //       [hexToUTF8(token.ticker)]: new ethers.Contract(
-  //         token.tokenAddress,
-  //         ERC20Abi
-  //       ),
-  //     }),
-  //     {}
-  //   );
-  //   return { dex, ...tokenContracts };
-  // };
-
   const disconnectWallet = () => setWallet(null);
 
   const checkIfWalletIsConnected = async () => {

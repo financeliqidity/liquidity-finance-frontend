@@ -1,6 +1,6 @@
 import { parseBytes32String } from "@ethersproject/strings";
-import { Currency, ETHER } from "../sdk-demo/dist/entities/currency";
-import { Token, currencyEquals } from "../sdk-demo/dist/entities/token";
+import { Currency, ETHER } from "cd3d-dex-libs-sdk";
+import { Token, currencyEquals } from "cd3d-dex-libs-sdk";
 
 import { useMemo } from "react";
 import { useSelectedTokenList } from "../redux/lists/hooks";

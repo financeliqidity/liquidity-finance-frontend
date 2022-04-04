@@ -1,10 +1,15 @@
-import { ConnectorNames } from "@nguyenphu27/uikit";
 import { Web3Provider } from "@ethersproject/providers";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { BscConnector } from "@binance-chain/bsc-connector";
 import { NetworkConnector } from "./NetworkConnector";
+
+export declare enum ConnectorNames {
+  Injected = "injected",
+  WalletConnect = "walletconnect",
+  BSC = "bsc",
+}
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
 
@@ -30,7 +35,7 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [56, 97],
+  supportedChainIds: [97],
 });
 
 export const bscConnector = new BscConnector({ supportedChainIds: [56] });
@@ -40,8 +45,8 @@ export const walletconnect = new WalletConnectConnector({
   rpc: { [NETWORK_CHAIN_ID]: NETWORK_URL },
   bridge: "https://bridge.walletconnect.org",
   qrcode: true,
-  pollingInterval: 15000,
 });
+// pollingInterval: 15000,
 
 // mainnet only
 export const walletlink = new WalletLinkConnector({

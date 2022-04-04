@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState } from "recoil";
 import { WalletContext } from "../../../../context";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
@@ -10,8 +9,13 @@ import TrxnHistory from "../../Modals/TrxnHistory";
 import PercentageSelect from "../../PercentageSelect";
 import { Field } from "../../../../redux/dex/actions";
 
-import { selectTokenPair } from "../../../../selectTokenPair";
 import { useActiveWeb3React } from "../../../../hooks";
+import {
+  useDerivedSwapInfo,
+  useSwapActionHandlers,
+  useSwapState,
+} from "../../../../redux/dex/hooks";
+import { useCurrencyBalance } from "../../../../redux/wallet/hooks";
 
 const RefreshIcon = () => (
   <svg
@@ -82,6 +86,24 @@ const Selector = () => (
     />
   </svg>
 );
+const Dummy = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#fff"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    className="sc-jKTccl hmgxQB"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+  </svg>
+);
 
 export default function SwapLeft({
   showModal,
@@ -91,15 +113,20 @@ export default function SwapLeft({
   liquidityTerms,
   setLiquidityTerms,
   tabChanger,
+  onCurrencySelectInput,
+  onCurrencySelectOutput,
 }) {
   const { wallet, connectWallet } = React.useContext(WalletContext);
-  const [tokenPair, setTokenPair] = useRecoilState(selectTokenPair);
 
   const [pPercentage, setPPercentage] = useState(null);
-  // check if user has gone through approval process, used to show two step buttons, reset on token change
-  const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false);
 
-  // const {v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError} = useDerivedSwapInfo()
+  const {
+    v2Trade,
+    currencyBalances,
+    parsedAmount,
+    currencies,
+    inputError: swapInputError,
+  } = useDerivedSwapInfo();
 
   // modal and loading
   const [
@@ -120,7 +147,12 @@ export default function SwapLeft({
     txHash: undefined,
   });
 
-  // const { account } = useActiveWeb3React();
+  const {
+    onSwitchTokens,
+    onCurrencySelection,
+    onUserInput,
+    onChangeRecipient,
+  } = useSwapActionHandlers();
 
   const {
     register,
@@ -129,133 +161,118 @@ export default function SwapLeft({
     formState: { errors },
   } = useForm();
 
-  // const handleInputSelect = useCallback(
-  //   (inputCurrency) => {
-  //     setApprovalSubmitted(false) // reset 2 step UI for approvals
-  //     onCurrencySelection(Field.INPUT, inputCurrency)
-  //     if (inputCurrency.symbol === 'SYRUP') {
-  //       checkForWarning(inputCurrency.symbol, 'Selling')
-  //     }
-  //     if (inputCurrency.symbol === 'SAFEMOON') {
-  //       checkForWarning(inputCurrency.symbol, 'Selling')
-  //     }
-  //   },
-  //   [onCurrencySelection, setApprovalSubmitted, checkForWarning]
-  // )
-
-  const handleSwitchPair = () => {
-    const pay = tokenPair.pay;
-    const receive = tokenPair.receive;
-
-    setTokenPair({ pay: receive, receive: pay });
-  };
-
   const handleSwap = (values) => {
     console.log(values);
   };
 
-  const Pay = () => (
-    <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-      <div className="flex justify-between">
-        <div className="left">
-          <input
-            type="number"
-            name="pay"
-            className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-            {...register("pay", { required: true })}
-          />
-          <span className="text-gray-100 text-xs mt-1 block">~$ 2900.00</span>
-          {errors.pay?.type === "required" && (
-            <p className="text-left text-red-600 text-xs mt-1">
-              Pay is required
-            </p>
-          )}
-        </div>
-        <div className="right">
-          <SelectPair
-            setPair={(pair) =>
-              setTokenPair({
-                ...tokenPair,
-                pay: {
-                  name: pair.name,
-                  iconUrl: pair.iconUrl,
-                  symbol: pair.symbol,
-                },
-              })
-            }
-            content={
-              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                <img
-                  src={tokenPair.pay.iconUrl}
-                  alt="..."
-                  className="w-5 h-5 mr-2"
-                />
+  const { account } = useActiveWeb3React();
 
-                <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                  {tokenPair.pay.symbol}
-                </span>
-                <span className="flex items-center justify-center">
-                  <Selector />
-                </span>
-              </div>
-            }
-          />
-          <span className="mt-1 text-gray-100 text-xs">
-            Balance: 0 {tokenPair.pay.symbol}
-          </span>
+  const Pay = () => {
+    const selectedCurrencyBalance = useCurrencyBalance(
+      account ?? undefined,
+      currencies[Field.INPUT] ?? undefined
+    );
+
+    // console.log(`${selectedCurrencyBalance?.toSignificant(6)}`);
+
+    return (
+      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
+        <div className="flex justify-between">
+          <div className="left">
+            <input
+              type="number"
+              name="pay"
+              className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+              {...register("pay", { required: true })}
+            />
+            <span className="text-gray-100 text-xs mt-1 block">~$ 2900.00</span>
+            {errors.pay?.type === "required" && (
+              <p className="text-left text-red-600 text-xs mt-1">
+                Pay is required
+              </p>
+            )}
+          </div>
+          <div className="right">
+            <SelectPair
+              onCurrencySelect={onCurrencySelectInput}
+              content={
+                <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                  {/* <img
+                src={tokenPair.pay.iconUrl}
+                alt="..."
+                className="w-5 h-5 mr-2"
+              /> */}
+                  <Dummy />
+
+                  <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                    {currencies[Field.INPUT]?.symbol}
+                  </span>
+                  <span className="flex items-center justify-center">
+                    <Selector />
+                  </span>
+                </div>
+              }
+            />
+            <span className="mt-1 text-gray-100 text-xs">
+              Balance: {currencyBalances[Field.INPUT]}{" "}
+              {currencies[Field.INPUT]?.symbol}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
-  const Receive = () => (
-    <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-      <div className="flex justify-between">
-        <div className="left">
-          <input
-            type="number"
-            name="receive"
-            className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-            {...register("receive", { required: true })}
-          />
-          <span className="text-gray-100 text-xs mt-1 block">~$ 0.944518</span>
-        </div>
-        <div className="right flex items-center">
-          <span className="text-sm font-semibold text-gray-100 mr-3">
-            $2.9K
-          </span>
-          <SelectPair
-            setPair={(pair) =>
-              setTokenPair({
-                ...tokenPair,
-                receive: {
-                  name: pair.name,
-                  iconUrl: pair.iconUrl,
-                  symbol: pair.symbol,
-                },
-              })
-            }
-            content={
-              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                <img
-                  src={tokenPair.receive.iconUrl}
-                  alt="..."
-                  className="w-5 h-5 mr-2"
-                />
+  const Receive = () => {
+    const selectedCurrencyBalance = useCurrencyBalance(
+      account ?? undefined,
+      currencies[Field.OUTPUT] ?? undefined
+    );
 
-                <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                  {tokenPair.receive.symbol}
-                </span>
-                <span className="flex items-center justify-center">
-                  <Selector />
-                </span>
-              </div>
-            }
-          />
+    console.log(`${selectedCurrencyBalance?.toSignificant(6)}`);
+    return (
+      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
+        <div className="flex justify-between">
+          <div className="left">
+            <input
+              type="number"
+              name="receive"
+              className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+              {...register("receive", { required: true })}
+            />
+            <span className="text-gray-100 text-xs mt-1 block">
+              ~$ 0.944518
+            </span>
+          </div>
+          <div className="right flex items-center">
+            <span className="text-sm font-semibold text-gray-100 mr-3">
+              $2.9K
+            </span>
+            <SelectPair
+              onCurrencySelect={onCurrencySelectOutput}
+              content={
+                <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                  {/* <img
+                src={tokenPair.receive.iconUrl}
+                alt="..."
+                className="w-5 h-5 mr-2"
+              /> */}
+                  <Dummy />
+
+                  <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                    {currencies[Field.OUTPUT]?.symbol}
+                  </span>
+                  <span className="flex items-center justify-center">
+                    <Selector />
+                  </span>
+                </div>
+              }
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="left w-full md:w-12/25 bg-blue_grey px-4 md:px-8 py-8 md:py-12 rounded-xl">
@@ -312,7 +329,7 @@ export default function SwapLeft({
         <div className="my-5 flex justify-center">
           <button
             className="p-4 bg-grey_50 rounded-full"
-            onClick={handleSwitchPair}
+            onClick={onSwitchTokens}
             type="button"
           >
             <img src="/assets/icons/switch.svg" alt="..." />

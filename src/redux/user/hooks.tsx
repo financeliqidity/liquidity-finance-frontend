@@ -6,9 +6,7 @@ import { BASES_TO_TRACK_LIQUIDITY_FOR, PINNED_PAIRS } from "../../constants";
 import { useActiveWeb3React } from "../../hooks";
 // eslint-disable-next-line import/no-cycle
 import { useAllTokens } from "../../hooks/Tokens";
-import { ChainId } from "../../sdk-demo/dist";
-import { Pair } from "../../sdk-demo/dist/entities/pair";
-import { Token } from "../../sdk-demo/dist/entities/token";
+import { ChainId, Pair, Token } from "cd3d-dex-libs-sdk";
 import { AppDispatch, AppState } from "../index";
 import {
   addSerializedPair,

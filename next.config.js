@@ -13,6 +13,10 @@ module.exports = {
     },
   },
   images: {
-    domains: ["cdn.coinranking.com"],
+    domains: [
+      "cdn.coinranking.com",
+      "exchange.pancakeswap.finance",
+      "cd3d-silk.vercel.app",
+    ],
   },
 };

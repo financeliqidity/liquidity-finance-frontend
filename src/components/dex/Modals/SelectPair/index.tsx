@@ -1,11 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
 import axios from "axios";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../../redux";
 import useFetchListCallback from "../../../../hooks/useFetchListCallback";
-import { useAllTokens } from "../../../../hooks/Tokens";
+import { useAllTokens, useToken } from "../../../../hooks/Tokens";
+import { useActiveWeb3React } from "../../../../hooks";
+import { isAddress } from "../../../../utils";
+import useTokenComparator from "./sorting";
+import { Currency, Token } from "cd3d-dex-libs-sdk";
+import filterTokens from "./filtering";
 
 const Close = () => (
   <svg
@@ -59,21 +64,53 @@ const Magnification = () => (
     />
   </svg>
 );
+const Dummy = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#fff"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    className="sc-jKTccl hmgxQB"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+  </svg>
+);
 
-export default function SelectPair({ content, setPair }) {
-  const lists = useSelector<AppState, AppState["lists"]["byUrl"]>(
-    (state) => state.lists.byUrl
-  );
+export default function SelectPair({ content, onCurrencySelect }) {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [coins, setCoins] = useState([]);
+  const { chainId } = useActiveWeb3React();
 
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [listView, setListView] = useState<boolean>(false);
+  const [invertSearchOrder, setInvertSearchOrder] = useState<boolean>(false);
+  const isAddressSearch = isAddress(searchQuery);
+  const searchToken = useToken(searchQuery);
 
-  const handleSelect = (token) => {
-    setPair(token);
-    setShowModal(false);
-  };
+  const allTokens = useAllTokens();
+
+  const showETH: boolean = useMemo(() => {
+    const s = searchQuery.toLowerCase().trim();
+    return s === "" || s === "b" || s === "bn" || s === "bnb";
+  }, [searchQuery]);
+
+  const tokenComparator = useTokenComparator(invertSearchOrder);
+
+  const handleCurrencySelect = useCallback(
+    (currency: Currency) => {
+      onCurrencySelect(currency);
+      setShowModal(false);
+    },
+    [setShowModal, onCurrencySelect]
+  );
 
   const fetchTokenList = async () => {
     try {
@@ -98,56 +135,31 @@ export default function SelectPair({ content, setPair }) {
     }
   };
 
-  useEffect(() => fetchTokenList(), []);
+  const filteredTokens: Token[] = useMemo(() => {
+    if (isAddressSearch) return searchToken ? [searchToken] : [];
+    return filterTokens(Object.values(allTokens), searchQuery);
+  }, [isAddressSearch, searchToken, allTokens, searchQuery]);
 
-  const fetchList = useFetchListCallback();
+  const filteredSortedTokens: Token[] = useMemo(() => {
+    if (searchToken) return [searchToken];
+    const sorted = filteredTokens.sort(tokenComparator);
+    const symbolMatch = searchQuery
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((s) => s.length > 0);
+    if (symbolMatch.length > 1) return sorted;
 
-  const sortedLists = useMemo(() => {
-    const listUrls = Object.keys(lists);
-    return listUrls
-      .filter((listUrl) => {
-        return Boolean(lists[listUrl].current);
-      })
-      .sort((u1, u2) => {
-        const { current: l1 } = lists[u1];
-        const { current: l2 } = lists[u2];
-        if (l1 && l2) {
-          return l1.name.toLowerCase() < l2.name.toLowerCase()
-            ? -1
-            : l1.name.toLowerCase() === l2.name.toLowerCase()
-            ? 0
-            : 1;
-        }
-        if (l1) return -1;
-        if (l2) return 1;
-        return 0;
-      });
-  }, [lists]);
-
-  const allTokens = useAllTokens();
-
-  console.log(allTokens);
-
-  // const itemData = useMemo(() => (showETH ? [Currency.ETHER, ...currencies] : [...currencies]), [currencies, showETH])
-
-  // const Row = useCallback(
-  //   ({data, index, style}) => {
-  //     const currency: Currency = data[index]
-  //     const isSelected = Boolean(selectedCurrency && currencyEquals(selectedCurrency, currency))
-  //     const otherSelected = Boolean(otherCurrency && currencyEquals(otherCurrency, currency))
-  //     const handleSelect = () => onCurrencySelect(currency)
-  //     return (
-  //       <CurrencyRow
-  //         style={style}
-  //         currency={currency}
-  //         isSelected={isSelected}
-  //         onSelect={handleSelect}
-  //         otherSelected={otherSelected}
-  //       />
-  //     )
-  //   },
-  //   [onCurrencySelect, otherCurrency, selectedCurrency]
-  // )
+    return [
+      ...(searchToken ? [searchToken] : []),
+      // sort any exact symbol matches first
+      ...sorted.filter(
+        (token) => token.symbol?.toLowerCase() === symbolMatch[0]
+      ),
+      ...sorted.filter(
+        (token) => token.symbol?.toLowerCase() !== symbolMatch[0]
+      ),
+    ];
+  }, [filteredTokens, searchQuery, searchToken, tokenComparator]);
 
   return (
     <>
@@ -283,19 +295,20 @@ export default function SelectPair({ content, setPair }) {
                   </div>
                   {!loading && (
                     <ul>
-                      {coins.slice(0, 5).map((token) => (
+                      {filteredSortedTokens.map((token) => (
                         <li
-                          key={token.uuid}
+                          key={token.address}
                           className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
-                          onClick={() => handleSelect(token)}
+                          onClick={() => handleCurrencySelect(token)}
                         >
                           <div className="flex items-center">
-                            <Image
-                              src={token?.iconUrl}
+                            {/* <Image
+                              src={token?.logoURI}
                               alt="..."
                               width={24}
                               height={24}
-                            />
+                            /> */}
+                            <Dummy />
                             <span className="text-sm font-bold ml-2">
                               {token.symbol}
                             </span>
