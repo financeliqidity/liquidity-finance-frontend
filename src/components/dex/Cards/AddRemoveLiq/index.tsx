@@ -33,7 +33,7 @@ function AddRemoveLiq({ setActiveLeft }) {
             </div>
             <div className="flex w-full justify-between items-center border rounded-md p-3">
               <SelectPair
-                setPair={(pair) => console.log(pair)}
+                onCurrencySelect={() => {}}
                 content={
                   <div className="flex items-center">
                     <img src="/assets/icons/usdt.png" alt="USDC" />
@@ -73,7 +73,7 @@ function AddRemoveLiq({ setActiveLeft }) {
             </div>
             <div className="flex w-full justify-between items-center border rounded-md p-3">
               <SelectPair
-                setPair={(pair) => console.log(pair)}
+                onCurrencySelect={() => {}}
                 content={
                   <div className="flex items-center cursor-pointer">
                     <img src="/assets/icons/eth.png" alt="ETH" />
@@ -148,7 +148,7 @@ function AddRemoveLiq({ setActiveLeft }) {
           </div>
           <div className="flex w-full justify-between items-center border rounded-md p-3">
             <SelectPair
-              setPair={(pair) => console.log(pair)}
+              onCurrencySelect={() => {}}
               content={
                 <div className="flex items-center">
                   <img src="/assets/icons/usdt.png" alt="USDC" />
