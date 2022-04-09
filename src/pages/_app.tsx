@@ -4,6 +4,10 @@ import "../../styles/globals.css";
 import "../../styles/customStyles.css";
 import { Web3ReactProvider } from "@web3-react/core";
 import getLibrary from "../utils/getLibrary";
+import ApplicationUpdater from "../redux/application/updater";
+import ListsUpdater from "../redux/lists/updater";
+import MulticallUpdater from "../redux/multicall/updater";
+import TransactionUpdater from "../redux/transactions/updater";
 
 const Web3ReactProviderDefault = dynamic(() => import("./Provider"), {
   ssr: false,
@@ -31,6 +35,12 @@ function MyApp({ Component, pageProps }) {
       <Web3ReactProviderDefault getLibrary={getLibrary}>
         <RecoilRoot>
           <Provider store={store}>
+            <>
+              <ListsUpdater />
+              <ApplicationUpdater />
+              <TransactionUpdater />
+              <MulticallUpdater />
+            </>
             <WalletProvider>
               <Layout>
                 <Component {...pageProps} />

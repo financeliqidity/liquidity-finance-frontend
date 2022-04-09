@@ -28,7 +28,6 @@ export default function Dex() {
     <>
       {page === "swap" && (
         <>
-          {/* <ConfirmSwapModal /> */}
           <Swap
             setShowModal={setShowModal}
             showModal={showModal}

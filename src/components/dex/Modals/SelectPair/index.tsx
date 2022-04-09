@@ -11,6 +11,7 @@ import { isAddress } from "../../../../utils";
 import useTokenComparator from "./sorting";
 import { Currency, Token } from "cd3d-dex-libs-sdk";
 import filterTokens from "./filtering";
+import TokenItem from "./TokenItem";
 
 const Close = () => (
   <svg
@@ -62,24 +63,6 @@ const Magnification = () => (
       d="M13.4842 11.8609L10.8881 9.2648C10.771 9.14762 10.6121 9.08252 10.4455 9.08252H10.021C10.7397 8.16334 11.1667 7.0072 11.1667 5.74951C11.1667 2.75762 8.74251 0.333374 5.75061 0.333374C2.75872 0.333374 0.334473 2.75762 0.334473 5.74951C0.334473 8.74141 2.75872 11.1657 5.75061 11.1657C7.0083 11.1657 8.16444 10.7386 9.08362 10.0199V10.4444C9.08362 10.611 9.14872 10.7699 9.26589 10.887L11.862 13.4831C12.1068 13.7279 12.5026 13.7279 12.7447 13.4831L13.4816 12.7462C13.7264 12.5015 13.7264 12.1057 13.4842 11.8609ZM5.75061 9.08252C3.90964 9.08252 2.4176 7.59308 2.4176 5.74951C2.4176 3.90855 3.90704 2.4165 5.75061 2.4165C7.59158 2.4165 9.08362 3.90594 9.08362 5.74951C9.08362 7.59048 7.59418 9.08252 5.75061 9.08252Z"
       fill="#7C8497"
     />
-  </svg>
-);
-const Dummy = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#fff"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    className="sc-jKTccl hmgxQB"
-  >
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-    <line x1="12" y1="17" x2="12.01" y2="17"></line>
   </svg>
 );
 
@@ -295,26 +278,13 @@ export default function SelectPair({ content, onCurrencySelect }) {
                   </div>
                   {!loading && (
                     <ul>
-                      {filteredSortedTokens.map((token) => (
-                        <li
-                          key={token.address}
-                          className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
-                          onClick={() => handleCurrencySelect(token)}
-                        >
-                          <div className="flex items-center">
-                            {/* <Image
-                              src={token?.logoURI}
-                              alt="..."
-                              width={24}
-                              height={24}
-                            /> */}
-                            <Dummy />
-                            <span className="text-sm font-bold ml-2">
-                              {token.symbol}
-                            </span>
-                          </div>
-                          <span className="font-bold text-base grey-10">0</span>
-                        </li>
+                      {filteredSortedTokens.map((currency) => (
+                        <React.Fragment key={currency.address}>
+                          <TokenItem
+                            currency={currency}
+                            handleCurrencySelect={handleCurrencySelect}
+                          />
+                        </React.Fragment>
                       ))}
                     </ul>
                   )}

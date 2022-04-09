@@ -1,6 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { ChainId } from "../sdk-demo/dist";
+
 import { TokenList } from "@uniswap/token-lists";
+import { ChainId } from "cd3d-dex-libs-sdk";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { getNetworkLibrary, NETWORK_CHAIN_ID } from "../connectors";

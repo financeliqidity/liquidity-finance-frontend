@@ -5,8 +5,9 @@ import { getContract } from "../utils";
 import ERC20_ABI from "../constants/abis/erc20.json";
 import { ERC20_BYTES32_ABI } from "../constants/abis/erc20";
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from "../constants/multicall";
-import { ChainId } from "cd3d-dex-libs-sdk";
+import { ChainId, WETH } from "cd3d-dex-libs-sdk";
 import ENS_ABI from "../constants/abis/ens-registrar.json";
+import WETH_ABI from "../constants/abis/weth.json";
 import ENS_PUBLIC_RESOLVER_ABI from "../constants/abis/ens-public-resolver.json";
 
 // returns null on errors
@@ -38,6 +39,17 @@ export function useTokenContract(
   withSignerIfPossible?: boolean
 ): Contract | null {
   return useContract(tokenAddress, ERC20_ABI, withSignerIfPossible);
+}
+
+export function useWETHContract(
+  withSignerIfPossible?: boolean
+): Contract | null {
+  const { chainId } = useActiveWeb3React();
+  return useContract(
+    chainId ? WETH[chainId].address : undefined,
+    WETH_ABI,
+    withSignerIfPossible
+  );
 }
 
 export function useENSRegistrarContract(

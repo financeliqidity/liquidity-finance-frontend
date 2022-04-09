@@ -5,16 +5,16 @@ import { WalletLinkConnector } from "@web3-react/walletlink-connector";
 import { BscConnector } from "@binance-chain/bsc-connector";
 import { NetworkConnector } from "./NetworkConnector";
 
-export declare enum ConnectorNames {
+declare enum ConnectorNames {
   Injected = "injected",
   WalletConnect = "walletconnect",
   BSC = "bsc",
 }
 
-const NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
+const NETWORK_URL = process.env.NEXT_PUBLIC_NETWORK_URL;
 
 export const NETWORK_CHAIN_ID: number = parseInt(
-  process.env.REACT_APP_CHAIN_ID ?? "56"
+  process.env.NEXT_PUBLIC_CHAIN_ID ?? "56"
 );
 
 if (typeof NETWORK_URL === "undefined") {

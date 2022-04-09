@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import { TradeType } from "cd3d-dex-libs-sdk";
+import React, { useMemo, useState } from "react";
+import { Field } from "../../../../redux/dex/actions";
+import {
+  computeSlippageAdjustedAmounts,
+  computeTradePriceBreakdown,
+  warningSeverity,
+} from "../../../../utils/prices";
+import CurrencyLogo from "../../../shared/CurrencyLogo";
 
 const Close = () => (
   <svg
@@ -24,21 +32,46 @@ const Close = () => (
     />
   </svg>
 );
+const Dummy = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#fff"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="sc-jKTccl hmgxQB"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+  </svg>
+);
 
-export default function ConfirmSwapModal() {
-  const [showModal, setShowModal] = useState(false);
+export default function ConfirmSwapModal({
+  isOpen,
+  onDismiss,
+  trade,
+  allowedSlippage,
+}) {
+  const slippageAdjustedAmounts = useMemo(
+    () => computeSlippageAdjustedAmounts(trade, allowedSlippage),
+    [trade, allowedSlippage]
+  );
+
+  const { priceImpactWithoutFee, realizedLPFee } = useMemo(
+    () => computeTradePriceBreakdown(trade),
+    [trade]
+  );
+
+  const severity = warningSeverity(priceImpactWithoutFee);
 
   return (
     <>
-      <button
-        className="btn-primary p-4 rounded-lg font-bold"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Confirm Swap
-      </button>
-
-      {showModal ? (
+      {isOpen ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12">
@@ -51,7 +84,7 @@ export default function ConfirmSwapModal() {
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 float-right outline-none focus:outline-none cursor-pointer"
-                    onClick={() => setShowModal(false)}
+                    onClick={onDismiss}
                   >
                     <Close />
                   </button>
@@ -60,10 +93,91 @@ export default function ConfirmSwapModal() {
                 <div className="relative px-6 py-0.5 flex-auto">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
-                      <img src="/assets/icons/eth.png" alt="..." />
-                      <span className="ml-3">0.123</span>
+                      <CurrencyLogo
+                        currency={trade.inputAmount.currency}
+                        size="24px"
+                        classNames="mr-3"
+                      />
+                      <span className="ml-3 text-lg">
+                        {trade.inputAmount.toSignificant(6)}
+                      </span>
                     </div>
-                    <div className="token-name">BNB</div>
+                    <div className="token-name text-lg">
+                      {trade.inputAmount.currency.symbol}
+                    </div>
+                  </div>
+                  <div className="flex my-5">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#A28BD4"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="min-w-[16px] ml-1"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center">
+                      <CurrencyLogo
+                        currency={trade.outputAmount.currency}
+                        size="24px"
+                        classNames="mr-3"
+                      />
+                      <span className="ml-3 text-lg">
+                        {trade.outputAmount.toSignificant(6)}
+                      </span>
+                    </div>
+                    <div className="token-name text-lg">
+                      {trade.outputAmount.currency.symbol}
+                    </div>
+                  </div>
+                  <div className="mt-4 text-white">
+                    Output is estimated. You will receive at least{" "}
+                    {slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(6)}{" "}
+                    {trade.outputAmount.currency.symbol} or the transaction will
+                    revert.
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="flex w-full justify-between mb-3">
+                      <p className="text-sm text-gray-200">Estimated Cost</p>
+                      <p className="text-sm text-gray-100">~$39.55</p>
+                    </div>
+                    <div className="flex w-full justify-between mb-3">
+                      <p className="text-sm text-gray-200">Price Impact</p>
+                      <p className="text-sm text-gray-100">{`${priceImpactWithoutFee.toFixed(
+                        2
+                      )}%`}</p>
+                    </div>
+                    <div className="flex w-full justify-between">
+                      <p className="text-sm text-gray-200">
+                        {trade.tradeType === TradeType.EXACT_INPUT
+                          ? "Minimum received"
+                          : "Maximum sold"}
+                      </p>
+                      <p className="text-sm text-gray-100">
+                        {trade.tradeType === TradeType.EXACT_INPUT
+                          ? slippageAdjustedAmounts[
+                              Field.OUTPUT
+                            ]?.toSignificant(4) ?? "-"
+                          : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(
+                              4
+                            ) ?? "-"}
+
+                        <span className="ml-2">
+                          {trade.tradeType === TradeType.EXACT_INPUT
+                            ? trade.outputAmount.currency.symbol
+                            : trade.inputAmount.currency.symbol}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
                 {/*footer*/}
@@ -73,7 +187,7 @@ export default function ConfirmSwapModal() {
                 <div className="flex p-6 rounded-b justify-center">
                   <button
                     type="submit"
-                    className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
+                    className="w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
                   >
                     Confirm Swap
                   </button>

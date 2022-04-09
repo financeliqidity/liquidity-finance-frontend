@@ -9,6 +9,7 @@ import swap from "./dex/reducers";
 import lists from "./lists/reducer";
 // import burn from './burn/reducer'
 import multicall from "./multicall/reducer";
+import transactions from "./transactions/reducer";
 // import toasts from './toasts'
 
 type MergedState = {
@@ -26,7 +27,7 @@ const store = configureStore({
   reducer: {
     application,
     user,
-    // transactions,
+    transactions,
     swap,
     // mint,
     // burn,

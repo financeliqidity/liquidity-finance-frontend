@@ -9,10 +9,15 @@ import {
   UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
 } from "@web3-react/walletconnect-connector";
-import { ConnectorNames } from "../connectors";
 
 import { connectorsByName } from "../connectors";
 export declare const connectorLocalStorageKey = "connectorId";
+
+declare enum ConnectorNames {
+  Injected = "injected",
+  WalletConnect = "walletconnect",
+  BSC = "bsc",
+}
 
 const useAuth = () => {
   const { activate, deactivate } = useWeb3React();
