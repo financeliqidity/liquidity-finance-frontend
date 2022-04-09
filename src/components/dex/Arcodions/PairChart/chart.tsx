@@ -23,13 +23,13 @@ const showPriceChart = (priceChart) => {
           {priceChart.lastPrice}
         </h4>
       </div>
-      <Chart
+      {/* <Chart
         options={chartOptions}
         series={priceChart.series}
         type="candlestick"
         width="100%"
         height="100%"
-      />
+      /> */}
     </div>
   );
 };
