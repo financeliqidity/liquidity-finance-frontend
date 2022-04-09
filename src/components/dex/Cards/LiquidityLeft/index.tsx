@@ -106,7 +106,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
           <span className="block text-sm text-grey_20 mb-4">Select a pair</span>
           <div className="flex justify-between items-center cursor-pointer">
             <SelectPair
-              setPair={(pair) => console.log(pair)}
+              onCurrencySelect={() => {}}
               content={
                 <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer">
                   <div className="flex items-center">
@@ -123,7 +123,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             />
             <Plus />
             <SelectPair
-              setPair={(pair) => console.log(pair)}
+              onCurrencySelect={() => {}}
               content={
                 <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4">
                   <div className="flex items-center">

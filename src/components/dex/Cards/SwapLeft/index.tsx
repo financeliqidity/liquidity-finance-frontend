@@ -71,6 +71,7 @@ const Dummy = () => (
   </svg>
 );
 
+//@ts-ignore
 const injected = new InjectedConnector();
 
 export default function SwapLeft({

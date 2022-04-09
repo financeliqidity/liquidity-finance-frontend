@@ -287,7 +287,6 @@ function Swap({
                 onCurrencySelectInput={handleInputSelect}
                 onCurrencySelectOutput={handleOutputSelect}
                 onSwitchTokens={onSwitchTokens}
-                currencyBalances={currencyBalances}
                 currencies={currencies}
                 trade={trade}
                 allowedSlippage={allowedSlippage}
@@ -311,7 +310,6 @@ function Swap({
               tabChanger={tabChanger}
               onCurrencySelectInput={handleInputSelect}
               onCurrencySelectOutput={handleOutputSelect}
-              currencyBalances={currencyBalances}
               currencies={currencies}
               trade={trade}
               allowedSlippage={allowedSlippage}
