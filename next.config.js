@@ -12,4 +12,11 @@ module.exports = {
       "@/hoc/*": ["hoc/*"],
     },
   },
+  images: {
+    domains: [
+      "cdn.coinranking.com",
+      "exchange.pancakeswap.finance",
+      "cd3d-silk.vercel.app",
+    ],
+  },
 };

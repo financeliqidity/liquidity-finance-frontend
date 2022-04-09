@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
+import { trimAddress } from "../../../libs/helper";
 
 const Close = () => (
   <svg
@@ -174,7 +175,7 @@ const Cancel = () => (
   </svg>
 );
 
-export default function WalletDetails({ show, setShowModal, wallet, trim }) {
+export default function WalletDetails({ show, setShowModal, wallet }) {
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => setIsBrowser(true), []);
@@ -200,7 +201,7 @@ export default function WalletDetails({ show, setShowModal, wallet, trim }) {
             {/*body*/}
             <div className="relative px-6 pb-10 flex-auto">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-xl font-bold">{trim}</p>
+                <p className="text-xl font-bold">{trimAddress(wallet)}</p>
                 <div className="flex items-center">
                   <button className="mr-2 p-2.5 rounded-xl bg-grey_30">
                     <Direct />

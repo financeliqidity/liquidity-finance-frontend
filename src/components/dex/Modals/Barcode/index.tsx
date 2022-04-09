@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import CopiedClip from "../../../shared/Modals/CopiedClip";
 
 const Close = () => (
@@ -63,9 +62,7 @@ export default function Barcode({ showModal, setShowModal, content }) {
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-3/12 rounded-3xl">
-              {/*content*/}
               <div className="shadow-lg relative flex flex-col w-full bg-grey_50 outline-none focus:outline-none rounded-3xl">
-                {/*header*/}
                 <div className="flex items-center justify-between py-6 px-6">
                   <h3 className="text-lg font-semibold text-white leading-5 flex items-center">
                     Scan QR Code
@@ -77,7 +74,6 @@ export default function Barcode({ showModal, setShowModal, content }) {
                     <Close />
                   </button>
                 </div>
-                {/*body*/}
                 <div className="relative px-6 pt-4 pb-6 flex-auto">
                   <div className="flex justify-center items-center flex-col">
                     <img

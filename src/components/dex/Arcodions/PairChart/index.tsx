@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { selectTokenPair } from "../../../../selectTokenPair";
+import { ChartCard } from "./chart";
 
 const CaretUpIcon = () => (
   <svg
@@ -43,18 +44,14 @@ export default function PairChart() {
       <div className="bg-blue_grey py-3 px-6 border-grey_40 border border-l-0 border-r-0">
         <div className="flex items-center justify-between">
           <span className="text-lg font-semibold">
-            {tokenPair.pay.name}/{tokenPair.receive.name} Chart
+            {tokenPair.pay.symbol}/{tokenPair.receive.symbol} Chart
           </span>
           <button onClick={() => setOpen(!open)}>
             {open ? <CaretUpIcon /> : <CaretDownIcon />}
           </button>
         </div>
       </div>
-      {open && (
-        <div className="bg-blue_grey px-6 py-4">
-          <img src="assets/images/trading-view.png" alt="..." />
-        </div>
-      )}
+      {open && <ChartCard />}
     </>
   );
 }

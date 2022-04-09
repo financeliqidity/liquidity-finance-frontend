@@ -35,7 +35,6 @@ const Close = () => (
 
 export default function ConnectWallet() {
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [walletTerms, setWalletTerms] = useState(false);
 
   const { connectWallet } = useContext(WalletContext);

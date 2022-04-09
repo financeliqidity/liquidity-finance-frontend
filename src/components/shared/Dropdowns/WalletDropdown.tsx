@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createPopper } from "@popperjs/core";
 import WalletDetails from "../Modals/WalletDetails";
 import useMediaQuery from "../../../hooks/useMediaQuery";
+import { trimAddress } from "../../../libs/helper";
 
 const CaretDown = () => (
   <svg
@@ -39,7 +40,7 @@ const CaretDownIcon = () => (
   </svg>
 );
 
-const WalletDropdown = ({ wallet, trim }) => {
+const WalletDropdown = ({ wallet, disconnectWallet }) => {
   const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
   const btnDropdownRef = useRef();
   const popoverDropdownRef = useRef();
@@ -92,7 +93,7 @@ const WalletDropdown = ({ wallet, trim }) => {
         >
           <img src="/assets/icons/wallet.svg" alt="..." />
           <span className="font-bold uppercase text-white group-hover:text-primary mx-2">
-            {trim}
+            {trimAddress(wallet)}
           </span>
           <CaretDown />
         </button>
@@ -111,7 +112,6 @@ const WalletDropdown = ({ wallet, trim }) => {
             type="button"
           >
             <WalletDetails
-              trim={trim}
               wallet={wallet}
               show={showModal}
               setShowModal={setShowModal}
@@ -131,16 +131,15 @@ const WalletDropdown = ({ wallet, trim }) => {
             </a>
           </Link>
           <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
-          <Link href="/admin/tables">
-            <a
-              href="#pablo"
-              className={
-                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-              }
-            >
-              Disconnect
-            </a>
-          </Link>
+          <button
+            className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-left"
+            }
+            type="button"
+            onClick={() => disconnectWallet()}
+          >
+            Disconnect
+          </button>
         </div>
       </>
     </>

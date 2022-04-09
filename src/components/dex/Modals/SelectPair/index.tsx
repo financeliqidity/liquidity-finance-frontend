@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from "react";
-import tokens from "../../../../constants/tokens.json";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
 import axios from "axios";
+import Image from "next/image";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../../redux";
+import useFetchListCallback from "../../../../hooks/useFetchListCallback";
+import { useAllTokens, useToken } from "../../../../hooks/Tokens";
+import { useActiveWeb3React } from "../../../../hooks";
+import { isAddress } from "../../../../utils";
+import useTokenComparator from "./sorting";
+import { Currency, Token } from "cd3d-dex-libs-sdk";
+import filterTokens from "./filtering";
+import TokenItem from "./TokenItem";
 
 const Close = () => (
   <svg
@@ -56,17 +66,36 @@ const Magnification = () => (
   </svg>
 );
 
-export default function SelectPair({ content, setPair }) {
+export default function SelectPair({ content, onCurrencySelect }) {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [coins, setCoins] = useState([]);
+  const { chainId } = useActiveWeb3React();
 
-  const handleSelect = (token) => {
-    setPair(token);
-    setShowModal(false);
-  };
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [listView, setListView] = useState<boolean>(false);
+  const [invertSearchOrder, setInvertSearchOrder] = useState<boolean>(false);
+  const isAddressSearch = isAddress(searchQuery);
+  const searchToken = useToken(searchQuery);
 
-  const fetchTokenList: any = async () => {
+  const allTokens = useAllTokens();
+
+  const showETH: boolean = useMemo(() => {
+    const s = searchQuery.toLowerCase().trim();
+    return s === "" || s === "b" || s === "bn" || s === "bnb";
+  }, [searchQuery]);
+
+  const tokenComparator = useTokenComparator(invertSearchOrder);
+
+  const handleCurrencySelect = useCallback(
+    (currency: Currency) => {
+      onCurrencySelect(currency);
+      setShowModal(false);
+    },
+    [setShowModal, onCurrencySelect]
+  );
+
+  const fetchTokenList = async () => {
     try {
       setLoading(true);
 
@@ -81,7 +110,6 @@ export default function SelectPair({ content, setPair }) {
         }
       );
 
-      console.log(response.data);
       setLoading(false);
       setCoins(response.data.data.coins);
     } catch (error) {
@@ -90,7 +118,31 @@ export default function SelectPair({ content, setPair }) {
     }
   };
 
-  useEffect(() => fetchTokenList(), []);
+  const filteredTokens: Token[] = useMemo(() => {
+    if (isAddressSearch) return searchToken ? [searchToken] : [];
+    return filterTokens(Object.values(allTokens), searchQuery);
+  }, [isAddressSearch, searchToken, allTokens, searchQuery]);
+
+  const filteredSortedTokens: Token[] = useMemo(() => {
+    if (searchToken) return [searchToken];
+    const sorted = filteredTokens.sort(tokenComparator);
+    const symbolMatch = searchQuery
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((s) => s.length > 0);
+    if (symbolMatch.length > 1) return sorted;
+
+    return [
+      ...(searchToken ? [searchToken] : []),
+      // sort any exact symbol matches first
+      ...sorted.filter(
+        (token) => token.symbol?.toLowerCase() === symbolMatch[0]
+      ),
+      ...sorted.filter(
+        (token) => token.symbol?.toLowerCase() !== symbolMatch[0]
+      ),
+    ];
+  }, [filteredTokens, searchQuery, searchToken, tokenComparator]);
 
   return (
     <>
@@ -226,24 +278,13 @@ export default function SelectPair({ content, setPair }) {
                   </div>
                   {!loading && (
                     <ul>
-                      {coins.slice(0, 5).map((token) => (
-                        <li
-                          key={token.uuid}
-                          className="flex justify-between items-center mb-5 cursor-pointer px-2 py-1 hover:bg-grey_50 rounded-lg"
-                          onClick={() => handleSelect(token)}
-                        >
-                          <div className="flex items-center">
-                            <img
-                              src={token.iconUrl}
-                              alt="..."
-                              className="w-6 h-6 mr-2"
-                            />
-                            <span className="text-sm font-bold">
-                              {token.symbol}
-                            </span>
-                          </div>
-                          <span className="font-bold text-base grey-10">0</span>
-                        </li>
+                      {filteredSortedTokens.map((currency) => (
+                        <React.Fragment key={currency.address}>
+                          <TokenItem
+                            currency={currency}
+                            handleCurrencySelect={handleCurrencySelect}
+                          />
+                        </React.Fragment>
                       ))}
                     </ul>
                   )}

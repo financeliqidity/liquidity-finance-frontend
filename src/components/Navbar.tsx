@@ -45,11 +45,23 @@ const Navbar: React.FC<NavbarProps> = () => {
             METAVERSE
           </div>
 
-          <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
+          {/* <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             VOTE
-          </div>
+          </div> */}
+          <Link href="/vote">
+            <a
+              className={
+                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
+                (router.pathname.indexOf("/vote") !== -1
+                  ? "btn-primary text-3xl"
+                  : "bg-blue_grey")
+              }
+            >
+              VOTE
+            </a>
+          </Link>
           <Link href="/iso">
-            <div
+            <a
               className={
                 "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
                 (router.pathname.indexOf("/iso") !== -1
@@ -57,8 +69,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                   : "bg-blue_grey")
               }
             >
-              IDO
-            </div>
+              ISO
+            </a>
           </Link>
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             NFT

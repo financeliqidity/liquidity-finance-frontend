@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 
 export default function PercentageSelect({ value, setValue }) {
