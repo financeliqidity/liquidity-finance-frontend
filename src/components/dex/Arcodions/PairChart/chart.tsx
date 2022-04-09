@@ -1,8 +1,8 @@
 import React from "react";
-import dynamic from 'next/dynamic'
-    
+import dynamic from "next/dynamic";
+
 import { chartOptions } from "./index.config";
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const priceSymbol = (lastPriceChange) => {
   let output;
@@ -37,7 +37,7 @@ const showPriceChart = (priceChart) => {
 export const ChartCard = () => {
   return (
     <div className="bg-blue_grey px-6 py-4">
-      <img src="assets/images/trading-view.png" alt="..." />
+      {/* <img src="assets/images/trading-view.png" alt="..." /> */}
     </div>
   );
 };
