@@ -291,6 +291,7 @@ function Swap({
                 trade={trade}
                 allowedSlippage={allowedSlippage}
                 handleSwap={handleSwap}
+                selectedCurrency={currencies[Field.INPUT]}
               />
             )
           ) : (
@@ -314,6 +315,7 @@ function Swap({
               trade={trade}
               allowedSlippage={allowedSlippage}
               handleSwap={handleSwap}
+              selectedCurrency={currencies[Field.INPUT]}
             />
           )}
 

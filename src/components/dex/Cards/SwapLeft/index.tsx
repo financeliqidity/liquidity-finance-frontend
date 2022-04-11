@@ -20,6 +20,7 @@ import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
 } from "../../../../utils/prices";
+import CurrencyLogo from "../../../shared/CurrencyLogo";
 
 const HeartIcon = ({ className }) => (
   <svg
@@ -94,9 +95,8 @@ export default function SwapLeft({
   allowedSlippage,
   handleSwap,
   parsedAmounts,
+  selectedCurrency,
 }) {
-  const { wallet, connectWallet } = React.useContext(WalletContext);
-
   const { active, activate, library: provider } = useWeb3React();
 
   const connect = async () => {
@@ -133,11 +133,12 @@ export default function SwapLeft({
         <div className="flex justify-between">
           <div className="left">
             <input
-              type="number"
+              type="text"
               name="pay"
               className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
               {...register("pay", { required: true })}
               defaultValue={value}
+              autoComplete="off"
             />
             {!errors.pay && (
               <span className="text-gray-100 text-xs mt-1 block">
@@ -152,15 +153,11 @@ export default function SwapLeft({
           </div>
           <div className="right">
             <SelectPair
+              selectedCurrency={selectedCurrency}
               onCurrencySelect={onCurrencySelectInput}
               content={
                 <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                  {/* <img
-                src={tokenPair.pay.iconUrl}
-                alt="..."
-                className="w-5 h-5 mr-2"
-              /> */}
-                  <Dummy />
+                  <CurrencyLogo currency={selectedCurrency} />
 
                   <span className="block truncate text-base text-white text-center w-full mr-2.5">
                     {currencies[Field.INPUT]?.symbol}
@@ -206,15 +203,11 @@ export default function SwapLeft({
               $2.9K
             </span>
             <SelectPair
+              selectedCurrency={selectedCurrency}
               onCurrencySelect={onCurrencySelectOutput}
               content={
                 <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                  {/* <img
-                src={tokenPair.receive.iconUrl}
-                alt="..."
-                className="w-5 h-5 mr-2"
-              /> */}
-                  <Dummy />
+                  <CurrencyLogo currency={currencies[Field.OUTPUT]} />
 
                   <span className="block truncate text-base text-white text-center w-full mr-2.5">
                     {currencies[Field.OUTPUT]?.symbol}

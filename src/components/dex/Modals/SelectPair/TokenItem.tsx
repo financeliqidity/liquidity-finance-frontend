@@ -9,25 +9,7 @@ import {
 } from "../../../../redux/user/hooks";
 import { useCurrencyBalance } from "../../../../redux/wallet/hooks";
 import { isTokenOnList } from "../../../../utils";
-
-const Dummy = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#fff"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="sc-jKTccl hmgxQB"
-  >
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-  </svg>
-);
+import CurrencyLogo from "../../../shared/CurrencyLogo";
 
 function currencyKey(currency: Currency): string {
   return currency instanceof Token
@@ -56,13 +38,7 @@ export default function TokenItem({ currency, handleCurrencySelect }) {
       onClick={() => handleCurrencySelect(currency)}
     >
       <div className="flex items-center">
-        {/* <Image
-src={token?.logoURI}
-alt="..."
-width={24}
-height={24}
-/> */}
-        <Dummy />
+        <CurrencyLogo currency={currency} />
         <span className="text-sm font-bold ml-2">{currency.symbol}</span>
       </div>
       <span className="font-bold text-base grey-10">
