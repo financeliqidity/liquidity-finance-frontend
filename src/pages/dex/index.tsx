@@ -6,7 +6,6 @@ import Liquidity from "../../components/dex/Containers/Liquidity";
 import BottomNavigation from "../../components/dex/Navbar/BottomNavigation";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import PoolDetails from "../../components/dex/Containers/PoolDetails";
-import ConfirmSwapModal from "../../components/dex/Modals/ConfirmSwap";
 
 export default function Dex() {
   const [buyMode, setBuyMode] = useState(true);
@@ -27,20 +26,18 @@ export default function Dex() {
   return (
     <>
       {page === "swap" && (
-        <>
-          <Swap
-            setShowModal={setShowModal}
-            showModal={showModal}
-            liquidityTerms={liquidityTerms}
-            setLiquidityTerms={setLiquidityTerms}
-            buyMode={buyMode}
-            setBuyMode={setBuyMode}
-            tabChanger={tabChanger}
-            mobileTab={mobileTab}
-            setMobileTab={setMobileTab}
-            isMobile={isMobile}
-          />
-        </>
+        <Swap
+          setShowModal={setShowModal}
+          showModal={showModal}
+          liquidityTerms={liquidityTerms}
+          setLiquidityTerms={setLiquidityTerms}
+          buyMode={buyMode}
+          setBuyMode={setBuyMode}
+          tabChanger={tabChanger}
+          mobileTab={mobileTab}
+          setMobileTab={setMobileTab}
+          isMobile={isMobile}
+        />
       )}
       {page === "swap" && isMobile && (
         <BottomNavigation mobileTab={mobileTab} setMobileTab={setMobileTab} />

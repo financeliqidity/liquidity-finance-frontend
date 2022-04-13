@@ -12,15 +12,16 @@ import PercentageSelect from "../../PercentageSelect";
 import { Field } from "../../../../redux/dex/actions";
 
 import { useActiveWeb3React } from "../../../../hooks";
-import { useDerivedSwapInfo, useSwapState } from "../../../../redux/dex/hooks";
+import { useSwapState } from "../../../../redux/dex/hooks";
 import { useCurrencyBalance } from "../../../../redux/wallet/hooks";
-import { JSBI, Trade, TradeType } from "cd3d-dex-libs-sdk";
+import { JSBI, TradeType } from "cd3d-dex-libs-sdk";
 import SwapNTransfer from "../../Forms/SwapNTransfer";
 import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
 } from "../../../../utils/prices";
 import CurrencyLogo from "../../../shared/CurrencyLogo";
+import { NumericInput } from "../../../shared/NumericInput";
 
 const HeartIcon = ({ className }) => (
   <svg
@@ -51,24 +52,6 @@ const Selector = () => (
       d="M1 0.5L4 3.5L7 0.5L8 1.5L4 5.5L0 1.5L1 0.5Z"
       fill="#B7BECB"
     />
-  </svg>
-);
-const Dummy = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#fff"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="sc-jKTccl hmgxQB"
-  >
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-    <line x1="12" y1="17" x2="12.01" y2="17"></line>
   </svg>
 );
 
@@ -109,70 +92,52 @@ export default function SwapLeft({
 
   const [pPercentage, setPPercentage] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
   const handleContinue = (values) => {
     onUserInput(values.pay);
   };
 
   const { account } = useActiveWeb3React();
 
-  const Pay = () => {
+  const Pay = ({ hideBalance = false }: { hideBalance?: boolean }) => {
     const selectedCurrencyBalance = useCurrencyBalance(
       account ?? undefined,
       currencies[Field.INPUT] ?? undefined
     );
 
     return (
-      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-        <div className="flex justify-between">
-          <div className="left">
-            <input
-              type="text"
-              name="pay"
-              className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-              {...register("pay", { required: true })}
-              defaultValue={value}
-              autoComplete="off"
-            />
-            {!errors.pay && (
-              <span className="text-gray-100 text-xs mt-1 block">
-                ~$ 2900.00
-              </span>
-            )}
-            {errors.pay?.type === "required" && (
-              <p className="text-left text-red-600 text-xs mt-1">
-                Pay is required
-              </p>
-            )}
-          </div>
-          <div className="right">
-            <SelectPair
-              selectedCurrency={selectedCurrency}
-              onCurrencySelect={onCurrencySelectInput}
-              content={
-                <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                  <CurrencyLogo currency={selectedCurrency} />
+      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50 flex justify-between">
+        <div className="left">
+          <NumericInput value={value} onUserInput={(val) => onUserInput(val)} />
+          <span className="text-gray-100 text-xs mt-1 block">~ $2900.00</span>
+        </div>
+        <div className="right">
+          <SelectPair
+            selectedCurrency={selectedCurrency}
+            onCurrencySelect={onCurrencySelectInput}
+            content={
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                <CurrencyLogo currency={selectedCurrency} />
 
-                  <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                    {currencies[Field.INPUT]?.symbol}
-                  </span>
-                  <span className="flex items-center justify-center">
-                    <Selector />
-                  </span>
-                </div>
-              }
-            />
+                <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                  {currencies[Field.INPUT]?.symbol}
+                </span>
+                <span className="flex items-center justify-center">
+                  <Selector />
+                </span>
+              </div>
+            }
+          />
+          {account && (
             <span className="mt-1 text-gray-100 text-xs">
-              Balance: {`${selectedCurrencyBalance?.toSignificant(6)}`}{" "}
-              {currencies[Field.INPUT]?.symbol}
+              {!hideBalance &&
+              !!currencies[Field.INPUT] &&
+              selectedCurrencyBalance
+                ? `Balance: ${selectedCurrencyBalance?.toSignificant(6)} ${
+                    currencies[Field.INPUT]?.symbol
+                  }`
+                : " -"}
             </span>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -192,7 +157,6 @@ export default function SwapLeft({
               type="number"
               name="receive"
               className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-              {...register("receive", { required: false })}
             />
             <span className="text-gray-100 text-xs mt-1 block">
               ~$ 0.944518
@@ -270,7 +234,7 @@ export default function SwapLeft({
           Loan
         </button>
       </div>
-      <form onSubmit={handleSubmit(handleContinue)}>
+      <form onSubmit={(e) => e.preventDefault()}>
         <div className="mt-9 flex justify-between items-center">
           <span className="md:text-xl text-base">Swap Token</span>
           <div className="flex items-center">
@@ -317,7 +281,7 @@ export default function SwapLeft({
           setSwapNTransfer={setSwapNTransfer}
         />
         {account ? (
-          <>
+          <React.Fragment>
             {noRoute && userHasSpecifiedInputOutput ? (
               <span>No liquidity</span>
             ) : (
@@ -341,7 +305,7 @@ export default function SwapLeft({
                 Swap
               </button>
             )}
-          </>
+          </React.Fragment>
         ) : (
           <button
             className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"

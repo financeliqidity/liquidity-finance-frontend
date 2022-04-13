@@ -1,4 +1,10 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { useActiveWeb3React } from "../../../../hooks";
+import {
+  isTransactionRecent,
+  useAllTransactions,
+} from "../../../../redux/transactions/hooks";
+import { TransactionDetails } from "../../../../redux/transactions/reducer";
 
 const Close = () => (
   <svg
@@ -86,8 +92,35 @@ const HashIn = () => (
   </svg>
 );
 
+const newTransactionsFirst = (a: TransactionDetails, b: TransactionDetails) =>
+  b.addedTime - a.addedTime;
+
+const getRowStatus = (sortedRecentTransaction: TransactionDetails) => {
+  const { hash, receipt } = sortedRecentTransaction;
+
+  if (!hash) {
+    return { icon: <Loader />, color: "text" };
+  }
+
+  if (hash && receipt?.status === 1) {
+    return { icon: <CheckmarkCircleIcon color="success" />, color: "success" };
+  }
+
+  return { icon: <ErrorIcon color="failure" />, color: "failure" };
+};
+
 export default function TrxnHistory() {
   const [showModal, setShowModal] = useState(false);
+
+  const { account, chainId } = useActiveWeb3React();
+  const allTransactions = useAllTransactions();
+
+  // Logic taken from Web3Status/index.tsx line 175
+  const sortedRecentTransactions = useMemo(() => {
+    const txs = Object.values(allTransactions);
+    return txs.filter(isTransactionRecent).sort(newTransactionsFirst);
+  }, [allTransactions]);
+
   return (
     <>
       <button
@@ -99,7 +132,7 @@ export default function TrxnHistory() {
       </button>
 
       {showModal ? (
-        <>
+        <React.Fragment>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12">
               {/*content*/}
@@ -174,114 +207,32 @@ export default function TrxnHistory() {
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td className="py-2 px-3">
-                          <div className="flex items-center">
-                            <span className="text-sm font-semibold mr-0.5">
-                              BNB
-                            </span>
-                            <Buy />
-                            <span className="text-sm font-semibold ml-0.5">
-                              LFI
-                            </span>
+                      {!account && (
+                        <div className="text-white text-lg font-medium text-center w-full justify-center flex">
+                          Please connect your wallet to view your recent
+                          transactions
+                        </div>
+                      )}
+                      {account &&
+                        chainId &&
+                        sortedRecentTransactions.length === 0 && (
+                          <div className="text-white text-lg font-medium text-center w-full justify-center flex">
+                            No recent transactions
                           </div>
-                        </td>
-                        <td className="py-2">
-                          <div className="text-sm font-semibold">1BNB</div>
-                        </td>
-                        <td className="flex justify-center py-2">
-                          <div className="text-sm font-semibold">10:30pm</div>
-                        </td>
-                        <td className="py-2 px-3">
-                          <div className="flex items-center justify-end">
-                            <span className="text-sm font-semibold mr-0.5">
-                              0xf71
-                            </span>
-                            <HashIn />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="bg-grey_70 rounded-lg">
-                        <td className="py-2 px-3 rounded-l-lg">
-                          <div className="flex items-center rounded-lg">
-                            <span className="text-sm font-semibold mr-0.5">
-                              BNB
-                            </span>
-                            <Buy />
-                            <span className="text-sm font-semibold ml-0.5">
-                              LFI
-                            </span>
-                          </div>
-                        </td>
-                        <td className="py-2">
-                          <div className="text-sm font-semibold">1BNB</div>
-                        </td>
-                        <td className="flex justify-center py-2">
-                          <div className="text-sm font-semibold">10:30pm</div>
-                        </td>
-                        <td className="py-2 px-3 rounded-r-lg">
-                          <div className="flex items-center justify-end rounded-lg">
-                            <span className="text-sm font-semibold mr-0.5">
-                              0xf71
-                            </span>
-                            <HashIn />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="py-2 px-3">
-                          <div className="flex items-center">
-                            <span className="text-sm font-semibold mr-0.5">
-                              BNB
-                            </span>
-                            <Buy />
-                            <span className="text-sm font-semibold ml-0.5">
-                              LFI
-                            </span>
-                          </div>
-                        </td>
-                        <td className="py-2">
-                          <div className="text-sm font-semibold">1BNB</div>
-                        </td>
-                        <td className="flex justify-center py-2">
-                          <div className="text-sm font-semibold">10:30pm</div>
-                        </td>
-                        <td className="py-2 px-3">
-                          <div className="flex items-center justify-end">
-                            <span className="text-sm font-semibold mr-0.5">
-                              0xf71
-                            </span>
-                            <HashIn />
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="bg-grey_70 rounded-lg">
-                        <td className="py-2 px-3 rounded-l-lg">
-                          <div className="flex items-center rounded-lg">
-                            <span className="text-sm font-semibold mr-0.5">
-                              BNB
-                            </span>
-                            <Buy />
-                            <span className="text-sm font-semibold ml-0.5">
-                              LFI
-                            </span>
-                          </div>
-                        </td>
-                        <td className="py-2">
-                          <div className="text-sm font-semibold">1BNB</div>
-                        </td>
-                        <td className="flex justify-center py-2">
-                          <div className="text-sm font-semibold">10:30pm</div>
-                        </td>
-                        <td className="py-2 px-3 rounded-r-lg">
-                          <div className="flex items-center justify-end rounded-lg">
-                            <span className="text-sm font-semibold mr-0.5">
-                              0xf71
-                            </span>
-                            <HashIn />
-                          </div>
-                        </td>
-                      </tr>
+                        )}
+
+                      {account &&
+                        chainId &&
+                        sortedRecentTransactions.map(
+                          (sortedRecentTransaction) => {
+                            const { hash, summary } = sortedRecentTransaction;
+                            const { icon, color } = getRowStatus(
+                              sortedRecentTransaction
+                            );
+
+                            return <></>;
+                          }
+                        )}
                     </tbody>
                   </table>
                 </div>
@@ -289,7 +240,7 @@ export default function TrxnHistory() {
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
+        </React.Fragment>
       ) : null}
     </>
   );

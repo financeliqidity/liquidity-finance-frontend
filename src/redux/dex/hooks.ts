@@ -167,7 +167,6 @@ export function useDerivedSwapInfo(): {
     isExactIn ? parsedAmount : undefined,
     outputCurrency ?? undefined
   );
-
   const bestTradeExactOut = useTradeExactOut(
     inputCurrency ?? undefined,
     !isExactIn ? parsedAmount : undefined
@@ -199,7 +198,6 @@ export function useDerivedSwapInfo(): {
   }
 
   const formattedTo = isAddress(to);
-
   if (!to || !formattedTo) {
     inputError = inputError ?? "Enter a recipient";
   } else if (

@@ -74,7 +74,6 @@ export default function SelectPair({
 }) {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [coins, setCoins] = useState([]);
   const { chainId } = useActiveWeb3React();
 
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -99,29 +98,6 @@ export default function SelectPair({
     },
     [setShowModal, onCurrencySelect]
   );
-
-  const fetchTokenList = async () => {
-    try {
-      setLoading(true);
-
-      const response = await axios.get(
-        "https://coinranking1.p.rapidapi.com/coins",
-        {
-          headers: {
-            "x-rapidapi-host": "coinranking1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "d0f6d804f8msha74d0e47c8ce43bp1342bdjsn0208e9d58e9b",
-          },
-        }
-      );
-
-      setLoading(false);
-      setCoins(response.data.data.coins);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
 
   const filteredTokens: Token[] = useMemo(() => {
     if (isAddressSearch) return searchToken ? [searchToken] : [];

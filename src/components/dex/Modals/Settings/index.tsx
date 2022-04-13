@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import MoreInfo from "../../../shared/ToolTips/MoreInfo";
 
 const Close = () => (
   <svg
@@ -65,8 +66,89 @@ const Warning = () => (
   </svg>
 );
 
-export default function Settings() {
+enum SlippageError {
+  InvalidInput = "InvalidInput",
+  RiskyLow = "RiskyLow",
+  RiskyHigh = "RiskyHigh",
+}
+
+enum DeadlineError {
+  InvalidInput = "InvalidInput",
+}
+
+export interface SlippageTabsProps {
+  rawSlippage?: number;
+  setRawSlippage?: (rawSlippage: number) => void;
+  deadline?: number;
+  setDeadline?: (deadline: number) => void;
+}
+
+export default function Settings({
+  rawSlippage,
+  setRawSlippage,
+  deadline,
+  setDeadline,
+}: SlippageTabsProps) {
   const [showModal, setShowModal] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement>();
+
+  const [slippageInput, setSlippageInput] = useState("");
+  const [deadlineInput, setDeadlineInput] = useState("");
+
+  const slippageInputIsValid =
+    slippageInput === "" ||
+    (rawSlippage / 100).toFixed(2) ===
+      Number.parseFloat(slippageInput).toFixed(2);
+  const deadlineInputIsValid =
+    deadlineInput === "" || (deadline / 60).toString() === deadlineInput;
+
+  let slippageError: SlippageError | undefined;
+  if (slippageInput !== "" && !slippageInputIsValid) {
+    slippageError = SlippageError.InvalidInput;
+  } else if (slippageInputIsValid && rawSlippage < 50) {
+    slippageError = SlippageError.RiskyLow;
+  } else if (slippageInputIsValid && rawSlippage > 500) {
+    slippageError = SlippageError.RiskyHigh;
+  } else {
+    slippageError = undefined;
+  }
+
+  let deadlineError: DeadlineError | undefined;
+  if (deadlineInput !== "" && !deadlineInputIsValid) {
+    deadlineError = DeadlineError.InvalidInput;
+  } else {
+    deadlineError = undefined;
+  }
+
+  function parseCustomSlippage(value: string) {
+    setSlippageInput(value);
+
+    try {
+      const valueAsIntFromRoundedFloat = Number.parseInt(
+        (Number.parseFloat(value) * 100).toString()
+      );
+      if (
+        !Number.isNaN(valueAsIntFromRoundedFloat) &&
+        valueAsIntFromRoundedFloat < 5000
+      ) {
+        setRawSlippage(valueAsIntFromRoundedFloat);
+      }
+      // eslint-disable-next-line no-empty
+    } catch {}
+  }
+
+  function parseCustomDeadline(value: string) {
+    setDeadlineInput(value);
+
+    try {
+      const valueAsInt: number = Number.parseInt(value) * 60;
+      if (!Number.isNaN(valueAsInt) && valueAsInt > 0) {
+        setDeadline(valueAsInt);
+      }
+      // eslint-disable-next-line no-empty
+    } catch {}
+  }
   return (
     <>
       <button
@@ -122,7 +204,7 @@ export default function Settings() {
                       <p className="text-base grey-10 font-semibold mr-2">
                         Default Transaction Speed (GWEI)
                       </p>
-                      <Warning />
+                      <MoreInfo warning_text="lorem ipsum dolor sit" />
                     </div>
                     <div className="flex justify-between items-center mb-0">
                       <button className="py-2 px-4 btn-primary font-bold rounded-3xl">
@@ -144,25 +226,73 @@ export default function Settings() {
                       <p className="text-base grey-10 font-semibold mr-2">
                         Slippage Tolerance
                       </p>
-                      <Warning />
+                      <MoreInfo warning_text="lorem ipsum dolor sit" />
                     </div>
                     <div className="flex items-center mb-4">
-                      <button className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2">
+                      <button
+                        className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2"
+                        onClick={() => {
+                          setSlippageInput("");
+                          setRawSlippage(10);
+                        }}
+                        // active={rawSlippage === 10}
+                      >
                         0.1%
                       </button>
-                      <button className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2">
+                      <button
+                        className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2"
+                        onClick={() => {
+                          setSlippageInput("");
+                          setRawSlippage(50);
+                        }}
+                        // active={rawSlippage === 10}
+                      >
                         0.5%
                       </button>
-                      <button className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2">
+                      <button
+                        className="py-2 px-4 text-primary font-bold rounded-3xl bg-grey_50 mr-2"
+                        onClick={() => {
+                          setSlippageInput("");
+                          setRawSlippage(100);
+                        }}
+                        // active={rawSlippage === 100}
+                      >
                         1.0%
                       </button>
-                      <div className="flex items-center">
-                        <input
-                          className="py-2 px-4 text-white font-bold rounded-3xl bg-grey_50 mr-1 w-20"
-                          type="text"
-                          placeholder="0.00"
-                        />
-                        <span className="text-primary font-bold">%</span>
+                      <div>
+                        {!!slippageInput &&
+                        (slippageError === SlippageError.RiskyLow ||
+                          slippageError === SlippageError.RiskyHigh) ? (
+                          <div>
+                            <span role="img" aria-label="warning">
+                              ⚠️
+                            </span>
+                          </div>
+                        ) : null}
+
+                        <div className="flex items-center">
+                          <input
+                            className={
+                              "py-2 px-4 text-white font-bold rounded-3xl bg-grey_50 mr-1 w-20 " +
+                              (!slippageInputIsValid
+                                ? " border border-red-600"
+                                : null)
+                            }
+                            type="text"
+                            ref={inputRef as any}
+                            placeholder={(rawSlippage / 100).toFixed(2)}
+                            value={slippageInput}
+                            onBlur={() => {
+                              parseCustomSlippage(
+                                (rawSlippage / 100).toFixed(2)
+                              );
+                            }}
+                            onChange={(e) =>
+                              parseCustomSlippage(e.target.value)
+                            }
+                          />
+                          <span className="text-primary font-bold">%</span>
+                        </div>
                       </div>
                     </div>
                     <p className="text-sm text-amber font-medium">
@@ -174,18 +304,31 @@ export default function Settings() {
                           <p className="text-base grey-10 font-semibold mr-2">
                             Tx deadline (mins)
                           </p>
-                          <Warning />
+
+                          <MoreInfo warning_text="lorem ipsum dolor sit" />
                         </div>
-                        <button className="py-1 px-4 btn-primary font-semibold rounded-3xl text-sm">
-                          20
-                        </button>
+
+                        <input
+                          type="text"
+                          className={
+                            "py-1 px-2 btn-primary font-semibold rounded-3xl text-sm w-11 " +
+                            (deadlineError ? "border-red-500" : undefined)
+                          }
+                          onBlur={() => {
+                            parseCustomDeadline((deadline / 60).toString());
+                          }}
+                          placeholder={(deadline / 60).toString()}
+                          value={deadlineInput}
+                          defaultValue={20}
+                          onChange={(e) => parseCustomDeadline(e.target.value)}
+                        />
                       </div>
                       <div className="flex justify-between items-center mb-4">
                         <div className="flex items-center">
                           <p className="text-base grey-10 font-semibold mr-2">
                             Expert mode
                           </p>
-                          <Warning />
+                          <MoreInfo warning_text="lorem ipsum dolor sit" />
                         </div>
                         <div className="flex justify-center align-center">
                           <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
@@ -207,7 +350,7 @@ export default function Settings() {
                           <p className="text-base grey-10 font-semibold mr-2">
                             Disable multihops
                           </p>
-                          <Warning />
+                          <MoreInfo warning_text="lorem ipsum dolor sit" />
                         </div>
                         <div className="flex justify-center align-center">
                           <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
@@ -229,7 +372,7 @@ export default function Settings() {
                           <p className="text-base grey-10 font-semibold mr-2">
                             Flippy sounds
                           </p>
-                          <Warning />
+                          <MoreInfo warning_text="lorem ipsum dolor sit" />
                         </div>
                         <div className="flex justify-center align-center">
                           <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
