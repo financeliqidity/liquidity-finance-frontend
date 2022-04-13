@@ -6,6 +6,7 @@ export default function MoreInfo({ color = "white", warning_text }) {
   const btnRef = React.createRef();
   const tooltipRef = React.createRef();
   const openLeftTooltip = () => {
+    //@ts-ignore
     createPopper(btnRef.current, tooltipRef.current, {
       placement: "top",
     });
@@ -25,6 +26,7 @@ export default function MoreInfo({ color = "white", warning_text }) {
               }
               onMouseEnter={openLeftTooltip}
               onMouseLeave={closeLeftTooltip}
+              //@ts-ignore
               ref={btnRef}
             >
               <svg
@@ -47,6 +49,7 @@ export default function MoreInfo({ color = "white", warning_text }) {
                 (tooltipShow ? "" : "hidden ") +
                 "bg-grey_20 border-0 mt-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg"
               }
+              //@ts-ignore
               ref={tooltipRef}
             >
               <div className="text-white p-3">{warning_text}</div>

@@ -95,19 +95,19 @@ const HashIn = () => (
 const newTransactionsFirst = (a: TransactionDetails, b: TransactionDetails) =>
   b.addedTime - a.addedTime;
 
-const getRowStatus = (sortedRecentTransaction: TransactionDetails) => {
-  const { hash, receipt } = sortedRecentTransaction;
+// const getRowStatus = (sortedRecentTransaction: TransactionDetails) => {
+//   const { hash, receipt } = sortedRecentTransaction;
 
-  if (!hash) {
-    return { icon: <Loader />, color: "text" };
-  }
+//   if (!hash) {
+//     return { icon: <Loader />, color: "text" };
+//   }
 
-  if (hash && receipt?.status === 1) {
-    return { icon: <CheckmarkCircleIcon color="success" />, color: "success" };
-  }
+//   if (hash && receipt?.status === 1) {
+//     return { icon: <CheckmarkCircleIcon color="success" />, color: "success" };
+//   }
 
-  return { icon: <ErrorIcon color="failure" />, color: "failure" };
-};
+//   return { icon: <ErrorIcon color="failure" />, color: "failure" };
+// };
 
 export default function TrxnHistory() {
   const [showModal, setShowModal] = useState(false);
@@ -226,9 +226,9 @@ export default function TrxnHistory() {
                         sortedRecentTransactions.map(
                           (sortedRecentTransaction) => {
                             const { hash, summary } = sortedRecentTransaction;
-                            const { icon, color } = getRowStatus(
-                              sortedRecentTransaction
-                            );
+                            // const { icon, color } = getRowStatus(
+                            //   sortedRecentTransaction
+                            // );
 
                             return <></>;
                           }
