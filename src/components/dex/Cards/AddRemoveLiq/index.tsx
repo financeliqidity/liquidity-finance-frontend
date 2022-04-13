@@ -33,6 +33,7 @@ function AddRemoveLiq({ setActiveLeft }) {
             </div>
             <div className="flex w-full justify-between items-center border rounded-md p-3">
               <SelectPair
+                selectedCurrency={""}
                 onCurrencySelect={() => {}}
                 content={
                   <div className="flex items-center">
@@ -73,6 +74,7 @@ function AddRemoveLiq({ setActiveLeft }) {
             </div>
             <div className="flex w-full justify-between items-center border rounded-md p-3">
               <SelectPair
+                selectedCurrency={""}
                 onCurrencySelect={() => {}}
                 content={
                   <div className="flex items-center cursor-pointer">
@@ -148,6 +150,7 @@ function AddRemoveLiq({ setActiveLeft }) {
           </div>
           <div className="flex w-full justify-between items-center border rounded-md p-3">
             <SelectPair
+              selectedCurrency={""}
               onCurrencySelect={() => {}}
               content={
                 <div className="flex items-center">

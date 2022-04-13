@@ -45,7 +45,6 @@ function Swap({
   isMobile,
 }) {
   const [swapNTransfer, setSwapNTransfer] = useState<boolean>(false);
-  const { account } = useActiveWeb3React();
 
   // check if user has gone through approval process, used to show two step buttons, reset on token change
   const [approvalSubmitted, setApprovalSubmitted] = useState<boolean>(false);
@@ -107,6 +106,8 @@ function Swap({
     trade,
     allowedSlippage
   );
+
+  console.log("Approval*", approval);
 
   // mark when a user has submitted an approval, reset onTokenSelection for input field
   useEffect(() => {
@@ -201,6 +202,8 @@ function Swap({
     deadline,
     recipient
   );
+  console.log(deadline, allowedSlippage);
+
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade);
 
   // warnings on slippage
@@ -214,6 +217,11 @@ function Swap({
       approval === ApprovalState.PENDING ||
       (approvalSubmitted && approval === ApprovalState.APPROVED)) &&
     !(priceImpactSeverity > 3 && !isExpertMode);
+
+  console.log("showApproveFlow", showApproveFlow);
+  console.log("swapInputError", swapInputError);
+  console.log("priceImpactSeverity", priceImpactSeverity);
+  console.log(!(priceImpactSeverity > 3 && !isExpertMode));
 
   const handleSwap = useCallback(() => {
     if (
@@ -253,8 +261,6 @@ function Swap({
       });
   }, [priceImpactWithoutFee, swapCallback, setSwapState]);
 
-  console.log("showApproveFlow", showApproveFlow);
-
   return (
     <div className="bg-grey_70 mb-6 md:mb-0">
       <div className="md:py-12 py-6 md:w-11/12 md:mx-auto text-white">
@@ -267,6 +273,7 @@ function Swap({
             trade={trade}
             isOpen={showConfirm}
             onDismiss={handleConfirmDismiss}
+            onConfirm={handleSwap}
           />
           {/* Swap Left */}
           {isMobile ? (
@@ -291,6 +298,7 @@ function Swap({
                 trade={trade}
                 allowedSlippage={allowedSlippage}
                 handleSwap={handleSwap}
+                selectedCurrency={currencies[Field.INPUT]}
               />
             )
           ) : (
@@ -314,6 +322,7 @@ function Swap({
               trade={trade}
               allowedSlippage={allowedSlippage}
               handleSwap={handleSwap}
+              selectedCurrency={currencies[Field.INPUT]}
             />
           )}
 

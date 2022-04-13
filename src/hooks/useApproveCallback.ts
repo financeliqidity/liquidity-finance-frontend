@@ -134,5 +134,6 @@ export function useApproveCallbackFromTrade(
         : undefined,
     [trade, allowedSlippage]
   );
+
   return useApproveCallback(amountToApprove, ROUTER_ADDRESS);
 }

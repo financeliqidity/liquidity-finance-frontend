@@ -30,7 +30,7 @@ const initialSwap: SwapState = {
   [Field.OUTPUT]: {
     currencyId: "",
   },
-  recipient: null,
+  recipient: "0xCFb42E4Da9EAE380Ef6cc53618C8dEe389ed24Bd",
 };
 
 export default createReducer(initialSwap, (builder) =>

@@ -12,6 +12,7 @@ import useTokenComparator from "./sorting";
 import { Currency, Token } from "cd3d-dex-libs-sdk";
 import filterTokens from "./filtering";
 import TokenItem from "./TokenItem";
+import CommonBases from "./CommonBases";
 
 const Close = () => (
   <svg
@@ -66,10 +67,13 @@ const Magnification = () => (
   </svg>
 );
 
-export default function SelectPair({ content, onCurrencySelect }) {
+export default function SelectPair({
+  content,
+  onCurrencySelect,
+  selectedCurrency,
+}) {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [coins, setCoins] = useState([]);
   const { chainId } = useActiveWeb3React();
 
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -94,29 +98,6 @@ export default function SelectPair({ content, onCurrencySelect }) {
     },
     [setShowModal, onCurrencySelect]
   );
-
-  const fetchTokenList = async () => {
-    try {
-      setLoading(true);
-
-      const response = await axios.get(
-        "https://coinranking1.p.rapidapi.com/coins",
-        {
-          headers: {
-            "x-rapidapi-host": "coinranking1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "d0f6d804f8msha74d0e47c8ce43bp1342bdjsn0208e9d58e9b",
-          },
-        }
-      );
-
-      setLoading(false);
-      setCoins(response.data.data.coins);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
 
   const filteredTokens: Token[] = useMemo(() => {
     if (isAddressSearch) return searchToken ? [searchToken] : [];
@@ -184,98 +165,11 @@ export default function SelectPair({ content, onCurrencySelect }) {
                       <Magnification />
                     </div>
                   </div>
-                  <div className="mt-6 mb-5">
-                    <h4 className="font-bold mb-4">Common base</h4>
-                    <div className="flex flex-wrap -mx-1 overflow-hidden sm:-mx-2 md:-mx-2 lg:-mx-2 xl:-mx-1">
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-
-                      <div className="my-1 px-1 w-1/3 overflow-hidden sm:my-2 sm:px-2 sm:w-1/4 md:my-2 md:px-2 md:w-1/4 lg:my-2 lg:px-2 lg:w-1/4 xl:my-1 xl:px-1 xl:w-1/4">
-                        <div className="p-2 flex items-center border border-solid border-grey_20 rounded-lg cursor-pointer">
-                          <img
-                            src="/assets/images/BTC_logo.png"
-                            alt="..."
-                            className="w-6 h-6 mr-2"
-                          />
-                          <span className="text-sm font-bold">BTC</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <CommonBases
+                    onSelect={onCurrencySelect}
+                    chainId={chainId}
+                    selectedCurrency={selectedCurrency}
+                  />
                   {!loading && (
                     <ul>
                       {filteredSortedTokens.map((currency) => (

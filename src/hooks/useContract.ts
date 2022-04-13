@@ -60,7 +60,7 @@ export function useENSRegistrarContract(
   if (chainId) {
     switch (chainId) {
       case ChainId.MAINNET:
-      case ChainId.TESTNET:
+      case ChainId.BSCTESTNET:
     }
   }
   return useContract(address, ENS_ABI, withSignerIfPossible);
