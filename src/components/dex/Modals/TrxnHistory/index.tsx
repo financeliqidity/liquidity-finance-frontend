@@ -121,6 +121,8 @@ export default function TrxnHistory() {
     return txs.filter(isTransactionRecent).sort(newTransactionsFirst);
   }, [allTransactions]);
 
+  console.log("Received transactions", sortedRecentTransactions);
+
   return (
     <>
       <button

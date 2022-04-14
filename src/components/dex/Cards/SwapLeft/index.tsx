@@ -1,11 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletContext } from "../../../../context";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
-import SelectPair from "../../Modals/SelectPair";
 import Settings from "../../Modals/Settings";
 import TrxnHistory from "../../Modals/TrxnHistory";
 import PercentageSelect from "../../PercentageSelect";
@@ -13,15 +11,14 @@ import { Field } from "../../../../redux/dex/actions";
 
 import { useActiveWeb3React } from "../../../../hooks";
 import { useSwapState } from "../../../../redux/dex/hooks";
-import { useCurrencyBalance } from "../../../../redux/wallet/hooks";
 import { JSBI, TradeType } from "cd3d-dex-libs-sdk";
 import SwapNTransfer from "../../Forms/SwapNTransfer";
 import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
 } from "../../../../utils/prices";
-import CurrencyLogo from "../../../shared/CurrencyLogo";
-import { NumericInput } from "../../../shared/NumericInput";
+import ReceiveInput from "../../InputPanels/ReceiveInput";
+import { PayInput } from "../../InputPanels/PayInput";
 
 const HeartIcon = ({ className }) => (
   <svg
@@ -35,22 +32,6 @@ const HeartIcon = ({ className }) => (
     <path
       d="M12.5 21.65C12.19 21.65 11.89 21.61 11.64 21.52C7.82 20.21 1.75 15.56 1.75 8.68998C1.75 5.18998 4.58 2.34998 8.06 2.34998C9.75 2.34998 11.33 3.00998 12.5 4.18998C13.67 3.00998 15.25 2.34998 16.94 2.34998C20.42 2.34998 23.25 5.19998 23.25 8.68998C23.25 15.57 17.18 20.21 13.36 21.52C13.11 21.61 12.81 21.65 12.5 21.65ZM8.06 3.84998C5.41 3.84998 3.25 6.01998 3.25 8.68998C3.25 15.52 9.82 19.32 12.13 20.11C12.31 20.17 12.7 20.17 12.88 20.11C15.18 19.32 21.76 15.53 21.76 8.68998C21.76 6.01998 19.6 3.84998 16.95 3.84998C15.43 3.84998 14.02 4.55998 13.11 5.78998C12.83 6.16998 12.19 6.16998 11.91 5.78998C10.98 4.54998 9.58 3.84998 8.06 3.84998Z"
       fill="#7C8497"
-    />
-  </svg>
-);
-const Selector = () => (
-  <svg
-    width="8"
-    height="6"
-    viewBox="0 0 8 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1 0.5L4 3.5L7 0.5L8 1.5L4 5.5L0 1.5L1 0.5Z"
-      fill="#B7BECB"
     />
   </svg>
 );
@@ -97,96 +78,6 @@ export default function SwapLeft({
   };
 
   const { account } = useActiveWeb3React();
-
-  const Pay = ({ hideBalance = false }: { hideBalance?: boolean }) => {
-    const selectedCurrencyBalance = useCurrencyBalance(
-      account ?? undefined,
-      currencies[Field.INPUT] ?? undefined
-    );
-
-    return (
-      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50 flex justify-between">
-        <div className="left">
-          <NumericInput value={value} onUserInput={(val) => onUserInput(val)} />
-          <span className="text-gray-100 text-xs mt-1 block">~ $2900.00</span>
-        </div>
-        <div className="right">
-          <SelectPair
-            selectedCurrency={selectedCurrency}
-            onCurrencySelect={onCurrencySelectInput}
-            content={
-              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                <CurrencyLogo currency={selectedCurrency} />
-
-                <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                  {currencies[Field.INPUT]?.symbol}
-                </span>
-                <span className="flex items-center justify-center">
-                  <Selector />
-                </span>
-              </div>
-            }
-          />
-          {account && (
-            <span className="mt-1 text-gray-100 text-xs">
-              {!hideBalance &&
-              !!currencies[Field.INPUT] &&
-              selectedCurrencyBalance
-                ? `Balance: ${selectedCurrencyBalance?.toSignificant(6)} ${
-                    currencies[Field.INPUT]?.symbol
-                  }`
-                : " -"}
-            </span>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  const Receive = () => {
-    const selectedCurrencyBalance = useCurrencyBalance(
-      account ?? undefined,
-      currencies[Field.OUTPUT] ?? undefined
-    );
-
-    return (
-      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50">
-        <div className="flex justify-between">
-          <div className="left">
-            <input
-              type="number"
-              name="receive"
-              className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
-            />
-            <span className="text-gray-100 text-xs mt-1 block">
-              ~$ 0.944518
-            </span>
-          </div>
-          <div className="right flex items-center">
-            <span className="text-sm font-semibold text-gray-100 mr-3">
-              $2.9K
-            </span>
-            <SelectPair
-              selectedCurrency={selectedCurrency}
-              onCurrencySelect={onCurrencySelectOutput}
-              content={
-                <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-                  <CurrencyLogo currency={currencies[Field.OUTPUT]} />
-
-                  <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                    {currencies[Field.OUTPUT]?.symbol}
-                  </span>
-                  <span className="flex items-center justify-center">
-                    <Selector />
-                  </span>
-                </div>
-              }
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const { independentField, typedValue, recipient } = useSwapState();
 
@@ -256,7 +147,13 @@ export default function SwapLeft({
         {/* Pay */}
         <div className="pay">
           <p className="text-sm text-gray-100 mb-3">Pay</p>
-          <Pay />
+          <PayInput
+            currencies={currencies}
+            value={value}
+            onUserInput={onUserInput}
+            selectedCurrency={selectedCurrency}
+            onCurrencySelectInput={onCurrencySelectInput}
+          />
           <PercentageSelect value={pPercentage} setValue={setPPercentage} />
         </div>
         {/* Switch Button */}
@@ -272,7 +169,11 @@ export default function SwapLeft({
         {/* Receive */}
         <div className="receive mb-8">
           <p className="text-sm text-gray-100 mb-3">Receive</p>
-          <Receive />
+          <ReceiveInput
+            selectedCurrency={selectedCurrency}
+            currencies={currencies}
+            onCurrencySelectOutput={onCurrencySelectOutput}
+          />
         </div>
         <SocialLinks />
         {/* Swap & Transfer */}
