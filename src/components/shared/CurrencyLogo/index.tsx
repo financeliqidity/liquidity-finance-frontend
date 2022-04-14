@@ -10,7 +10,7 @@ const getTokenLogoURL = (address: string) =>
 
 export default function CurrencyLogo({
   currency,
-  size = "24px",
+  size = "24",
   classNames,
 }: {
   currency?: Currency;

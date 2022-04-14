@@ -136,7 +136,7 @@ export default function SelectPair({
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12 border border-solid border-grey_20 rounded-3xl">
               {/*content*/}
-              <div className="shadow-lg relative flex flex-col w-full bg-blue_grey outline-none focus:outline-none rounded-3xl">
+              <div className="shadow-lg relative flex flex-col w-full bg-blue_grey outline-none focus:outline-none rounded-3xl max-h-screen overflow-y-scroll">
                 {/*header*/}
                 <div className="flex items-center justify-between py-6 px-6">
                   <h3 className="text-lg font-semibold text-white leading-5 flex items-center">
