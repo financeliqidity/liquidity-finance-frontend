@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
 import { trimAddress } from "../../../libs/helper";
+import { useActiveWeb3React } from "../../../hooks";
+import {
+  isTransactionRecent,
+  useAllTransactions,
+} from "../../../redux/transactions/hooks";
+import { TransactionDetails } from "../../../redux/transactions/reducer";
 
 const Close = () => (
   <svg
@@ -27,7 +33,6 @@ const Close = () => (
     />
   </svg>
 );
-
 const Direct = () => (
   <svg
     width="24"
@@ -174,14 +179,64 @@ const Cancel = () => (
     />
   </svg>
 );
+const Loader = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#b7becb"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="feather feather-loader"
+  >
+    <line x1="12" y1="2" x2="12" y2="6"></line>
+    <line x1="12" y1="18" x2="12" y2="22"></line>
+    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+    <line x1="2" y1="12" x2="6" y2="12"></line>
+    <line x1="18" y1="12" x2="22" y2="12"></line>
+    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+  </svg>
+);
+
+const newTransactionsFirst = (a: TransactionDetails, b: TransactionDetails) =>
+  b.addedTime - a.addedTime;
+
+const getRowStatus = (sortedRecentTransaction: TransactionDetails) => {
+  const { hash, receipt } = sortedRecentTransaction;
+
+  if (!hash) {
+    return { icon: <Loader />, color: "text" };
+  }
+
+  if (hash && receipt?.status === 1) {
+    return { icon: <Tick />, color: "success" };
+  }
+
+  return { icon: <Cancel />, color: "failure" };
+};
 
 export default function WalletDetails({ show, setShowModal, wallet }) {
   const [isBrowser, setIsBrowser] = useState(false);
 
+  const { account, chainId } = useActiveWeb3React();
+  const allTransactions = useAllTransactions();
+
+  const sortedRecentTransactions = useMemo(() => {
+    const txs = Object.values(allTransactions);
+    return txs.filter(isTransactionRecent).sort(newTransactionsFirst);
+  }, [allTransactions]);
+
+  console.log("Received transactions", sortedRecentTransactions);
+
   useEffect(() => setIsBrowser(true), []);
 
   const modalContent = show ? (
-    <>
+    <React.Fragment>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80 text-white">
         <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12">
           {/*content*/}
@@ -201,11 +256,16 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
             {/*body*/}
             <div className="relative px-6 pb-10 flex-auto">
               <div className="flex justify-between items-center mb-6">
-                <p className="text-xl font-bold">{trimAddress(wallet)}</p>
+                <p className="text-xl font-bold">{trimAddress(account)}</p>
                 <div className="flex items-center">
-                  <button className="mr-2 p-2.5 rounded-xl bg-grey_30">
+                  <a
+                    target="_blank"
+                    href={"https://bscscan.com/address/" + account}
+                    rel="noopener noreferrer"
+                    className="mr-2 p-2.5 rounded-xl bg-grey_30"
+                  >
                     <Direct />
-                  </button>
+                  </a>
                   <button className="p-2.5 rounded-xl bg-grey_30">
                     <Copy />
                   </button>
@@ -225,7 +285,7 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
                   <p className="text-xs text-primary font-bold">Clear All</p>
                 </div>
                 <ul className="font-poppins">
-                  <li className="mb-6 flex items-center justify-between">
+                  {/* <li className="mb-6 flex items-center justify-between">
                     <p className="flex items-center">
                       <span className="mr-2.5 text-sm">Stake</span> <Arrow />
                     </p>
@@ -273,22 +333,33 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
                     <span>
                       <Tick />
                     </span>
-                  </li>
-                  <li className="mb-0 flex justify-between">
-                    <div className="">
-                      <p className="flex items-center mb-1">
-                        <span className="mr-2.5 text-sm">Swap</span>
-                        <Arrow />
-                      </p>
-                      <p className="text-xs grey-10">
-                        0.045125 BNB to 2132.51853983 MTV
-                      </p>
-                    </div>
+                  </li> */}
+                  {account &&
+                    chainId &&
+                    sortedRecentTransactions.map((sortedRecentTransaction) => {
+                      const { hash, summary } = sortedRecentTransaction;
+                      const { icon } = getRowStatus(sortedRecentTransaction);
 
-                    <span>
-                      <Cancel />
-                    </span>
-                  </li>
+                      return (
+                        <li className="mt-6 flex justify-between">
+                          <div className="">
+                            <p className="flex items-center mb-1">
+                              <span className="mr-2.5 text-sm">Swap</span>
+                              <a
+                                target="_blank"
+                                href={"https://testnet.bscscan.com/tx/" + hash}
+                                rel="noopener noreferrer"
+                              >
+                                <Arrow />
+                              </a>
+                            </p>
+                            <p className="text-xs grey-10">{summary}</p>
+                          </div>
+
+                          <span>{icon}</span>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             </div>
@@ -296,12 +367,12 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
         </div>
       </div>
       <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-    </>
+    </React.Fragment>
   ) : null;
 
   if (isBrowser) {
     return (
-      <>
+      <React.Fragment>
         <span
           className="cursor-pointer w-full inline-block"
           onClick={() => setShowModal(true)}
@@ -313,7 +384,7 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
           modalContent,
           document.getElementById("modal-root")
         )}
-      </>
+      </React.Fragment>
     );
   } else {
     return null;

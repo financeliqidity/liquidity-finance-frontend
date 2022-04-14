@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import ManageTokens from "../../../shared/Modals/ManageTokens";
-import axios from "axios";
-import Image from "next/image";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../../redux";
 import useFetchListCallback from "../../../../hooks/useFetchListCallback";
@@ -13,6 +11,7 @@ import { Currency, Token } from "cd3d-dex-libs-sdk";
 import filterTokens from "./filtering";
 import TokenItem from "./TokenItem";
 import CommonBases from "./CommonBases";
+import { useSelectedListInfo } from "../../../../redux/lists/hooks";
 
 const Close = () => (
   <svg
@@ -89,6 +88,11 @@ export default function SelectPair({
     return s === "" || s === "b" || s === "bn" || s === "bnb";
   }, [searchQuery]);
 
+  // clear the input on open
+  useEffect(() => {
+    if (showModal) setSearchQuery("");
+  }, [showModal]);
+
   const tokenComparator = useTokenComparator(invertSearchOrder);
 
   const handleCurrencySelect = useCallback(
@@ -124,6 +128,8 @@ export default function SelectPair({
       ),
     ];
   }, [filteredTokens, searchQuery, searchToken, tokenComparator]);
+
+  const selectedListInfo = useSelectedListInfo();
 
   return (
     <>
@@ -172,14 +178,18 @@ export default function SelectPair({
                   />
                   {!loading && (
                     <ul>
-                      {filteredSortedTokens.map((currency) => (
-                        <React.Fragment key={currency.address}>
-                          <TokenItem
-                            currency={currency}
-                            handleCurrencySelect={handleCurrencySelect}
-                          />
-                        </React.Fragment>
-                      ))}
+                      {[...filteredSortedTokens, Currency.ETHER].map(
+                        (currency, index) => {
+                          return (
+                            <React.Fragment key={index}>
+                              <TokenItem
+                                currency={currency}
+                                handleCurrencySelect={handleCurrencySelect}
+                              />
+                            </React.Fragment>
+                          );
+                        }
+                      )}
                     </ul>
                   )}
                 </div>
