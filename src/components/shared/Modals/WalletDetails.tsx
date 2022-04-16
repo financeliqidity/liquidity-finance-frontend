@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { trimAddress } from "../../../libs/helper";
 import { useActiveWeb3React } from "../../../hooks";
 import {
@@ -220,7 +221,8 @@ const getRowStatus = (sortedRecentTransaction: TransactionDetails) => {
   return { icon: <Cancel />, color: "failure" };
 };
 
-export default function WalletDetails({ show, setShowModal, wallet }) {
+export default function WalletDetails({ show, setShowModal, debug }) {
+  const [copied, setCopied] = useState(false);
   const [isBrowser, setIsBrowser] = useState(false);
 
   const { account, chainId } = useActiveWeb3React();
@@ -266,9 +268,15 @@ export default function WalletDetails({ show, setShowModal, wallet }) {
                   >
                     <Direct />
                   </a>
-                  <button className="p-2.5 rounded-xl bg-grey_30">
-                    <Copy />
-                  </button>
+                  <CopyToClipboard
+                    options={{ debug: debug, message: "" }}
+                    text={account}
+                    onCopy={() => setCopied(true)}
+                  >
+                    <button className="p-2.5 rounded-xl bg-grey_30">
+                      <Copy />
+                    </button>
+                  </CopyToClipboard>
                 </div>
               </div>
               <div className="flex items-center justify-between">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout";
 
 import Swap from "../../components/dex/Containers/Swap";
@@ -24,7 +24,7 @@ export default function Dex() {
   };
 
   return (
-    <>
+    <React.Fragment>
       {page === "swap" && (
         <Swap
           setShowModal={setShowModal}
@@ -44,7 +44,7 @@ export default function Dex() {
       )}
       {page === "liquidity" && <Liquidity setPage={setPage} />}
       {page === "details" && <PoolDetails />}
-    </>
+    </React.Fragment>
   );
 }
 

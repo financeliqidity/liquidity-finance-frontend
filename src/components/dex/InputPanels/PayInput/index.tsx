@@ -39,40 +39,44 @@ export const PayInput = ({
   );
 
   return (
-    <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50 flex justify-between">
-      <div className="left">
-        <NumericInput value={value} onUserInput={(val) => onUserInput(val)} />
-        <span className="text-gray-100 text-xs mt-1 block">~ $2900.00</span>
-      </div>
-      <div className="right">
-        <SelectPair
-          selectedCurrency={selectedCurrency}
-          onCurrencySelect={onCurrencySelectInput}
-          content={
-            <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
-              <CurrencyLogo currency={selectedCurrency} />
+    <React.Fragment>
+      <p className="text-sm text-gray-100 mb-3">Pay</p>
 
-              <span className="block truncate text-base text-white text-center w-full mr-2.5">
-                {currencies[Field.INPUT]?.symbol}
-              </span>
-              <span className="flex items-center justify-center">
-                <Selector />
-              </span>
-            </div>
-          }
-        />
-        {account && (
-          <span className="mt-1 text-gray-100 text-xs">
-            {!hideBalance &&
-            !!currencies[Field.INPUT] &&
-            selectedCurrencyBalance
-              ? `Balance: ${selectedCurrencyBalance?.toSignificant(6)} ${
-                  currencies[Field.INPUT]?.symbol
-                }`
-              : " -"}
-          </span>
-        )}
+      <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50 flex justify-between">
+        <div className="left">
+          <NumericInput value={value} onUserInput={(val) => onUserInput(val)} />
+          <span className="text-gray-100 text-xs mt-1 block">~ $2900.00</span>
+        </div>
+        <div className="right">
+          <SelectPair
+            selectedCurrency={selectedCurrency}
+            onCurrencySelect={onCurrencySelectInput}
+            content={
+              <div className="flex items-center bg-grey_50 px-2 py-1 rounded-lg">
+                <CurrencyLogo currency={selectedCurrency} />
+
+                <span className="block truncate text-base text-white text-center w-full mr-2.5">
+                  {currencies[Field.INPUT]?.symbol}
+                </span>
+                <span className="flex items-center justify-center">
+                  <Selector />
+                </span>
+              </div>
+            }
+          />
+          {account && (
+            <span className="mt-1 text-gray-100 text-xs">
+              {!hideBalance &&
+              !!currencies[Field.INPUT] &&
+              selectedCurrencyBalance
+                ? `Balance: ${selectedCurrencyBalance?.toSignificant(6)} ${
+                    currencies[Field.INPUT]?.symbol
+                  }`
+                : " --"}
+            </span>
+          )}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };

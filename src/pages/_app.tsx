@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import { RecoilRoot } from "recoil";
 import "../../styles/globals.css";
 import "../../styles/customStyles.css";
 import { Web3ReactProvider } from "@web3-react/core";
@@ -33,21 +32,19 @@ function MyApp({ Component, pageProps }) {
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ReactProviderDefault getLibrary={getLibrary}>
-        <RecoilRoot>
-          <Provider store={store}>
-            <>
-              <ListsUpdater />
-              <ApplicationUpdater />
-              <TransactionUpdater />
-              <MulticallUpdater />
-            </>
-            <WalletProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </WalletProvider>
-          </Provider>
-        </RecoilRoot>
+        <Provider store={store}>
+          <>
+            <ListsUpdater />
+            <ApplicationUpdater />
+            <TransactionUpdater />
+            <MulticallUpdater />
+          </>
+          <WalletProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </WalletProvider>
+        </Provider>
       </Web3ReactProviderDefault>
     </Web3ReactProvider>
   );
