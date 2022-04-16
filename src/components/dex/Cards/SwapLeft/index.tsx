@@ -60,6 +60,8 @@ export default function SwapLeft({
   handleSwap,
   parsedAmounts,
   selectedCurrency,
+  swapInputError,
+  handleMaxInput,
 }) {
   const { active, activate, library: provider } = useWeb3React();
 
@@ -71,11 +73,7 @@ export default function SwapLeft({
     }
   };
 
-  const [pPercentage, setPPercentage] = useState(null);
-
-  const handleContinue = (values) => {
-    onUserInput(values.pay);
-  };
+  const [pPercentage, setPPercentage] = useState(value ?? null);
 
   const { account } = useActiveWeb3React();
 
@@ -146,7 +144,6 @@ export default function SwapLeft({
         </div>
         {/* Pay */}
         <div className="pay">
-          <p className="text-sm text-gray-100 mb-3">Pay</p>
           <PayInput
             currencies={currencies}
             value={value}
@@ -154,7 +151,13 @@ export default function SwapLeft({
             selectedCurrency={selectedCurrency}
             onCurrencySelectInput={onCurrencySelectInput}
           />
-          <PercentageSelect value={pPercentage} setValue={setPPercentage} />
+          {selectedCurrency && (
+            <PercentageSelect
+              value={pPercentage}
+              setValue={setPPercentage}
+              onMax={handleMaxInput}
+            />
+          )}
         </div>
         {/* Switch Button */}
         <div className="my-5 flex justify-center">
@@ -168,7 +171,6 @@ export default function SwapLeft({
         </div>
         {/* Receive */}
         <div className="receive mb-8">
-          <p className="text-sm text-gray-100 mb-3">Receive</p>
           <ReceiveInput
             selectedCurrency={selectedCurrency}
             currencies={currencies}
@@ -184,11 +186,21 @@ export default function SwapLeft({
         {account ? (
           <React.Fragment>
             {noRoute && userHasSpecifiedInputOutput ? (
-              <span>No liquidity</span>
+              <button
+                type="button"
+                className="mt-8 w-full text-xl font-bold py-4 rounded-lg bg-grey_40 text-grey_20"
+                disabled
+              >
+                No liquidity
+              </button>
             ) : (
               <button
                 type="submit"
-                className="mt-8 w-full btn-primary text-white text-xl font-bold py-4 rounded-lg"
+                className={
+                  "mt-8 w-full text-xl font-bold py-4 rounded-lg text-white " +
+                  (swapInputError ? "bg-grey_40 text-grey_20" : "btn-primary")
+                }
+                disabled={swapInputError}
                 onClick={() => {
                   if (isExpertMode) {
                     handleSwap();

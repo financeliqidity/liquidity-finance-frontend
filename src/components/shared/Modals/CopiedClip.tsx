@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-import meta_mask from "../../../../public/assets/icons/meta-mask.svg";
-import bsc_wallet from "../../../../public/assets/icons/bsc-wallet.svg";
-import walletconect from "../../../../public/assets/icons/walletconnect.svg";
-import portis from "../../../../public/assets/icons/portis.svg";
-import more from "../../../../public/assets/icons/more.svg";
-
 const Close = () => (
   <svg
     width="24"
@@ -77,7 +71,7 @@ const Tick = () => (
 
 export default function CopiedClip({}) {
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+
   return (
     <>
       <button
@@ -91,7 +85,7 @@ export default function CopiedClip({}) {
       </button>
 
       {showModal ? (
-        <>
+        <React.Fragment>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12">
               {/*content*/}
@@ -125,7 +119,7 @@ export default function CopiedClip({}) {
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
+        </React.Fragment>
       ) : null}
     </>
   );

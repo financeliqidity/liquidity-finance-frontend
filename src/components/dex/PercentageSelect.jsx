@@ -1,10 +1,16 @@
 import { RadioGroup } from "@headlessui/react";
 
-export default function PercentageSelect({ value, setValue }) {
+export default function PercentageSelect({ value, setValue, onMax }) {
   return (
     <RadioGroup
       value={value}
-      onChange={setValue}
+      onChange={(e) => {
+        if (e == 100) {
+          onMax();
+        }
+
+        setValue(e);
+      }}
       as={"div"}
       className="flex justify-between mt-3"
     >

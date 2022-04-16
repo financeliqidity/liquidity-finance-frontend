@@ -1,6 +1,4 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { selectTokenPair } from "../../../../selectTokenPair";
 import { ChartCard } from "./chart";
 
 const CaretUpIcon = () => (
@@ -37,21 +35,17 @@ const CaretDownIcon = () => (
 export default function PairChart() {
   const [open, setOpen] = React.useState(true);
 
-  const tokenPair = useRecoilValue(selectTokenPair);
-
   return (
-    <>
+    <React.Fragment>
       <div className="bg-blue_grey py-3 px-6 border-grey_40 border border-l-0 border-r-0">
         <div className="flex items-center justify-between">
-          <span className="text-lg font-semibold">
-            {tokenPair.pay.symbol}/{tokenPair.receive.symbol} Chart
-          </span>
+          <span className="text-lg font-semibold">BTC/USDT Chart</span>
           <button onClick={() => setOpen(!open)}>
             {open ? <CaretUpIcon /> : <CaretDownIcon />}
           </button>
         </div>
       </div>
       {open && <ChartCard />}
-    </>
+    </React.Fragment>
   );
 }

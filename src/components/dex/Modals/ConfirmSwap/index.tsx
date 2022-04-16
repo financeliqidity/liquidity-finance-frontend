@@ -53,7 +53,7 @@ export default function ConfirmSwapModal({
   const severity = warningSeverity(priceImpactWithoutFee);
 
   return (
-    <>
+    <React.Fragment>
       {isOpen ? (
         <React.Fragment>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
@@ -180,6 +180,6 @@ export default function ConfirmSwapModal({
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </React.Fragment>
       ) : null}
-    </>
+    </React.Fragment>
   );
 }

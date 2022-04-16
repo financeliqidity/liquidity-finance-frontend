@@ -24,13 +24,16 @@ import {
 } from "../../../redux/user/hooks";
 import { useActiveWeb3React } from "../../../hooks";
 import useWrapCallback, { WrapType } from "../../../hooks/useWrapCallback";
-import { JSBI, Trade } from "cd3d-dex-libs-sdk";
+import { CurrencyAmount, JSBI, Trade } from "cd3d-dex-libs-sdk";
 import confirmPriceImpactWithoutFee from "./confirmPriceImpactWithoutFee";
 import {
   ApprovalState,
   useApproveCallbackFromTrade,
 } from "../../../hooks/useApproveCallback";
 import ConfirmSwapModal from "../Modals/ConfirmSwap";
+import PendingTransactionModal from "../Modals/PendingTransactionModal";
+import TransactionSubmittedModal from "../Modals/TransactionSubmittedModal";
+import maxAmountSpend from "../../../utils/maxAmountSpend";
 
 function Swap({
   setShowModal,
@@ -176,6 +179,8 @@ function Swap({
     txHash: undefined,
   });
 
+  console.log("txHash**************", txHash);
+
   const handleConfirmDismiss = useCallback(() => {
     setSwapState((prevState) => ({ ...prevState, showConfirm: false }));
 
@@ -195,6 +200,15 @@ function Swap({
   console.log("trade", trade);
   console.log("showWrap", showWrap);
 
+  const maxAmountInput: CurrencyAmount | undefined = maxAmountSpend(
+    currencyBalances[Field.INPUT]
+  );
+  const atMaxAmountInput = Boolean(
+    maxAmountInput && parsedAmounts[Field.INPUT]?.equalTo(maxAmountInput)
+  );
+
+  console.log("maxAmountInput", maxAmountInput);
+
   // the callback to execute the swap
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
     trade,
@@ -202,7 +216,6 @@ function Swap({
     deadline,
     recipient
   );
-  console.log(deadline, allowedSlippage);
 
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade);
 
@@ -220,8 +233,12 @@ function Swap({
 
   console.log("showApproveFlow", showApproveFlow);
   console.log("swapInputError", swapInputError);
-  console.log("priceImpactSeverity", priceImpactSeverity);
-  console.log(!(priceImpactSeverity > 3 && !isExpertMode));
+
+  const handleMaxInput = useCallback(() => {
+    if (maxAmountInput) {
+      onUserInput(Field.INPUT, maxAmountInput.toExact());
+    }
+  }, [maxAmountInput, onUserInput]);
 
   const handleSwap = useCallback(() => {
     if (
@@ -268,17 +285,34 @@ function Swap({
           {showApproveFlow && (
             <button onClick={approveCallback}>Approve</button>
           )}
-          <ConfirmSwapModal
-            allowedSlippage={allowedSlippage}
-            trade={trade}
-            isOpen={showConfirm}
-            onDismiss={handleConfirmDismiss}
-            onConfirm={handleSwap}
-          />
+
+          {attemptingTxn ? (
+            txHash ? (
+              <TransactionSubmittedModal
+                onDismiss={handleConfirmDismiss}
+                isOpen={true}
+              />
+            ) : (
+              <PendingTransactionModal
+                onDismiss={handleConfirmDismiss}
+                isOpen={showConfirm}
+              />
+            )
+          ) : (
+            <ConfirmSwapModal
+              allowedSlippage={allowedSlippage}
+              trade={trade}
+              isOpen={showConfirm}
+              onDismiss={handleConfirmDismiss}
+              onConfirm={handleSwap}
+            />
+          )}
+
           {/* Swap Left */}
           {isMobile ? (
             mobileTab === 0 && (
               <SwapLeft
+                handleMaxInput={handleMaxInput}
                 parsedAmounts={parsedAmounts}
                 setSwapState={setSwapState}
                 isExpertMode={isExpertMode}
@@ -299,10 +333,12 @@ function Swap({
                 allowedSlippage={allowedSlippage}
                 handleSwap={handleSwap}
                 selectedCurrency={currencies[Field.INPUT]}
+                swapInputError={swapInputError}
               />
             )
           ) : (
             <SwapLeft
+              handleMaxInput={handleMaxInput}
               parsedAmounts={parsedAmounts}
               setSwapState={setSwapState}
               isExpertMode={isExpertMode}
@@ -323,6 +359,7 @@ function Swap({
               allowedSlippage={allowedSlippage}
               handleSwap={handleSwap}
               selectedCurrency={currencies[Field.INPUT]}
+              swapInputError={swapInputError}
             />
           )}
 

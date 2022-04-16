@@ -61,7 +61,7 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
   const isSmall = useMediaQuery("(max-width: 768px)");
 
   return (
-    <>
+    <React.Fragment>
       {isSmall ? (
         <button
           className="p-1 bg-grey_50 flex items-center justify-between rounded-lg ml-3"
@@ -99,50 +99,44 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
         </button>
       )}
 
-      <>
-        <div
-          ref={popoverDropdownRef}
-          className={
-            (dropdownPopoverShow ? "block " : "hidden ") +
-            "bg-grey_50 text-base z-30 float-left py-2 list-none text-left rounded shadow-lg min-w-51.5 text-white w-full relative"
-          }
+      <div
+        ref={popoverDropdownRef}
+        className={
+          (dropdownPopoverShow ? "block " : "hidden ") +
+          "bg-grey_50 text-base z-30 float-left py-2 list-none text-left rounded shadow-lg min-w-51.5 text-white w-full relative"
+        }
+      >
+        <button
+          className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
+          type="button"
         >
-          <button
-            className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
-            type="button"
-          >
-            <WalletDetails
-              wallet={wallet}
-              show={showModal}
-              setShowModal={setShowModal}
-            />
-          </button>
+          <WalletDetails show={showModal} setShowModal={setShowModal} />
+        </button>
 
-          <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
+        <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
 
-          <Link href="/#">
-            <a
-              href="#pablo"
-              className={
-                "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-              }
-            >
-              Transactions
-            </a>
-          </Link>
-          <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
-          <button
+        <Link href="/#">
+          <a
+            href="#pablo"
             className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-left"
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }
-            type="button"
-            onClick={() => disconnectWallet()}
           >
-            Disconnect
-          </button>
-        </div>
-      </>
-    </>
+            Transactions
+          </a>
+        </Link>
+        <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
+        <button
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-left"
+          }
+          type="button"
+          onClick={() => disconnectWallet()}
+        >
+          Disconnect
+        </button>
+      </div>
+    </React.Fragment>
   );
 };
 
