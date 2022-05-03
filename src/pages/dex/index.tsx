@@ -7,7 +7,7 @@ import BottomNavigation from "../../components/dex/Navbar/BottomNavigation";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import PoolDetails from "../../components/dex/Containers/PoolDetails";
 
-export default function Dex() {
+export default function Dex(props) {
   const [buyMode, setBuyMode] = useState(true);
 
   const [page, setPage] = useState("swap");

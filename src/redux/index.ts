@@ -5,7 +5,7 @@ import { updateVersion } from "./global/actions";
 import application from "./application/reducer";
 import user from "./user/reducer";
 import swap from "./dex/reducers";
-// import mint from './mint/reducer'
+import mint from "./mint/reducer";
 import lists from "./lists/reducer";
 // import burn from './burn/reducer'
 import multicall from "./multicall/reducer";
@@ -29,7 +29,7 @@ const store = configureStore({
     user,
     transactions,
     swap,
-    // mint,
+    mint,
     // burn,
     multicall,
     lists,

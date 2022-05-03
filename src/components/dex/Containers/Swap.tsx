@@ -34,6 +34,7 @@ import ConfirmSwapModal from "../Modals/ConfirmSwap";
 import PendingTransactionModal from "../Modals/PendingTransactionModal";
 import TransactionSubmittedModal from "../Modals/TransactionSubmittedModal";
 import maxAmountSpend from "../../../utils/maxAmountSpend";
+import { useRouter } from "next/router";
 
 function Swap({
   setShowModal,
@@ -179,7 +180,9 @@ function Swap({
     txHash: undefined,
   });
 
-  console.log("txHash**************", txHash);
+  console.log("attemptingTxn", attemptingTxn);
+
+  console.log("swapErrorMessage**************", swapErrorMessage);
 
   const handleConfirmDismiss = useCallback(() => {
     setSwapState((prevState) => ({ ...prevState, showConfirm: false }));
@@ -207,8 +210,6 @@ function Swap({
     maxAmountInput && parsedAmounts[Field.INPUT]?.equalTo(maxAmountInput)
   );
 
-  console.log("maxAmountInput", maxAmountInput);
-
   // the callback to execute the swap
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
     trade,
@@ -232,7 +233,6 @@ function Swap({
     !(priceImpactSeverity > 3 && !isExpertMode);
 
   console.log("showApproveFlow", showApproveFlow);
-  console.log("swapInputError", swapInputError);
 
   const handleMaxInput = useCallback(() => {
     if (maxAmountInput) {
@@ -259,8 +259,6 @@ function Swap({
     }));
     swapCallback()
       .then((hash) => {
-        console.log("hash", hash);
-
         setSwapState((prevState) => ({
           ...prevState,
           attemptingTxn: false,

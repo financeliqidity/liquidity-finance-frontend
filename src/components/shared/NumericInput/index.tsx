@@ -7,6 +7,7 @@ export const NumericInput = React.memo(function InnerInput({
   value,
   onUserInput,
   placeholder,
+  classNames,
   ...rest
 }: {
   value: string | number;
@@ -14,12 +15,14 @@ export const NumericInput = React.memo(function InnerInput({
   error?: boolean;
   fontSize?: string;
   align?: "right" | "left";
+  classNames?: string;
 } & Omit<React.HTMLProps<HTMLInputElement>, "ref" | "onChange" | "as">) {
   const enforcer = (nextUserInput: string) => {
     if (nextUserInput === "" || inputRegex.test(escapeRegExp(nextUserInput))) {
       onUserInput(nextUserInput);
     }
   };
+
   return (
     <input
       {...rest}
@@ -39,7 +42,7 @@ export const NumericInput = React.memo(function InnerInput({
       minLength={1}
       maxLength={79}
       spellCheck="false"
-      className="text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-xl font-bold w-full"
+      className={`text-white bg-transparent border-none focus:border-none outline-none focus:outline-none text-base font-bold w-full ${classNames}`}
     />
   );
 });

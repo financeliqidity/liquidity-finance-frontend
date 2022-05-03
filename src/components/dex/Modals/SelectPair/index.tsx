@@ -138,7 +138,7 @@ export default function SelectPair({
       </div>
 
       {showModal ? (
-        <>
+        <React.Fragment>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-dark_grey bg-opacity-80">
             <div className="relative w-5/6 my-6 mx-auto max-w-lg md:w-5/12 border border-solid border-grey_20 rounded-3xl">
               {/*content*/}
@@ -201,7 +201,7 @@ export default function SelectPair({
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>
+        </React.Fragment>
       ) : null}
     </>
   );

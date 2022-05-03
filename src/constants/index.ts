@@ -1,6 +1,6 @@
 import { ChainId, JSBI, Percent, Token, WETH } from "cd3d-dex-libs-sdk";
 
-export const ROUTER_ADDRESS = "0xDD01D7d8302fdef0537FCbCbD1eb6d136b7E6e97";
+export const ROUTER_ADDRESS = "0xc2971a62cc5ABF2fe4b6602D8E54f6d3840DCB5d";
 
 // a list of tokens by chain
 type ChainTokenList = {

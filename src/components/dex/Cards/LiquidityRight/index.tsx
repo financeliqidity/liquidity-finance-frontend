@@ -1,4 +1,10 @@
-import React from "react";
+import { JSBI, Pair, Percent } from "cd3d-dex-libs-sdk";
+import React, { useState } from "react";
+import useTotalSupply from "../../../../data/TotalSupply";
+import { useActiveWeb3React } from "../../../../hooks";
+import { useTokenBalance } from "../../../../redux/wallet/hooks";
+import { unwrappedToken } from "../../../../utils/wrappedCurrency";
+import DoubleCurrencyLogo from "../../../shared/DoubleLogo";
 import styles from "./styles/index.module.css";
 
 const More = () => (
@@ -16,7 +22,95 @@ const More = () => (
   </svg>
 );
 
-export default function LiquidityRight({ setPage }) {
+interface PositionCardProps {
+  pair: Pair;
+  showUnwrapped?: boolean;
+  removeOnly?: boolean;
+}
+
+const PoolItem = ({ pair, removeOnly }: PositionCardProps) => {
+  const { account } = useActiveWeb3React();
+
+  const currency0 = unwrappedToken(pair.token0);
+  const currency1 = unwrappedToken(pair.token1);
+
+  const [showMore, setShowMore] = useState(false);
+
+  const userPoolBalance = useTokenBalance(
+    account ?? undefined,
+    pair.liquidityToken
+  );
+  const totalPoolTokens = useTotalSupply(pair.liquidityToken);
+
+  const poolTokenPercentage =
+    !!userPoolBalance &&
+    !!totalPoolTokens &&
+    JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
+      ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
+      : undefined;
+
+  const [token0Deposited, token1Deposited] =
+    !!pair &&
+    !!totalPoolTokens &&
+    !!userPoolBalance &&
+    // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+    JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
+      ? [
+          pair.getLiquidityValue(
+            pair.token0,
+            totalPoolTokens,
+            userPoolBalance,
+            false
+          ),
+          pair.getLiquidityValue(
+            pair.token1,
+            totalPoolTokens,
+            userPoolBalance,
+            false
+          ),
+        ]
+      : [undefined, undefined];
+
+  console.log(currency0, currency1);
+
+  return (
+    <tr>
+      <td className="px-6 align-middle whitespace-nowrap py-4">
+        <div className="flex items-center w-full">
+          <DoubleCurrencyLogo
+            currency0={currency0}
+            currency1={currency1}
+            size={36}
+          />
+          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
+            0x6c1..ee21
+          </span>
+          <More />
+        </div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        {(currency0 || currency1) && (
+          <span className="font-bold">
+            {`104 ${currency0.symbol} / 12,234 ${currency1.symbol}`}
+          </span>
+        )}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
+          Manage
+        </button>
+        <button
+          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
+          onClick={() => {}}
+        >
+          Details
+        </button>
+      </td>
+    </tr>
+  );
+};
+
+export default function LiquidityRight({ allV2PairsWithLiquidity, setPage }) {
   return (
     <div className={"right w-full md:mt-0 mt-10 md:w-12/25 " + styles.right_}>
       <div className="bg-blue_grey p-6 rounded-2xl border border-solid border-grey_20">
@@ -46,190 +140,18 @@ export default function LiquidityRight({ setPage }) {
                     </tr>
                   </thead>
                   <tbody className={`bg-transparent ${styles.tbody}`}>
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button
-                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
-                          onClick={() => setPage("details")}
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button
-                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
-                          onClick={() => setPage("details")}
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button
-                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
-                          onClick={() => setPage("details")}
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button
-                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
-                          onClick={() => setPage("details")}
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td className="px-6 align-middle whitespace-nowrap py-4">
-                        <div className="flex items-center w-full">
-                          <div className="flex">
-                            <img
-                              src="/assets/images/BTC_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full"
-                            ></img>
-                            <img
-                              src="/assets/images/USDT_logo.png"
-                              alt="..."
-                              className="w-9 h-9 rounded-full -ml-4 max-w-none"
-                            ></img>
-                          </div>
-                          <span className="font-bold mr-2.5 ml-2 pl-4 md:pl-0">
-                            0x6c1..ee21
-                          </span>
-                          <More />
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-bold">104 ETH / 12,234 USDT</span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg mr-2 text-primary">
-                          Manage
-                        </button>
-                        <button
-                          className="border border-solid border-primary py-1 px-2 text-sm font-bold rounded-lg text-primary"
-                          onClick={() => setPage("details")}
-                        >
-                          Details
-                        </button>
-                      </td>
-                    </tr>
+                    {allV2PairsWithLiquidity?.length > 0 ? (
+                      <React.Fragment>
+                        {allV2PairsWithLiquidity.map((v2Pair) => (
+                          <PoolItem
+                            key={v2Pair.liquidityToken.address}
+                            pair={v2Pair}
+                          />
+                        ))}
+                      </React.Fragment>
+                    ) : (
+                      "No Liquidity Found"
+                    )}
                   </tbody>
                 </table>
               </div>
