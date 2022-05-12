@@ -1,20 +1,20 @@
-import React, { useCallback, useState } from "react";
-import Link from "next/link";
-import styles from "./styles/index.module.css";
-import SelectPair from "../../Modals/SelectPair";
-import SocialLinks from "../../Arcodions/SocialLinks";
-import SelectPool from "../../Modals/SelectPool";
-import Settings from "../../Modals/Settings";
-import TrxnHistory from "../../Modals/TrxnHistory";
-import AddMedia from "../../Containers/AddMediaLinks";
-import { useActiveWeb3React } from "../../../../hooks";
-import currencyId from "../../../../utils/currencyId";
-import { Currency, ETHER } from "cd3d-dex-libs-sdk";
-import { useRouter } from "next/router";
-import { useCurrency } from "../../../../hooks/Tokens";
-import CurrencyLogo from "../../../shared/CurrencyLogo";
-import { useDerivedMintInfo } from "../../../../redux/mint/hooks";
-import { Field } from "../../../../redux/mint/actions";
+import React, { useCallback, useState } from 'react';
+import Link from 'next/link';
+import styles from './styles/index.module.css';
+import SelectPair from '../../Modals/SelectPair';
+import SocialLinks from '../../Arcodions/SocialLinks';
+import SelectPool from '../../Modals/SelectPool';
+import Settings from '../../Modals/Settings';
+import TrxnHistory from '../../Modals/TrxnHistory';
+import AddMedia from '../../Containers/AddMediaLinks';
+import { useActiveWeb3React } from '../../../../hooks';
+import currencyId from '../../../../utils/currencyId';
+import { Currency, ETHER } from 'cd3d-dex-libs-sdk';
+import { useRouter } from 'next/router';
+import { useCurrency } from '../../../../hooks/Tokens';
+import CurrencyLogo from '../../../shared/CurrencyLogo';
+import { useDerivedMintInfo } from '../../../../redux/mint/hooks';
+import { Field } from '../../../../redux/mint/actions';
 
 const Warning = () => (
   <svg
@@ -109,7 +109,7 @@ function LiquidityLeft(props) {
       } else {
         router.replace(
           `/dex?currencyIdA=${
-            currencyIdA || "BNB"
+            currencyIdA || 'BNB'
           }&currencyIdB=${newCurrencyIdB}`
         );
       }
@@ -125,8 +125,8 @@ function LiquidityLeft(props) {
     currencyB ?? undefined
   );
 
-  console.log("currencyA: ", currencyA);
-  console.log("currencyB: ", currencyB);
+  console.log('currencyA: ', currencyA);
+  console.log('currencyB: ', currencyB);
 
   return (
     <React.Fragment>
@@ -143,7 +143,7 @@ function LiquidityLeft(props) {
         <div className="w-full flex justify-between bg-grey_50 rounded-r-lg rounded-l-lg">
           <button
             className="md:py-5 py-3 w-1/3 bg-grey_50 border-primary border-r border-solid rounded-r-lg rounded-l-lg font-bold md:text-xl text-base"
-            onClick={() => setPage("swap")}
+            onClick={() => setPage('swap')}
           >
             Swap
           </button>
@@ -251,7 +251,7 @@ function LiquidityLeft(props) {
           </div>
           <div
             className={`flex ${
-              asDeveloper ? "justify-between" : "justify-end"
+              asDeveloper ? 'justify-between' : 'justify-end'
             } mt-8`}
           >
             {asDeveloper && (
@@ -301,7 +301,7 @@ function LiquidityLeft(props) {
               <button
                 type="submit"
                 className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
-                onClick={() => setTab("add")}
+                onClick={() => setTab('add')}
               >
                 Add liquidity as user
               </button>
@@ -311,7 +311,7 @@ function LiquidityLeft(props) {
           <button
             type="submit"
             disabled={true}
-            className="mt-8 w-full bg-tertiary text-grey-50 text-md font-light py-2 rounded-lg"
+            className="mt-8 w-full btn-primary text-grey-50 text-md font-light py-2 rounded-lg"
           >
             Connect Wallet to continue
           </button>
