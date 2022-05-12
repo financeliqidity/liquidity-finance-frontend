@@ -6,6 +6,7 @@ import Layout from '../../components/Layout';
 import { classNames } from '../../libs/helper';
 import { useRouter } from 'next/router';
 import Deposit from '../../components/multichain/Deposit';
+import Withdrawal from '../../components/multichain/Withdrawal';
 
 export default function MultiChain() {
   const Tabs = [
@@ -43,6 +44,9 @@ export default function MultiChain() {
       <Tab.Panels>
         <Tab.Panel>
           <Deposit />
+        </Tab.Panel>
+        <Tab.Panel>
+          <Withdrawal />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
