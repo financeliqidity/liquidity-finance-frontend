@@ -3,7 +3,14 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { getAddress } from "@ethersproject/address";
 import { AddressZero } from "@ethersproject/constants";
 import { JsonRpcSigner, Web3Provider } from "@ethersproject/providers";
-import { Currency, ETHER, JSBI, Percent, Token } from "cd3d-dex-libs-sdk";
+import {
+  Currency,
+  CurrencyAmount,
+  ETHER,
+  JSBI,
+  Percent,
+  Token,
+} from "cd3d-dex-libs-sdk";
 import { TokenAddressMap } from "../redux/lists/hooks";
 import { ROUTER_ADDRESS } from "../constants";
 import { abi as IUniswapV2Router02ABI } from "@uniswap/v2-periphery/build/IUniswapV2Router02.json";
@@ -18,6 +25,25 @@ export function calculateGasMargin(value: BigNumber): BigNumber {
 // converts a basis points value to a sdk percent
 export function basisPointsToPercent(num: number): Percent {
   return new Percent(JSBI.BigInt(Math.floor(num)), JSBI.BigInt(10000));
+}
+
+export function calculateSlippageAmount(
+  value: CurrencyAmount,
+  slippage: number
+): [JSBI, JSBI] {
+  if (slippage < 0 || slippage > 10000) {
+    throw Error(`Unexpected slippage value: ${slippage}`);
+  }
+  return [
+    JSBI.divide(
+      JSBI.multiply(value.raw, JSBI.BigInt(10000 - slippage)),
+      JSBI.BigInt(10000)
+    ),
+    JSBI.divide(
+      JSBI.multiply(value.raw, JSBI.BigInt(10000 + slippage)),
+      JSBI.BigInt(10000)
+    ),
+  ];
 }
 
 // returns the checksummed address if the address is valid, otherwise returns false

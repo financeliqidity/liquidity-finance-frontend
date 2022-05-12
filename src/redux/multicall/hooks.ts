@@ -1,11 +1,11 @@
-import { Interface, FunctionFragment } from "@ethersproject/abi";
-import { BigNumber } from "@ethersproject/bignumber";
-import { Contract } from "@ethersproject/contracts";
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useActiveWeb3React } from "../../hooks";
-import { useBlockNumber } from "../application/hooks";
-import { AppDispatch, AppState } from "../index";
+import { Interface, FunctionFragment } from '@ethersproject/abi';
+import { BigNumber } from '@ethersproject/bignumber';
+import { Contract } from '@ethersproject/contracts';
+import { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useActiveWeb3React } from '../../hooks';
+import { useBlockNumber } from '../application/hooks';
+import { AppDispatch, AppState } from '../index';
 import {
   addMulticallListeners,
   Call,
@@ -13,7 +13,7 @@ import {
   parseCallKey,
   toCallKey,
   ListenerOptions,
-} from "./actions";
+} from './actions';
 
 export interface Result extends ReadonlyArray<any> {
   readonly [key: string]: any;
@@ -27,7 +27,7 @@ type OptionalMethodInputs =
   | undefined;
 
 function isMethodArg(x: unknown): x is MethodArg {
-  return ["string", "number"].indexOf(typeof x) !== -1;
+  return ['string', 'number'].indexOf(typeof x) !== -1;
 }
 
 function isValidMethodArgs(x: unknown): x is MethodArgs | undefined {
@@ -65,7 +65,7 @@ function useCallsData(
   const { chainId } = useActiveWeb3React();
   const callResults = useSelector<
     AppState,
-    AppState["multicall"]["callResults"]
+    AppState['multicall']['callResults']
   >((state) => state.multicall.callResults);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -112,7 +112,7 @@ function useCallsData(
         if (!chainId || !call) return INVALID_RESULT;
 
         const result = callResults[chainId]?.[toCallKey(call)];
-        const data = result?.data && result?.data !== "0x" ? result.data : null;
+        const data = result?.data && result?.data !== '0x' ? result.data : null;
 
         return { valid: true, data, blockNumber: result?.blockNumber };
       }),
@@ -166,7 +166,7 @@ function toCallState(
     try {
       result = contractInterface.decodeFunctionResult(fragment, data);
     } catch (error) {
-      console.error("Result data parsing failed", fragment, data);
+      console.error('Result data parsing failed', fragment, data);
       return {
         valid: true,
         loading: false,
@@ -215,6 +215,7 @@ export function useSingleContractMultipleData(
 
   return useMemo(() => {
     return results.map((result) =>
+      //@ts-ignore
       toCallState(result, contract?.interface, fragment, latestBlockNumber)
     );
   }, [fragment, contract, results, latestBlockNumber]);
@@ -293,6 +294,7 @@ export function useSingleCallResult(
   return useMemo(() => {
     return toCallState(
       result,
+      //@ts-ignore
       contract?.interface,
       fragment,
       latestBlockNumber

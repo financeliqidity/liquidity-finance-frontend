@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletContext } from "../../../../context";
 import SocialLinks from "../../Arcodions/SocialLinks";
 import PoolDisclaimer from "../../Modals/PoolDisclaimer";
 import Settings from "../../Modals/Settings";

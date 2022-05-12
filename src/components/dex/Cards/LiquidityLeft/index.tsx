@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import styles from "./styles/index.module.css";
 import SelectPair from "../../Modals/SelectPair";
@@ -7,6 +7,14 @@ import SelectPool from "../../Modals/SelectPool";
 import Settings from "../../Modals/Settings";
 import TrxnHistory from "../../Modals/TrxnHistory";
 import AddMedia from "../../Containers/AddMediaLinks";
+import { useActiveWeb3React } from "../../../../hooks";
+import currencyId from "../../../../utils/currencyId";
+import { Currency, ETHER } from "cd3d-dex-libs-sdk";
+import { useRouter } from "next/router";
+import { useCurrency } from "../../../../hooks/Tokens";
+import CurrencyLogo from "../../../shared/CurrencyLogo";
+import { useDerivedMintInfo } from "../../../../redux/mint/hooks";
+import { Field } from "../../../../redux/mint/actions";
 
 const Warning = () => (
   <svg
@@ -57,15 +65,71 @@ const CaretDown = () => (
   </svg>
 );
 
-function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
-  const [showFirstModal, setShowFirstModal] = useState(false);
-  const [showLastModal, setShowLastModal] = useState(false);
+function LiquidityLeft(props) {
+  const { asDevSetter, asDeveloper, setPage, setTab } = props;
+
+  const { account } = useActiveWeb3React();
+
+  const router = useRouter();
+
+  const { currencyIdA, currencyIdB } = router.query;
+
   const [showPoolModal, setShowPoolModal] = useState(false);
 
   const [addMediaModal, setAddMedialModal] = useState(false);
 
+  const handleCurrencyASelect = useCallback(
+    (currA: Currency) => {
+      const newCurrencyIdA = currencyId(currA);
+
+      if (newCurrencyIdA === currencyIdB) {
+        router.replace(
+          `/dex?currencyIdA=${currencyIdB}&currencyIdB=${currencyIdA}`
+        );
+      } else {
+        router.replace(
+          `/dex?currencyIdA=${newCurrencyIdA}&currencyIdB=${currencyIdB}`
+        );
+      }
+    },
+    [currencyIdB, history, currencyIdA]
+  );
+  const handleCurrencyBSelect = useCallback(
+    (currB: Currency) => {
+      const newCurrencyIdB = currencyId(currB);
+
+      if (currencyIdA === newCurrencyIdB) {
+        if (currencyIdB) {
+          router.replace(
+            `/dex?currencyIdA=${currencyIdB}&currencyIdB=${newCurrencyIdB}`
+          );
+        } else {
+          router.replace(`/dex?currencyIdA=${newCurrencyIdB}`);
+        }
+      } else {
+        router.replace(
+          `/dex?currencyIdA=${
+            currencyIdA || "BNB"
+          }&currencyIdB=${newCurrencyIdB}`
+        );
+      }
+    },
+    [currencyIdA, history, currencyIdB]
+  );
+
+  const currencyA = useCurrency(currencyIdA as string);
+  const currencyB = useCurrency(currencyIdB as string);
+
+  const { currencies } = useDerivedMintInfo(
+    currencyA ?? undefined,
+    currencyB ?? undefined
+  );
+
+  console.log("currencyA: ", currencyA);
+  console.log("currencyB: ", currencyB);
+
   return (
-    <>
+    <React.Fragment>
       {addMediaModal && (
         <AddMedia
           showModal={addMediaModal}
@@ -104,19 +168,17 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
         </div>
         <div className="relative">
           <span className="block text-sm text-grey_20 mb-4">Select a pair</span>
-          <div className="flex justify-between items-center cursor-pointer">
+          <div className="flex justify-between items-center">
             <SelectPair
-              selectedCurrency={""}
-              onCurrencySelect={() => {}}
+              selectedCurrency={currencies[Field.CURRENCY_A]}
+              onCurrencySelect={handleCurrencyASelect}
               content={
-                <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer">
+                <div className="flex w-full justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4 cursor-pointer">
                   <div className="flex items-center">
-                    <img
-                      src="/assets/icons/eth-32.png"
-                      alt="..."
-                      className="w-6 h-6 mr-2"
-                    />
-                    <span className="font-bold text-sm">ETH</span>
+                    <CurrencyLogo currency={currencies[Field.CURRENCY_A]} />
+                    <span className="font-bold text-sm ml-2">
+                      {currencies[Field.CURRENCY_A]?.symbol}
+                    </span>
                   </div>
                   <CaretDown />
                 </div>
@@ -124,17 +186,15 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             />
             <Plus />
             <SelectPair
-              selectedCurrency={""}
-              onCurrencySelect={() => {}}
+              selectedCurrency={currencies[Field.CURRENCY_B]}
+              onCurrencySelect={handleCurrencyBSelect}
               content={
-                <div className="flex w-2/5 justify-between items-center rounded-lg border border-solid border-grey_20 py-3 px-4">
+                <div className="flex w-full justify-between items-center rounded-lg border border-grey_20 py-3 px-4">
                   <div className="flex items-center">
-                    <img
-                      src="/assets/icons/eth-32.png"
-                      alt="..."
-                      className="w-6 h-6 mr-2"
-                    />
-                    <span className="font-bold text-sm">ETH</span>
+                    <CurrencyLogo currency={currencies[Field.CURRENCY_B]} />
+                    <span className="font-bold text-sm ml-2">
+                      {currencies[Field.CURRENCY_B]?.symbol}
+                    </span>
                   </div>
                   <CaretDown />
                 </div>
@@ -226,35 +286,39 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
             </div>
           </div>
         </div>
-        <>
-          {asDeveloper ? (
-            <button
-              type="submit"
-              className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
-              onClick={() => setAddMedialModal(true)}
-            >
-              Add liquidity as developer
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
-              onClick={() => setTab("add")}
-            >
-              Add liquidity as user
-            </button>
-          )}
 
-          {/* <button
-						type='submit'
-						disabled={true}
-						className='mt-8 w-full bg-tertiary text-grey-50 text-md font-light py-2 rounded-lg'
-					>
-						Connect Wallet to continue
-					</button> */}
-        </>
+        {account ? (
+          <React.Fragment>
+            {asDeveloper ? (
+              <button
+                type="submit"
+                className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+                onClick={() => setAddMedialModal(true)}
+              >
+                Add liquidity as developer
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="mt-8 w-full btn-primary text-grey-50 text-base font-bold py-4 rounded-lg"
+                onClick={() => setTab("add")}
+              >
+                Add liquidity as user
+              </button>
+            )}
+          </React.Fragment>
+        ) : (
+          <button
+            type="submit"
+            disabled={true}
+            className="mt-8 w-full bg-tertiary text-grey-50 text-md font-light py-2 rounded-lg"
+          >
+            Connect Wallet to continue
+          </button>
+        )}
+
         <div className="mt-8 p-6 w-full bg-tertiary rounded-md">
-          <p className="text-sm font-light text-gray-50 ">
+          <p className="text-sm font-light text-gray-50">
             By adding liquidity, you will earn fees proportional to your share
             of the pool on all trades for this pair. Fees are added to the pool,
             accrue in real time, and can be claimed when you withdraw your
@@ -263,7 +327,7 @@ function LiquidityLeft({ asDevSetter, asDeveloper, setPage, setTab }) {
         </div>
         <SocialLinks />
       </div>
-    </>
+    </React.Fragment>
   );
 }
 

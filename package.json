@@ -42,9 +42,12 @@
     "react-dom": "17.0.2",
     "react-feather": "^2.0.9",
     "react-hook-form": "^7.27.0",
+    "react-qr-code": "^2.0.7",
     "react-redux": "^7.2.6",
+    "react-web-share": "^1.1.6",
     "redux": "^4.1.2",
     "redux-localstorage-simple": "^2.4.1",
+    "save-svg-as-png": "^1.4.17",
     "swiper": "^7.4.1",
     "tiny-invariant": "^1.2.0"
   },

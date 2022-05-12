@@ -44,7 +44,11 @@ export const PayInput = ({
 
       <div className="rounded-lg bg-grey_70 px-4 py-3 border border-solid border-grey_50 flex justify-between">
         <div className="left">
-          <NumericInput value={value} onUserInput={(val) => onUserInput(val)} />
+          <NumericInput
+            value={value}
+            onUserInput={(val) => onUserInput(val)}
+            classNames="text-xl"
+          />
           <span className="text-gray-100 text-xs mt-1 block">~ $2900.00</span>
         </div>
         <div className="right">
