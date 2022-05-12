@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
-import Link from "next/link";
-import { createPopper } from "@popperjs/core";
-import WalletDetails from "../Modals/WalletDetails";
-import useMediaQuery from "../../../hooks/useMediaQuery";
-import { trimAddress } from "../../../libs/helper";
+import React, { useRef, useState } from 'react';
+import Link from 'next/link';
+import { createPopper } from '@popperjs/core';
+import WalletDetails from '../Modals/WalletDetails';
+import useMediaQuery from '../../../hooks/useMediaQuery';
+import { trimAddress } from '../../../libs/helper';
 
 const CaretDown = () => (
   <svg
@@ -46,10 +46,10 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
   const popoverDropdownRef = useRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "auto",
+      placement: 'auto',
       modifiers: [
-        { name: "offset", options: { offset: [0, 8] } },
-        { name: "preventOverflow", options: { mainAxis: false } },
+        { name: 'offset', options: { offset: [0, 8] } },
+        { name: 'preventOverflow', options: { mainAxis: false } },
       ],
     });
     setDropdownPopoverShow(true);
@@ -58,7 +58,7 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const isSmall = useMediaQuery("(max-width: 768px)");
+  const isSmall = useMediaQuery('(max-width: 768px)');
 
   return (
     <React.Fragment>
@@ -102,15 +102,19 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
       <div
         ref={popoverDropdownRef}
         className={
-          (dropdownPopoverShow ? "block " : "hidden ") +
-          "bg-grey_50 text-base z-30 float-left py-2 list-none text-left rounded shadow-lg min-w-51.5 text-white w-full relative"
+          (dropdownPopoverShow ? 'block ' : 'hidden ') +
+          'bg-grey_50 text-base z-30 float-left py-2 list-none text-left rounded shadow-lg min-w-51.5 text-white w-full relative'
         }
       >
         <button
           className="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-left"
           type="button"
         >
-          <WalletDetails show={showModal} setShowModal={setShowModal} />
+          <WalletDetails
+            show={showModal}
+            setShowModal={setShowModal}
+            debug={''}
+          />
         </button>
 
         <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
@@ -119,7 +123,7 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
           <a
             href="#pablo"
             className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+              'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700'
             }
           >
             Transactions
@@ -128,7 +132,7 @@ const WalletDropdown = ({ wallet, disconnectWallet }) => {
         <div className="h-0 mx-4 my-2 border border-solid border-grey_30" />
         <button
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-left"
+            'text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 text-left'
           }
           type="button"
           onClick={() => disconnectWallet()}

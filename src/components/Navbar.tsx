@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Navbar: React.FC<NavbarProps> = () => {
   const router = useRouter();
@@ -11,35 +11,33 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Link href="/dex">
             <div
               className={
-                "flex items-center justify-center text-center rounded-lg py-5  uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/dex") !== -1
-                  ? "btn-primary text-3xl"
-                  : "bg-blue_grey")
+                'flex items-center justify-center text-center rounded-lg py-5  uppercase font-bold cursor-pointer ' +
+                (router.pathname.indexOf('/dex') !== -1
+                  ? 'btn-primary text-3xl'
+                  : 'bg-blue_grey')
               }
             >
               DEX
             </div>
           </Link>
-
           <Link href="/earn">
             <div
               className={
-                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/earn") !== -1
-                  ? "btn-primary text-3xl"
-                  : "bg-blue_grey")
+                'flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer ' +
+                (router.pathname.indexOf('/earn') !== -1
+                  ? 'btn-primary text-3xl'
+                  : 'bg-blue_grey')
               }
             >
               EARN
             </div>
           </Link>
-
           <div
             className={
-              "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-              (router.pathname.indexOf("/metaverse") !== -1
-                ? "btn-primary text-3xl"
-                : "bg-blue_grey")
+              'flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer ' +
+              (router.pathname.indexOf('/metaverse') !== -1
+                ? 'btn-primary text-3xl'
+                : 'bg-blue_grey')
             }
           >
             METAVERSE
@@ -51,10 +49,10 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Link href="/vote">
             <a
               className={
-                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/vote") !== -1
-                  ? "btn-primary text-3xl"
-                  : "bg-blue_grey")
+                'flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer ' +
+                (router.pathname.indexOf('/vote') !== -1
+                  ? 'btn-primary text-3xl'
+                  : 'bg-blue_grey')
               }
             >
               VOTE
@@ -63,18 +61,30 @@ const Navbar: React.FC<NavbarProps> = () => {
           <Link href="/iso">
             <a
               className={
-                "flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer " +
-                (router.pathname.indexOf("/iso") !== -1
-                  ? "btn-primary text-3xl"
-                  : "bg-blue_grey")
+                'flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer ' +
+                (router.pathname.indexOf('/iso') !== -1
+                  ? 'btn-primary text-3xl'
+                  : 'bg-blue_grey')
               }
             >
               ISO
             </a>
           </Link>
-          <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
+          <Link href="/multichain">
+            <a
+              className={
+                'flex items-center justify-center text-center rounded-lg py-5 uppercase font-bold cursor-pointer ' +
+                (router.pathname.indexOf('/multichain') !== -1
+                  ? 'btn-primary text-3xl'
+                  : 'bg-blue_grey')
+              }
+            >
+              MULTI-CHAIN
+            </a>
+          </Link>
+          {/* <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             NFT
-          </div>
+          </div> */}
           <div className="text-center rounded-lg py-5 bg-blue_grey uppercase font-bold flex items-center justify-center">
             FAVORITE
           </div>
