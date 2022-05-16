@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Close = () => (
   <svg
@@ -25,7 +25,15 @@ const Close = () => (
   </svg>
 );
 
-export default function TransactionSubmittedModal({ onDismiss, isOpen }) {
+export default function TransactionSubmittedModal({
+  onDismiss,
+  isOpen,
+  txHash,
+}: {
+  onDismiss: any;
+  isOpen: boolean;
+  txHash: string;
+}) {
   return (
     <React.Fragment>
       {isOpen ? (
@@ -52,17 +60,23 @@ export default function TransactionSubmittedModal({ onDismiss, isOpen }) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#b7becb"
-                    stroke-width="0.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="0.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="16 12 12 8 8 12"></polyline>
                     <line x1="12" y1="16" x2="12" y2="8"></line>
                   </svg>
-                  <p className="font-semibold text-lg grey-10 mt-5 text-center">
+
+                  <a
+                    className="font-semibold text-lg grey-10 mt-5 text-center"
+                    target="_blank"
+                    href={'https://testnet.bscscan.com/tx/' + txHash}
+                    rel="noopener noreferrer"
+                  >
                     View on BSC Scan
-                  </p>
+                  </a>
                 </div>
 
                 <div className="px-6">
@@ -70,7 +84,12 @@ export default function TransactionSubmittedModal({ onDismiss, isOpen }) {
                 </div>
 
                 <div className="flex flex-col p-6 rounded-b justify-center">
-                  <p className="text-sm text-white text-center">Close</p>
+                  <button
+                    onClick={onDismiss}
+                    className="text-sm text-white text-center"
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
             </div>

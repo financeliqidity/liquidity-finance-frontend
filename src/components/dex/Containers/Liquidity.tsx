@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
-import LiquidityRight from "../Cards/LiquidityRight";
-import LiquidityLeft from "../Cards/LiquidityLeft";
-import AddRemoveLiq from "../Cards/AddRemoveLiq";
-import { useActiveWeb3React } from "../../../hooks";
+import React, { useState, useEffect, useMemo } from 'react';
+import LiquidityRight from '../Cards/LiquidityRight';
+import LiquidityLeft from '../Cards/LiquidityLeft';
+import AddRemoveLiq from '../Cards/AddRemoveLiq';
+import { useActiveWeb3React } from '../../../hooks';
 import {
   toV2LiquidityToken,
   useTrackedTokenPairs,
-} from "../../../redux/user/hooks";
-import { useTokenBalancesWithLoadingIndicator } from "../../../redux/wallet/hooks";
-import { usePairs } from "../../../data/Reserves";
-import { Pair } from "cd3d-dex-libs-sdk";
+} from '../../../redux/user/hooks';
+import { useTokenBalancesWithLoadingIndicator } from '../../../redux/wallet/hooks';
+import { usePairs } from '../../../data/Reserves';
+import { Pair } from 'cd3d-dex-libs-sdk';
 
 function Liquidity({ setPage }) {
   const { account } = useActiveWeb3React();
@@ -35,24 +35,25 @@ function Liquidity({ setPage }) {
     [tokenPairsWithLiquidityTokens]
   );
 
-  // console.log("liquidityTokens", liquidityTokens);
+  // console.log('liquidityTokens', liquidityTokens);
 
   const [v2PairsBalances, fetchingV2PairBalances] =
     useTokenBalancesWithLoadingIndicator(account ?? undefined, liquidityTokens);
 
-  // console.log("pairBalances", v2PairsBalances, fetchingV2PairBalances);
-  // console.log("tracedTokenPairs", trackedTokenPairs);
+  // console.log('pairBalances', v2PairsBalances, fetchingV2PairBalances);
+  // console.log('tracedTokenPairs', trackedTokenPairs);
 
   // fetch the reserves for all V2 pools in which the user has a balance
   const liquidityTokensWithBalances = useMemo(
     () =>
       tokenPairsWithLiquidityTokens.filter(({ liquidityToken }) =>
-        v2PairsBalances[liquidityToken.address]?.greaterThan("0")
+        v2PairsBalances[liquidityToken.address]?.greaterThan('0')
       ),
     [tokenPairsWithLiquidityTokens, v2PairsBalances]
   );
 
-  // console.log("token balances", liquidityTokensWithBalances);
+  // console.log('token balances', liquidityTokensWithBalances);
+
   const v2Pairs = usePairs(
     liquidityTokensWithBalances.map(({ tokens }) => tokens)
   );
@@ -60,6 +61,8 @@ function Liquidity({ setPage }) {
     fetchingV2PairBalances ||
     v2Pairs?.length < liquidityTokensWithBalances.length ||
     v2Pairs?.some((V2Pair) => !V2Pair);
+
+  // console.log('v2Pairs: ' + v2Pairs);
 
   const allV2PairsWithLiquidity = v2Pairs
     .map(([, pair]) => pair)
@@ -69,7 +72,7 @@ function Liquidity({ setPage }) {
 
   const asDevSetter = () => setAsDeveloper(!asDeveloper);
 
-  const [activeLeft, setActiveLeft] = useState("home");
+  const [activeLeft, setActiveLeft] = useState('home');
 
   const tabs = [
     {
@@ -92,7 +95,7 @@ function Liquidity({ setPage }) {
       <div className="bg-grey_70">
         <div className="py-6 md:py-12 md:w-11/12 md:mx-auto text-white">
           <div className="flex flex-col justify-between md:flex-row mb-10 px-4 md:px-0">
-            <>{activeLeft === "home" ? tabs[0].component : tabs[1].component}</>
+            <>{activeLeft === 'home' ? tabs[0].component : tabs[1].component}</>
 
             {!account ? (
               <React.Fragment>
@@ -107,7 +110,7 @@ function Liquidity({ setPage }) {
                       <span className="">Action</span>
                     </div>
                     <span className="mt-5 block">
-                      Your wallet is not connected!{" "}
+                      Your wallet is not connected!{' '}
                       <a href="#con" className="isLink">
                         connect wallet
                       </a>

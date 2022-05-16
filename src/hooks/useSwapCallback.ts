@@ -1,5 +1,5 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { Contract } from "@ethersproject/contracts";
+import { BigNumber } from '@ethersproject/bignumber';
+import { Contract } from '@ethersproject/contracts';
 import {
   JSBI,
   Percent,
@@ -7,23 +7,23 @@ import {
   SwapParameters,
   Trade,
   TradeType,
-} from "cd3d-dex-libs-sdk";
-import { useMemo } from "react";
+} from 'cd3d-dex-libs-sdk';
+import { useMemo } from 'react';
 import {
   BIPS_BASE,
   DEFAULT_DEADLINE_FROM_NOW,
   INITIAL_ALLOWED_SLIPPAGE,
-} from "../constants";
-import { useTransactionAdder } from "../redux/transactions/hooks";
+} from '../constants';
+import { useTransactionAdder } from '../redux/transactions/hooks';
 import {
   calculateGasMargin,
   getRouterContract,
   isAddress,
   shortenAddress,
-} from "../utils";
-import isZero from "../utils/isZero";
-import { useActiveWeb3React } from "./index";
-import useENS from "./useENS";
+} from '../utils';
+import isZero from '../utils/isZero';
+import { useActiveWeb3React } from './index';
+import useENS from './useENS';
 
 enum SwapCallbackState {
   INVALID,
@@ -137,6 +137,7 @@ export function useSwapCallback(
   const addTransaction = useTransactionAdder();
 
   const { address: recipientAddress } = useENS(recipientAddressOrName);
+
   const recipient =
     recipientAddressOrName === null ? account : recipientAddress;
 
@@ -145,7 +146,7 @@ export function useSwapCallback(
       return {
         state: SwapCallbackState.INVALID,
         callback: null,
-        error: "Missing dependencies",
+        error: 'Missing dependencies',
       };
     }
     if (!recipient) {
@@ -153,7 +154,7 @@ export function useSwapCallback(
         return {
           state: SwapCallbackState.INVALID,
           callback: null,
-          error: "Invalid recipient",
+          error: 'Invalid recipient',
         };
       }
       return { state: SwapCallbackState.LOADING, callback: null, error: null };
@@ -179,14 +180,14 @@ export function useSwapCallback(
               })
               .catch((gasError) => {
                 console.info(
-                  "Gas estimate failed, trying eth_call to extract error",
+                  'Gas estimate failed, trying eth_call to extract error',
                   call
                 );
 
                 return contract.callStatic[methodName](...args, options)
                   .then((result) => {
                     console.info(
-                      "Unexpected successful call after failed estimate gas",
+                      'Unexpected successful call after failed estimate gas',
                       call,
                       gasError,
                       result
@@ -194,18 +195,18 @@ export function useSwapCallback(
                     return {
                       call,
                       error: new Error(
-                        "Unexpected issue with estimating the gas. Please try again."
+                        'Unexpected issue with estimating the gas. Please try again.'
                       ),
                     };
                   })
                   .catch((callError) => {
-                    console.info("Call threw error", call, callError);
+                    console.info('Call threw error', call, callError);
                     let errorMessage: string;
                     switch (callError.reason) {
-                      case "UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT":
-                      case "UniswapV2Router: EXCESSIVE_INPUT_AMOUNT":
+                      case 'UniswapV2Router: INSUFFICIENT_OUTPUT_AMOUNT':
+                      case 'UniswapV2Router: EXCESSIVE_INPUT_AMOUNT':
                         errorMessage =
-                          "This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance.";
+                          'This transaction will not succeed either due to price movement or fee on transfer. Try increasing your slippage tolerance.';
                         break;
                       default:
                         errorMessage = `The transaction cannot succeed due to error: ${callError.reason}. This is probably an issue with one of the tokens you are swapping.`;
@@ -219,18 +220,18 @@ export function useSwapCallback(
         // a successful estimation is a bignumber gas estimate and the next call is also a bignumber gas estimate
         const successfulEstimation = estimatedCalls.find(
           (el, ix, list): el is SuccessfulCall =>
-            "gasEstimate" in el &&
-            (ix === list.length - 1 || "gasEstimate" in list[ix + 1])
+            'gasEstimate' in el &&
+            (ix === list.length - 1 || 'gasEstimate' in list[ix + 1])
         );
 
         if (!successfulEstimation) {
           const errorCalls = estimatedCalls.filter(
-            (call): call is FailedCall => "error" in call
+            (call): call is FailedCall => 'error' in call
           );
           if (errorCalls.length > 0)
             throw errorCalls[errorCalls.length - 1].error;
           throw new Error(
-            "Unexpected error. Please contact support: none of the calls threw an error"
+            'Unexpected error. Please contact support: none of the calls threw an error'
           );
         }
 
@@ -273,7 +274,7 @@ export function useSwapCallback(
           .catch((error: any) => {
             // if the user rejected the tx, pass this along
             if (error?.code === 4001) {
-              throw new Error("Transaction rejected.");
+              throw new Error('Transaction rejected.');
             } else {
               // otherwise, the error was unexpected and we need to convey that
               console.error(`Swap failed`, error, methodName, args, value);

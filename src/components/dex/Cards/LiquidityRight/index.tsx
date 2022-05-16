@@ -1,11 +1,11 @@
-import { JSBI, Pair, Percent } from "cd3d-dex-libs-sdk";
-import React, { useState } from "react";
-import useTotalSupply from "../../../../data/TotalSupply";
-import { useActiveWeb3React } from "../../../../hooks";
-import { useTokenBalance } from "../../../../redux/wallet/hooks";
-import { unwrappedToken } from "../../../../utils/wrappedCurrency";
-import DoubleCurrencyLogo from "../../../shared/DoubleLogo";
-import styles from "./styles/index.module.css";
+import { JSBI, Pair, Percent } from 'cd3d-dex-libs-sdk';
+import React, { useState } from 'react';
+import useTotalSupply from '../../../../data/TotalSupply';
+import { useActiveWeb3React } from '../../../../hooks';
+import { useTokenBalance } from '../../../../redux/wallet/hooks';
+import { unwrappedToken } from '../../../../utils/wrappedCurrency';
+import DoubleCurrencyLogo from '../../../shared/DoubleLogo';
+import styles from './styles/index.module.css';
 
 const More = () => (
   <svg
@@ -112,7 +112,7 @@ const PoolItem = ({ pair, removeOnly }: PositionCardProps) => {
 
 export default function LiquidityRight({ allV2PairsWithLiquidity, setPage }) {
   return (
-    <div className={"right w-full md:mt-0 mt-10 md:w-12/25 " + styles.right_}>
+    <div className={'right w-full md:mt-0 mt-10 md:w-12/25 ' + styles.right_}>
       <div className="bg-blue_grey p-6 rounded-2xl border border-solid border-grey_20">
         <h3 className="font-semibold text-lg mb-6">My Liquidity</h3>
         <div className="flex flex-col">
@@ -150,7 +150,7 @@ export default function LiquidityRight({ allV2PairsWithLiquidity, setPage }) {
                         ))}
                       </React.Fragment>
                     ) : (
-                      "No Liquidity Found"
+                      'No Liquidity Found'
                     )}
                   </tbody>
                 </table>

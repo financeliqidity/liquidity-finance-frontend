@@ -1,40 +1,40 @@
-import { useCallback, useEffect, useState } from "react";
-import TradingHistory from "../../dex/Tables/TradingHistory";
+import { useCallback, useEffect, useState } from 'react';
+import TradingHistory from '../../dex/Tables/TradingHistory';
 
-import PoolDisclaimer from "../../dex/Modals/PoolDisclaimer";
-import PairChart from "../Arcodions/PairChart";
-import SelectPair from "../Modals/SelectPair";
-import SwapLeft from "../Cards/SwapLeft";
-import SwapRight from "../Cards/SwapRight";
+import PoolDisclaimer from '../../dex/Modals/PoolDisclaimer';
+import PairChart from '../Arcodions/PairChart';
+import SelectPair from '../Modals/SelectPair';
+import SwapLeft from '../Cards/SwapLeft';
+import SwapRight from '../Cards/SwapRight';
 import {
   useDerivedSwapInfo,
   useSwapActionHandlers,
   useSwapState,
-} from "../../../redux/dex/hooks";
-import { Field } from "../../../redux/dex/actions";
+} from '../../../redux/dex/hooks';
+import { Field } from '../../../redux/dex/actions';
 import {
   computeTradePriceBreakdown,
   warningSeverity,
-} from "../../../utils/prices";
-import useSwapCallback from "../../../hooks/useSwapCallback";
+} from '../../../utils/prices';
+import useSwapCallback from '../../../hooks/useSwapCallback';
 import {
   useExpertModeManager,
   useUserDeadline,
   useUserSlippageTolerance,
-} from "../../../redux/user/hooks";
-import { useActiveWeb3React } from "../../../hooks";
-import useWrapCallback, { WrapType } from "../../../hooks/useWrapCallback";
-import { CurrencyAmount, JSBI, Trade } from "cd3d-dex-libs-sdk";
-import confirmPriceImpactWithoutFee from "./confirmPriceImpactWithoutFee";
+} from '../../../redux/user/hooks';
+import { useActiveWeb3React } from '../../../hooks';
+import useWrapCallback, { WrapType } from '../../../hooks/useWrapCallback';
+import { CurrencyAmount, JSBI, Trade } from 'cd3d-dex-libs-sdk';
+import confirmPriceImpactWithoutFee from './confirmPriceImpactWithoutFee';
 import {
   ApprovalState,
   useApproveCallbackFromTrade,
-} from "../../../hooks/useApproveCallback";
-import ConfirmSwapModal from "../Modals/ConfirmSwap";
-import PendingTransactionModal from "../Modals/PendingTransactionModal";
-import TransactionSubmittedModal from "../Modals/TransactionSubmittedModal";
-import maxAmountSpend from "../../../utils/maxAmountSpend";
-import { useRouter } from "next/router";
+} from '../../../hooks/useApproveCallback';
+import ConfirmSwapModal from '../Modals/ConfirmSwap';
+import PendingTransactionModal from '../Modals/PendingTransactionModal';
+import TransactionSubmittedModal from '../Modals/TransactionSubmittedModal';
+import maxAmountSpend from '../../../utils/maxAmountSpend';
+import { useRouter } from 'next/router';
 
 function Swap({
   setShowModal,
@@ -111,7 +111,7 @@ function Swap({
     allowedSlippage
   );
 
-  console.log("Approval*", approval);
+  // console.log('Approval: ', approval);
 
   // mark when a user has submitted an approval, reset onTokenSelection for input field
   useEffect(() => {
@@ -180,28 +180,27 @@ function Swap({
     txHash: undefined,
   });
 
-  console.log("attemptingTxn", attemptingTxn);
-
-  console.log("swapErrorMessage**************", swapErrorMessage);
+  // console.log('attemptingTxn: ', attemptingTxn);
+  // console.log('swapErrorMessage: ', swapErrorMessage);
 
   const handleConfirmDismiss = useCallback(() => {
     setSwapState((prevState) => ({ ...prevState, showConfirm: false }));
 
     // if there was a tx hash, we want to clear the input
     if (txHash) {
-      onUserInput(Field.INPUT, "");
+      onUserInput(Field.INPUT, '');
     }
   }, [onUserInput, txHash, setSwapState]);
 
   const formattedAmounts = {
     [independentField]: typedValue,
     [dependentField]: showWrap
-      ? parsedAmounts[independentField]?.toExact() ?? ""
-      : parsedAmounts[dependentField]?.toSignificant(6) ?? "",
+      ? parsedAmounts[independentField]?.toExact() ?? ''
+      : parsedAmounts[dependentField]?.toSignificant(6) ?? '',
   };
 
-  console.log("trade", trade);
-  console.log("showWrap", showWrap);
+  // console.log('trade: ', trade);
+  // console.log('showWrap: ', showWrap);
 
   const maxAmountInput: CurrencyAmount | undefined = maxAmountSpend(
     currencyBalances[Field.INPUT]
@@ -218,6 +217,8 @@ function Swap({
     recipient
   );
 
+  // console.log('swapCallbackError: ' + swapCallbackError);
+
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade);
 
   // warnings on slippage
@@ -232,7 +233,7 @@ function Swap({
       (approvalSubmitted && approval === ApprovalState.APPROVED)) &&
     !(priceImpactSeverity > 3 && !isExpertMode);
 
-  console.log("showApproveFlow", showApproveFlow);
+  // console.log('showApproveFlow: ', showApproveFlow);
 
   const handleMaxInput = useCallback(() => {
     if (maxAmountInput) {
@@ -284,19 +285,22 @@ function Swap({
             <button onClick={approveCallback}>Approve</button>
           )}
 
-          {attemptingTxn ? (
-            txHash ? (
-              <TransactionSubmittedModal
-                onDismiss={handleConfirmDismiss}
-                isOpen={true}
-              />
-            ) : (
-              <PendingTransactionModal
-                onDismiss={handleConfirmDismiss}
-                isOpen={showConfirm}
-              />
-            )
-          ) : (
+          {!swapErrorMessage && !attemptingTxn && txHash && (
+            <TransactionSubmittedModal
+              onDismiss={handleConfirmDismiss}
+              isOpen={showConfirm}
+              txHash={txHash}
+            />
+          )}
+
+          {attemptingTxn && !txHash && (
+            <PendingTransactionModal
+              onDismiss={handleConfirmDismiss}
+              isOpen={showConfirm}
+            />
+          )}
+
+          {!attemptingTxn && !txHash && (
             <ConfirmSwapModal
               allowedSlippage={allowedSlippage}
               trade={trade}
